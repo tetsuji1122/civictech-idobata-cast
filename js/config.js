@@ -16,6 +16,14 @@ const CONFIG = {
     rssFeed: 'https://anchor.fm/s/6981b208/podcast/rss'
   },
   
+  // 外部サイトURL
+  externalLinks: {
+    twitter: 'https://twitter.com/civictechcast',
+    github: 'https://github.com/tetsuji1122/civictech-idobata-cast',
+    creativeCommons: 'https://creativecommons.org/licenses/by/4.0/deed.ja',
+    creativeCommonsBadge: 'https://i.creativecommons.org/l/by/4.0/88x31.png'
+  },
+  
   // データパス
   paths: {
     episodes: 'data/episodes.json',

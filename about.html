@@ -252,6 +252,34 @@
           </v-col>
         </v-row>
 
+        <!-- オープンデータ表示 -->
+        <v-row justify="center" class="mb-8">
+          <v-col cols="12" md="10" lg="8">
+            <v-alert
+              border="left"
+              elevation="0"
+              outlined
+              style="background-color: #f5f5f5; border-left-color: #003049 !important; border-left-width: 4px;"
+            >
+              <div class="d-flex align-center flex-wrap">
+                <div class="mr-3 mb-2">
+                  <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <img :src="externalLinks.creativeCommonsBadge" alt="CC-BY" style="border: none; opacity: 0.8;" />
+                  </a>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                  <div style="color: #666; font-size: 0.9rem; font-weight: 500; margin-bottom: 5px;">
+                    オープンデータとして利用可能
+                  </div>
+                  <p style="margin: 0; color: #888; font-size: 0.85rem;">
+                    エピソード一覧データは <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="color: #003049; text-decoration: underline;">CC BY 4.0</a> ライセンスのもとで公開されています。クレジット表記があれば、自由に利用・改変・再配布できます。
+                  </p>
+                </div>
+              </div>
+            </v-alert>
+          </v-col>
+        </v-row>
+
       </v-container>
     </v-main>
 
@@ -259,8 +287,23 @@
     <v-footer color="#003049" dark class="pa-4">
       <v-container>
         <v-row>
-          <v-col cols="12" class="text-center">
+          <v-col cols="12" class="text-center mb-3">
             <p>&copy; 2021-2025 シビックテック井戸端キャスト</p>
+          </v-col>
+          <v-col cols="12" class="text-center">
+            <div class="d-flex align-center justify-center flex-wrap" style="gap: 15px;">
+              <div class="d-flex align-center">
+                <span class="mr-2">エピソードデータ:</span>
+                <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                  <img :src="externalLinks.creativeCommonsBadge" alt="CC-BY" style="border: none;" />
+                </a>
+              </div>
+              <div style="font-size: 0.9rem; opacity: 0.9;">
+                <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="color: #FFC300; text-decoration: underline;">
+                  CC BY 4.0
+                </a> ライセンスで公開
+              </div>
+            </div>
           </v-col>
         </v-row>
       </v-container>

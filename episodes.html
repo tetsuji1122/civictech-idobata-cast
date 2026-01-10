@@ -67,6 +67,34 @@
         <!-- ページタイトル -->
         <h1 class="page-title">エピソード一覧</h1>
 
+        <!-- オープンデータ表示 -->
+        <v-row class="mb-4">
+          <v-col cols="12">
+            <v-alert
+              border="left"
+              elevation="0"
+              outlined
+              style="background-color: #f5f5f5; border-left-color: #003049 !important; border-left-width: 4px;"
+            >
+              <div class="d-flex align-center flex-wrap">
+                <div class="mr-3 mb-2">
+                  <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <img :src="externalLinks.creativeCommonsBadge" alt="CC-BY" style="border: none; opacity: 0.8;" />
+                  </a>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                  <div style="color: #666; font-size: 0.9rem; font-weight: 500; margin-bottom: 5px;">
+                    オープンデータとして利用可能
+                  </div>
+                  <p style="margin: 0; color: #888; font-size: 0.85rem;">
+                    このエピソード一覧データは <a :href="externalLinks.creativeCommons" target="_blank" rel="noopener noreferrer" style="color: #003049; text-decoration: underline;">CC BY 4.0</a> ライセンスのもとで公開されています。クレジット表記があれば、自由に利用・改変・再配布できます。
+                  </p>
+                </div>
+              </div>
+            </v-alert>
+          </v-col>
+        </v-row>
+
         <!-- フィルター・検索セクション -->
         <div class="filter-section">
           <v-row align="center">
@@ -112,9 +140,9 @@
             </v-col>
           </v-row>
           
-          <!-- 検索結果の表示 -->
-          <v-row class="mt-3">
-            <v-col cols="12">
+          <!-- 検索結果の表示とエクスポート -->
+          <v-row class="mt-3" align="center">
+            <v-col cols="12" md="6">
               <v-chip
                 v-if="searchQuery || selectedTag"
                 close
@@ -130,6 +158,18 @@
               <span v-if="displayedEpisodes.length < filteredEpisodes.length" style="color: #666; margin-left: 10px;">
                 （{{ displayedEpisodes.length }} / {{ filteredEpisodes.length }}件表示中）
               </span>
+            </v-col>
+            <v-col cols="12" md="6" class="text-right">
+              <v-btn
+                color="#003049"
+                dark
+                outlined
+                @click="exportToCSV"
+                :disabled="filteredEpisodes.length === 0"
+              >
+                <v-icon left>mdi-download</v-icon>
+                CSVエクスポート
+              </v-btn>
             </v-col>
           </v-row>
         </div>
@@ -270,10 +310,12 @@
       <v-container>
         <v-row justify="center" align="center">
           <v-col cols="12" class="text-center">
-            <v-btn icon href="https://twitter.com/civictechcast" target="_blank" title="X (Twitter)">
-              <v-icon>mdi-twitter</v-icon>
+            <v-btn icon :href="externalLinks.twitter" target="_blank" title="X (Twitter)">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
             </v-btn>
-            <v-btn icon href="https://github.com/civictech-idobata-cast" target="_blank" title="GitHub">
+            <v-btn icon :href="externalLinks.github" target="_blank" title="GitHub">
               <v-icon>mdi-github</v-icon>
             </v-btn>
           </v-col>

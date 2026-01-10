@@ -24,6 +24,8 @@ let app = new Vue({
     // スクロール位置復元用
     savedScrollPosition: 0,
     savedCurrentIndex: 0,
+    // 外部リンク
+    externalLinks: CONFIG.externalLinks,
   },
   methods: {
     async loadEpisodes() {
@@ -288,6 +290,70 @@ let app = new Vue({
       if (scrollTop + windowHeight >= documentHeight - 300) {
         this.loadMoreEpisodes();
       }
+    },
+    exportToCSV() {
+      // CSVデータを生成
+      const headers = ['エピソード番号', 'タイトル', '配信日', '再生時間', '説明', 'タグ', 'Spotify URL'];
+      
+      // ヘッダー行
+      const csvRows = [headers.map(header => this.escapeCSV(header)).join(',')];
+      
+      // データ行（フィルター済みのエピソードをエクスポート）
+      this.filteredEpisodes.forEach(episode => {
+        const row = [
+          episode.number || '',
+          episode.title || '',
+          episode.date || '',
+          episode.duration || '',
+          episode.description || '',
+          (episode.tags && episode.tags.length > 0) ? episode.tags.join('; ') : '',
+          episode.spotifyUrl || ''
+        ];
+        csvRows.push(row.map(cell => this.escapeCSV(cell)).join(','));
+      });
+      
+      // CSV文字列を生成
+      const csvContent = csvRows.join('\n');
+      
+      // BOMを追加してUTF-8でエンコード（Excelで日本語が正しく表示されるように）
+      const BOM = '\uFEFF';
+      const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+      
+      // ダウンロードリンクを作成
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      
+      // ファイル名を生成（日付を含める）
+      const now = new Date();
+      const dateStr = now.getFullYear() + 
+        String(now.getMonth() + 1).padStart(2, '0') + 
+        String(now.getDate()).padStart(2, '0');
+      const fileName = `episodes_${dateStr}.csv`;
+      
+      link.setAttribute('download', fileName);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      console.log(`[INFO] CSVエクスポート完了: ${this.filteredEpisodes.length}件`);
+    },
+    escapeCSV(value) {
+      // CSVの値をエスケープ
+      if (value === null || value === undefined) {
+        return '';
+      }
+      
+      const stringValue = String(value);
+      
+      // カンマ、改行、ダブルクォートが含まれる場合はダブルクォートで囲む
+      if (stringValue.includes(',') || stringValue.includes('\n') || stringValue.includes('"')) {
+        // ダブルクォートは2つにエスケープ
+        return '"' + stringValue.replace(/"/g, '""') + '"';
+      }
+      
+      return stringValue;
     }
   },
   mounted() {

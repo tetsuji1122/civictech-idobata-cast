@@ -10,6 +10,7 @@ let app = new Vue({
     nextEpisode: null,
     showScrollTop: false,
     spotifyPlayerLoading: true,
+    externalLinks: CONFIG.externalLinks,
   },
   computed: {
     formattedSubTitle() {

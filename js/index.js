@@ -6,6 +6,7 @@ let app = new Vue({
     loading: true,
     latestEpisodes: [],
     platformLinks: CONFIG.platforms,
+    externalLinks: CONFIG.externalLinks,
   },
   methods: {
     async loadEpisodes() {

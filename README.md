@@ -108,6 +108,7 @@ http://localhost:8000 にアクセス
 
 ## 🌐 リンク
 
+- [GitHub リポジトリ](https://github.com/tetsuji1122/civictech-idobata-cast)
 - [Spotify](https://open.spotify.com/show/31JfR2D72gENOfOwq3AcKw)
 - [Apple Podcasts](https://podcasts.apple.com/jp/podcast/id1587297171)
 - [YouTube](https://www.youtube.com/@civictechcast)
