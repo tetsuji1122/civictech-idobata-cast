@@ -49,12 +49,40 @@ class TranscriptEditor:
         ttk.Button(file_frame, text="開く", command=self.load_selected_file).grid(row=0, column=2, padx=5)
         ttk.Button(file_frame, text="ファイルを選択", command=self.select_file).grid(row=0, column=3, padx=5)
         ttk.Button(file_frame, text="保存", command=self.save_file).grid(row=0, column=4, padx=5)
-        ttk.Button(file_frame, text="検索・置換", command=self.show_find_replace).grid(row=0, column=5, padx=5)
-        ttk.Button(file_frame, text="リロード", command=self.load_file_list).grid(row=0, column=6, padx=5)
+        ttk.Button(file_frame, text="リロード", command=self.load_file_list).grid(row=0, column=5, padx=5)
+        
+        # 検索・置換フレーム
+        find_replace_frame = ttk.LabelFrame(main_frame, text="検索・置換", padding="10")
+        find_replace_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 10))
+        
+        # 検索文字列
+        ttk.Label(find_replace_frame, text="検索:").grid(row=0, column=0, sticky=tk.W, padx=(0, 5))
+        self.find_entry = ttk.Entry(find_replace_frame, width=30)
+        self.find_entry.grid(row=0, column=1, padx=5)
+        self.find_entry.bind('<Return>', lambda e: self.find_next_inline())
+        
+        # 置換文字列
+        ttk.Label(find_replace_frame, text="置換:").grid(row=0, column=2, sticky=tk.W, padx=(10, 5))
+        self.replace_entry = ttk.Entry(find_replace_frame, width=30)
+        self.replace_entry.grid(row=0, column=3, padx=5)
+        self.replace_entry.bind('<Return>', lambda e: self.replace_one_inline())
+        
+        # オプション
+        self.case_sensitive = tk.BooleanVar(value=False)
+        ttk.Checkbutton(find_replace_frame, text="大文字小文字を区別", variable=self.case_sensitive).grid(row=0, column=4, padx=5)
+        
+        # ボタンフレーム
+        button_frame = ttk.Frame(find_replace_frame)
+        button_frame.grid(row=1, column=0, columnspan=5, pady=(10, 0))
+        
+        ttk.Button(button_frame, text="次を検索", command=self.find_next_inline).pack(side=tk.LEFT, padx=2)
+        ttk.Button(button_frame, text="前を検索", command=self.find_prev_inline).pack(side=tk.LEFT, padx=2)
+        ttk.Button(button_frame, text="置換", command=self.replace_one_inline).pack(side=tk.LEFT, padx=2)
+        ttk.Button(button_frame, text="すべて置換", command=self.replace_all_inline).pack(side=tk.LEFT, padx=2)
         
         # タブフレーム（各フィールドを編集）
         notebook = ttk.Notebook(main_frame)
-        notebook.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S))
+        notebook.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S))
         
         # 基本情報タブ
         basic_frame = ttk.Frame(notebook, padding="10")
@@ -104,27 +132,52 @@ class TranscriptEditor:
         transcript_frame.grid_rowconfigure(0, weight=1)
         transcript_frame.grid_columnconfigure(0, weight=1)
         
+        # ステータスバー（画面下部）
+        status_frame = ttk.Frame(main_frame)
+        status_frame.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(10, 0))
+        
+        self.status_label = ttk.Label(
+            status_frame,
+            text="準備完了",
+            relief=tk.SUNKEN,
+            anchor=tk.W,
+            padding="5"
+        )
+        self.status_label.pack(fill=tk.X)
+        
         # グリッドの重み設定
-        main_frame.grid_rowconfigure(1, weight=1)
+        main_frame.grid_rowconfigure(2, weight=1)
         main_frame.grid_columnconfigure(0, weight=1)
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
         
         # ショートカットキー
-        self.root.bind('<Control-f>', lambda e: self.show_find_replace())
-        self.root.bind('<Control-h>', lambda e: self.show_find_replace())
+        self.root.bind('<Control-f>', lambda e: self.find_entry.focus())
+        self.root.bind('<Control-h>', lambda e: self.find_entry.focus())
         
-        # 検索・置換ダイアログの参照
-        self.find_replace_dialog = None
-        self.find_text = None
-        self.replace_text = None
-        self.current_text_widget = None
+        # 検索・置換関連の変数
         self.last_find_pos = 1.0
         
+    def show_status(self, message, status_type="info"):
+        """ステータスバーにメッセージを表示"""
+        self.status_label.config(text=message)
+        # ステータスタイプに応じて色を変更
+        if status_type == "error":
+            self.status_label.config(foreground="red")
+        elif status_type == "warning":
+            self.status_label.config(foreground="orange")
+        elif status_type == "success":
+            self.status_label.config(foreground="green")
+        else:
+            self.status_label.config(foreground="black")
+        # 3秒後に自動的にクリア（成功メッセージの場合）
+        if status_type == "success":
+            self.root.after(3000, lambda: self.show_status("準備完了", "info"))
+    
     def load_file_list(self):
         """ファイル一覧を読み込む"""
         if not TRANSCRIPTS_DIR.exists():
-            messagebox.showerror("エラー", f"フォルダが見つかりません: {TRANSCRIPTS_DIR}")
+            self.show_status(f"エラー: フォルダが見つかりません: {TRANSCRIPTS_DIR}", "error")
             return
         
         files = sorted(TRANSCRIPTS_DIR.glob("*.json"))
@@ -188,10 +241,10 @@ class TranscriptEditor:
             self.transcript.insert('1.0', self.data.get('transcript', ''))
             
             self.root.title(f"書き起こしJSONエディタ - {Path(file_path).name}")
-            messagebox.showinfo("読み込み完了", f"ファイルを読み込みました: {Path(file_path).name}")
+            self.show_status(f"ファイルを読み込みました: {Path(file_path).name}", "success")
             
         except Exception as e:
-            messagebox.showerror("エラー", f"ファイルの読み込みに失敗しました:\n{str(e)}")
+            self.show_status(f"エラー: ファイルの読み込みに失敗しました: {str(e)}", "error")
     
     def get_current_text_widget(self):
         """現在選択されているテキストウィジェットを取得"""
@@ -227,73 +280,15 @@ class TranscriptEditor:
         
         return None
     
-    def show_find_replace(self):
-        """検索・置換ダイアログを表示"""
-        if self.find_replace_dialog and self.find_replace_dialog.winfo_exists():
-            self.find_replace_dialog.lift()
-            self.find_replace_dialog.focus()
-            return
-        
-        dialog = tk.Toplevel(self.root)
-        dialog.title("検索・置換")
-        dialog.geometry("500x250")
-        dialog.transient(self.root)
-        dialog.grab_set()
-        
-        self.find_replace_dialog = dialog
-        
-        # フレーム
-        main_frame = ttk.Frame(dialog, padding="10")
-        main_frame.pack(fill=tk.BOTH, expand=True)
-        
-        # 検索文字列
-        ttk.Label(main_frame, text="検索:").grid(row=0, column=0, sticky=tk.W, pady=5)
-        find_entry = ttk.Entry(main_frame, width=40)
-        find_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
-        find_entry.focus()
-        main_frame.grid_columnconfigure(1, weight=1)
-        
-        # 置換文字列
-        ttk.Label(main_frame, text="置換:").grid(row=1, column=0, sticky=tk.W, pady=5)
-        replace_entry = ttk.Entry(main_frame, width=40)
-        replace_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
-        
-        # オプション
-        options_frame = ttk.Frame(main_frame)
-        options_frame.grid(row=2, column=0, columnspan=2, sticky=tk.W, pady=5)
-        
-        self.case_sensitive = tk.BooleanVar(value=False)
-        ttk.Checkbutton(options_frame, text="大文字小文字を区別", variable=self.case_sensitive).pack(side=tk.LEFT, padx=5)
-        
-        self.whole_word = tk.BooleanVar(value=False)
-        ttk.Checkbutton(options_frame, text="単語単位", variable=self.whole_word).pack(side=tk.LEFT, padx=5)
-        
-        # ボタンフレーム
-        button_frame = ttk.Frame(main_frame)
-        button_frame.grid(row=3, column=0, columnspan=2, pady=10)
-        
-        ttk.Button(button_frame, text="次を検索", command=lambda: self.find_next(find_entry, dialog)).pack(side=tk.LEFT, padx=5)
-        ttk.Button(button_frame, text="前を検索", command=lambda: self.find_prev(find_entry, dialog)).pack(side=tk.LEFT, padx=5)
-        ttk.Button(button_frame, text="置換", command=lambda: self.replace_one(find_entry, replace_entry, dialog)).pack(side=tk.LEFT, padx=5)
-        ttk.Button(button_frame, text="すべて置換", command=lambda: self.replace_all(find_entry, replace_entry, dialog)).pack(side=tk.LEFT, padx=5)
-        ttk.Button(button_frame, text="閉じる", command=dialog.destroy).pack(side=tk.LEFT, padx=5)
-        
-        # Enterキーで検索
-        find_entry.bind('<Return>', lambda e: self.find_next(find_entry, dialog))
-        replace_entry.bind('<Return>', lambda e: self.replace_one(find_entry, replace_entry, dialog))
-        
-        # ダイアログが閉じられた時の処理
-        dialog.protocol("WM_DELETE_WINDOW", dialog.destroy)
-    
-    def find_next(self, find_entry, dialog):
+    def find_next_inline(self):
         """次を検索"""
-        search_text = find_entry.get()
+        search_text = self.find_entry.get()
         if not search_text:
             return
         
         text_widget = self.get_current_text_widget()
         if not text_widget:
-            messagebox.showwarning("警告", "編集可能なテキストフィールドを選択してください")
+            self.show_status("警告: 編集可能なテキストフィールドを選択してください", "warning")
             return
         
         # 現在のカーソル位置から検索
@@ -320,19 +315,20 @@ class TranscriptEditor:
             text_widget.tag_add(tk.SEL, pos, end_pos_found)
             text_widget.see(pos)
             self.last_find_pos = pos
+            self.show_status("検索結果が見つかりました", "success")
         else:
-            messagebox.showinfo("検索", "見つかりませんでした")
+            self.show_status("検索: 見つかりませんでした", "warning")
             self.last_find_pos = "1.0"
     
-    def find_prev(self, find_entry, dialog):
+    def find_prev_inline(self):
         """前を検索"""
-        search_text = find_entry.get()
+        search_text = self.find_entry.get()
         if not search_text:
             return
         
         text_widget = self.get_current_text_widget()
         if not text_widget:
-            messagebox.showwarning("警告", "編集可能なテキストフィールドを選択してください")
+            self.show_status("警告: 編集可能なテキストフィールドを選択してください", "warning")
             return
         
         # 現在のカーソル位置より前を検索
@@ -362,21 +358,22 @@ class TranscriptEditor:
             text_widget.tag_add(tk.SEL, pos, end_pos_found)
             text_widget.see(pos)
             self.last_find_pos = pos
+            self.show_status("検索結果が見つかりました", "success")
         else:
-            messagebox.showinfo("検索", "見つかりませんでした")
+            self.show_status("検索: 見つかりませんでした", "warning")
             self.last_find_pos = "1.0"
     
-    def replace_one(self, find_entry, replace_entry, dialog):
+    def replace_one_inline(self):
         """1つだけ置換"""
-        search_text = find_entry.get()
-        replace_text = replace_entry.get()
+        search_text = self.find_entry.get()
+        replace_text = self.replace_entry.get()
         
         if not search_text:
             return
         
         text_widget = self.get_current_text_widget()
         if not text_widget:
-            messagebox.showwarning("警告", "編集可能なテキストフィールドを選択してください")
+            self.show_status("警告: 編集可能なテキストフィールドを選択してください", "warning")
             return
         
         # 選択されている範囲をチェック
@@ -387,11 +384,11 @@ class TranscriptEditor:
                 if sel_text.lower() == search_text.lower():
                     text_widget.delete(tk.SEL_FIRST, tk.SEL_LAST)
                     text_widget.insert(tk.SEL_FIRST, replace_text)
-                    self.find_next(find_entry, dialog)
+                    self.find_next_inline()
                     return
         
         # 選択範囲が一致しない場合は次を検索してから置換
-        self.find_next(find_entry, dialog)
+        self.find_next_inline()
         if text_widget.tag_ranges(tk.SEL):
             sel_text = text_widget.get(tk.SEL_FIRST, tk.SEL_LAST)
             if not self.case_sensitive.get():
@@ -399,17 +396,17 @@ class TranscriptEditor:
                     text_widget.delete(tk.SEL_FIRST, tk.SEL_LAST)
                     text_widget.insert(tk.SEL_FIRST, replace_text)
     
-    def replace_all(self, find_entry, replace_entry, dialog):
+    def replace_all_inline(self):
         """すべて置換"""
-        search_text = find_entry.get()
-        replace_text = replace_entry.get()
+        search_text = self.find_entry.get()
+        replace_text = self.replace_entry.get()
         
         if not search_text:
             return
         
         text_widget = self.get_current_text_widget()
         if not text_widget:
-            messagebox.showwarning("警告", "編集可能なテキストフィールドを選択してください")
+            self.show_status("警告: 編集可能なテキストフィールドを選択してください", "warning")
             return
         
         # 全体のテキストを取得
@@ -425,7 +422,7 @@ class TranscriptEditor:
         
         # 変更があったかチェック
         if content == new_content:
-            messagebox.showinfo("置換", "置換する文字列が見つかりませんでした")
+            self.show_status("置換: 置換する文字列が見つかりませんでした", "warning")
             return
         
         # カウント
@@ -439,12 +436,12 @@ class TranscriptEditor:
         text_widget.delete("1.0", tk.END)
         text_widget.insert("1.0", new_content)
         
-        messagebox.showinfo("置換完了", f"{count}箇所を置換しました")
+        self.show_status(f"置換完了: {count}箇所を置換しました", "success")
     
     def save_file(self):
         """ファイルを保存"""
         if not self.current_file:
-            messagebox.showwarning("警告", "ファイルが選択されていません")
+            self.show_status("警告: ファイルが選択されていません", "warning")
             return
         
         try:
@@ -468,10 +465,10 @@ class TranscriptEditor:
             with open(self.current_file, 'w', encoding='utf-8') as f:
                 json.dump(self.data, f, ensure_ascii=False, indent=2)
             
-            messagebox.showinfo("保存完了", f"ファイルを保存しました:\n{self.current_file.name}\n\nバックアップ: {backup_file.name}")
+            self.show_status(f"保存完了: {self.current_file.name} (バックアップ: {backup_file.name})", "success")
             
         except Exception as e:
-            messagebox.showerror("エラー", f"ファイルの保存に失敗しました:\n{str(e)}")
+            self.show_status(f"エラー: ファイルの保存に失敗しました: {str(e)}", "error")
 
 
 def main():

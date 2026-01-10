@@ -7,6 +7,7 @@ let app = new Vue({
     latestEpisodes: [],
     platformLinks: CONFIG.platforms,
     externalLinks: CONFIG.externalLinks,
+    drawer: false, // ハンバーガーメニューの開閉状態
   },
   methods: {
     async loadEpisodes() {
@@ -39,10 +40,38 @@ let app = new Vue({
       sessionStorage.removeItem('filteredEpisodeNumbers');
       // 詳細ページに遷移
       window.location.href = `episode-detail.html?id=${episodeId}`;
+    },
+    updateMetaTags() {
+      // メタタグを動的に更新
+      const siteUrl = CONFIG.siteUrl;
+      
+      // canonical URL
+      setLinkTag('canonical', `${siteUrl}/index.html`);
+      
+      // OGP
+      setMetaProperty('og:url', `${siteUrl}/`);
+      setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);
+      
+      // Twitter Card
+      setMetaTag('twitter:image', `${siteUrl}/img/keyvisual.png`);
+      
+      // 構造化データのURLを更新
+      const structuredDataScript = document.querySelector('script[type="application/ld+json"]');
+      if (structuredDataScript) {
+        try {
+          const data = JSON.parse(structuredDataScript.textContent);
+          data.url = `${siteUrl}/`;
+          data.image = `${siteUrl}/img/keyvisual.png`;
+          structuredDataScript.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          console.error('構造化データの更新に失敗しました:', error);
+        }
+      }
     }
   },
   mounted() {
     this.loadEpisodes();
+    this.updateMetaTags();
   }
 });
 

@@ -1,5 +1,8 @@
 // シビックテック井戸端キャスト - 共通設定
 const CONFIG = {
+  // サイトURL（カスタムドメイン取得時はここを変更）
+  siteUrl: 'https://tetsuji1122.github.io/civictech-idobata-cast',
+  
   // ポッドキャスト基本情報
   podcast: {
     name: 'シビックテック井戸端キャスト',

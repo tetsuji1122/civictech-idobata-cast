@@ -11,6 +11,8 @@ let app = new Vue({
     showScrollTop: false,
     spotifyPlayerLoading: true,
     externalLinks: CONFIG.externalLinks,
+    showCopySuccess: false,
+    drawer: false, // ハンバーガーメニューの開閉状態
   },
   computed: {
     formattedSubTitle() {
@@ -90,6 +92,37 @@ let app = new Vue({
       );
       
       return validLinks.length > 0;
+    },
+    canUseWebShare() {
+      // Web Share APIが利用可能かチェック（モバイルブラウザなど）
+      return navigator.share !== undefined;
+    },
+    shareUrl() {
+      if (!this.episode) return '';
+      return `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`;
+    },
+    shareTitle() {
+      if (!this.episode) return 'シビックテック井戸端キャスト';
+      return `${this.episode.title} - シビックテック井戸端キャスト`;
+    },
+    shareText() {
+      if (!this.episode) return 'シビックテック井戸端キャスト';
+      return `${this.episode.title}\n${this.episode.sub_title || this.episode.description || ''}`;
+    },
+    twitterShareUrl() {
+      if (!this.episode) return '';
+      const text = encodeURIComponent(`${this.episode.title} - シビックテック井戸端キャスト`);
+      const url = encodeURIComponent(this.shareUrl);
+      return `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    },
+    facebookShareUrl() {
+      const url = encodeURIComponent(this.shareUrl);
+      return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    },
+    lineShareUrl() {
+      const url = encodeURIComponent(this.shareUrl);
+      const text = encodeURIComponent(this.shareTitle);
+      return `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`;
     }
   },
   methods: {
@@ -239,64 +272,109 @@ let app = new Vue({
       this.spotifyPlayerLoading = false;
       console.log('[INFO] Spotify埋め込みプレーヤーの読み込みが完了しました');
     },
+    async shareWithWebAPI() {
+      if (!this.episode) return;
+      
+      const shareData = {
+        title: this.shareTitle,
+        text: this.shareText,
+        url: this.shareUrl
+      };
+      
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          console.log('[INFO] 共有が完了しました');
+        }
+      } catch (error) {
+        // ユーザーが共有をキャンセルした場合など
+        if (error.name !== 'AbortError') {
+          console.error('[ERROR] 共有に失敗しました:', error);
+        }
+      }
+    },
+    copyUrlToClipboard() {
+      const url = this.shareUrl;
+      
+      // Clipboard APIを使用（モダンブラウザ）
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          this.showCopySuccess = true;
+          setTimeout(() => {
+            this.showCopySuccess = false;
+          }, 2000);
+          console.log('[INFO] URLをクリップボードにコピーしました');
+        }).catch(error => {
+          console.error('[ERROR] URLのコピーに失敗しました:', error);
+          this.fallbackCopyUrl(url);
+        });
+      } else {
+        // フォールバック方法
+        this.fallbackCopyUrl(url);
+      }
+    },
+    fallbackCopyUrl(text) {
+      // 古いブラウザ用のフォールバック
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        this.showCopySuccess = true;
+        setTimeout(() => {
+          this.showCopySuccess = false;
+        }, 2000);
+        console.log('[INFO] URLをクリップボードにコピーしました（フォールバック）');
+      } catch (error) {
+        console.error('[ERROR] URLのコピーに失敗しました:', error);
+        alert('URLのコピーに失敗しました。手動でコピーしてください。\n' + text);
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    },
     updateMetaTags() {
       if (!this.episode) return;
       
       const title = `${this.episode.title} - シビックテック井戸端キャスト`;
       const description = this.episode.sub_title || this.episode.description || 'シビックテック井戸端キャストのエピソード詳細ページ。全文書き起こしを読むことができます。';
-      const image = this.episode.thumbnail ? `https://civictech-idobata-cast.github.io/${this.episode.thumbnail}` : 'https://civictech-idobata-cast.github.io/img/keyvisual.png';
-      const url = `https://civictech-idobata-cast.github.io/episode-detail.html?id=${this.episode.id}`;
+      const image = this.episode.thumbnail ? `${CONFIG.siteUrl}/${this.episode.thumbnail}` : `${CONFIG.siteUrl}/img/keyvisual.png`;
+      const url = `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`;
       
       // タイトルを更新
       document.title = title;
       
       // メタタグを更新
-      this.setMetaTag('description', description);
-      this.setMetaTag('keywords', this.episode.tags ? this.episode.tags.join(',') + ',シビックテック,ポッドキャスト' : 'シビックテック,ポッドキャスト');
+      setMetaTag('description', description);
+      setMetaTag('keywords', this.episode.tags ? this.episode.tags.join(',') + ',シビックテック,ポッドキャスト' : 'シビックテック,ポッドキャスト');
       
       // OGPタグを更新
-      this.setMetaProperty('og:title', title);
-      this.setMetaProperty('og:description', description);
-      this.setMetaProperty('og:url', url);
-      this.setMetaProperty('og:image', image);
+      setMetaProperty('og:title', title);
+      setMetaProperty('og:description', description);
+      setMetaProperty('og:url', url);
+      setMetaProperty('og:image', image);
       if (this.episode.date) {
-        this.setMetaProperty('article:published_time', `${this.episode.date}T00:00:00+09:00`);
+        setMetaProperty('article:published_time', `${this.episode.date}T00:00:00+09:00`);
       }
       
       // Twitter Cardを更新
-      this.setMetaTag('twitter:title', title);
-      this.setMetaTag('twitter:description', description);
-      this.setMetaTag('twitter:image', image);
+      setMetaTag('twitter:title', title);
+      setMetaTag('twitter:description', description);
+      setMetaTag('twitter:image', image);
       
       // canonical URLを更新
-      this.setLinkTag('canonical', url);
+      setLinkTag('canonical', url);
     },
-    setMetaTag(name, content) {
-      let meta = document.querySelector(`meta[name="${name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('name', name);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    },
-    setMetaProperty(property, content) {
-      let meta = document.querySelector(`meta[property="${property}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('property', property);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    },
-    setLinkTag(rel, href) {
-      let link = document.querySelector(`link[rel="${rel}"]`);
-      if (!link) {
-        link = document.createElement('link');
-        link.setAttribute('rel', rel);
-        document.head.appendChild(link);
-      }
-      link.setAttribute('href', href);
+    updateInitialMetaTags() {
+      // エピソード読み込み前の初期メタタグを更新
+      const siteUrl = CONFIG.siteUrl;
+      setLinkTag('canonical', `${siteUrl}/episode-detail.html`);
+      setMetaProperty('og:url', `${siteUrl}/episode-detail.html`);
+      setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);
+      setMetaTag('twitter:image', `${siteUrl}/img/keyvisual.png`);
     },
     updateStructuredData() {
       if (!this.episode) return;
@@ -316,12 +394,12 @@ let app = new Vue({
         "episodeNumber": this.episode.number,
         "datePublished": this.episode.date ? `${this.episode.date}T00:00:00+09:00` : null,
         "duration": this.episode.duration || null,
-        "image": this.episode.thumbnail ? `https://civictech-idobata-cast.github.io/${this.episode.thumbnail}` : 'https://civictech-idobata-cast.github.io/img/keyvisual.png',
-        "url": `https://civictech-idobata-cast.github.io/episode-detail.html?id=${this.episode.id}`,
+        "image": this.episode.thumbnail ? `${CONFIG.siteUrl}/${this.episode.thumbnail}` : `${CONFIG.siteUrl}/img/keyvisual.png`,
+        "url": `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`,
         "partOfSeries": {
           "@type": "PodcastSeries",
           "name": "シビックテック井戸端キャスト",
-          "url": "https://civictech-idobata-cast.github.io/"
+          "url": `${CONFIG.siteUrl}/`
         }
       };
       
@@ -341,6 +419,8 @@ let app = new Vue({
     }
   },
   mounted() {
+    // 初期メタタグを更新
+    this.updateInitialMetaTags();
     this.loadEpisode();
     window.addEventListener('scroll', this.handleScroll);
   },

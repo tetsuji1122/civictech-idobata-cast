@@ -26,6 +26,8 @@ let app = new Vue({
     savedCurrentIndex: 0,
     // 外部リンク
     externalLinks: CONFIG.externalLinks,
+    // ハンバーガーメニューの開閉状態
+    drawer: false,
   },
   methods: {
     async loadEpisodes() {
@@ -291,6 +293,12 @@ let app = new Vue({
         this.loadMoreEpisodes();
       }
     },
+    updateMetaTags() {
+      const siteUrl = CONFIG.siteUrl;
+      setLinkTag('canonical', `${siteUrl}/episodes.html`);
+      setMetaProperty('og:url', `${siteUrl}/episodes.html`);
+      setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);
+    },
     exportToCSV() {
       // CSVデータを生成
       const headers = ['エピソード番号', 'タイトル', '配信日', '再生時間', '説明', 'タグ', 'Spotify URL'];
@@ -363,6 +371,7 @@ let app = new Vue({
     }
     
     this.loadEpisodes();
+    this.updateMetaTags();
     window.addEventListener('scroll', this.handleScroll);
     // ページを離れる前にフィルター状態を保存
     window.addEventListener('beforeunload', () => {

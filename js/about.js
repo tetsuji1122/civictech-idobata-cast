@@ -4,11 +4,19 @@ new Vue({
   vuetify: new Vuetify(),
   data: {
     platformLinks: CONFIG.platforms,
-    externalLinks: CONFIG.externalLinks
+    externalLinks: CONFIG.externalLinks,
+    drawer: false, // ハンバーガーメニューの開閉状態
   },
   mounted() {
-    // ページロード時の処理（必要に応じて追加）
-    console.log('About page loaded');
+    this.updateMetaTags();
+  },
+  methods: {
+    updateMetaTags() {
+      const siteUrl = CONFIG.siteUrl;
+      setLinkTag('canonical', `${siteUrl}/about.html`);
+      setMetaProperty('og:url', `${siteUrl}/about.html`);
+      setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);
+    }
   }
 });
 

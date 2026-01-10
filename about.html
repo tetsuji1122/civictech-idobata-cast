@@ -34,13 +34,20 @@
     <v-app-bar app flat class="header-toolbar">
       <v-container>
         <v-row align="center" justify="space-between">
-          <v-col cols="auto">
+          <v-col cols="auto" class="d-flex align-center">
+            <!-- ハンバーガーメニューボタン（スマホのみ表示） -->
+            <v-app-bar-nav-icon 
+              @click="drawer = !drawer" 
+              class="d-md-none mr-2"
+              color="#003049"
+            ></v-app-bar-nav-icon>
             <a href="index.html" style="display: inline-block; line-height: 0;">
               <img class="pc" src="img/logo.png" alt="シビックテック井戸端キャスト" height="60" style="cursor: pointer;">
               <img class="sp" src="img/logo.png" alt="シビックテック井戸端キャスト" height="40" style="cursor: pointer;">
             </a>
           </v-col>
-          <v-col cols="auto">
+          <!-- PCメニュー（スマホでは非表示） -->
+          <v-col cols="auto" class="d-none d-md-block">
             <v-btn text class="nav-btn" href="index.html">
               <v-icon left>mdi-home</v-icon>
               HOME
@@ -61,6 +68,58 @@
         </v-row>
       </v-container>
     </v-app-bar>
+
+    <!-- ハンバーガーメニュー（スマホ用） -->
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      fixed
+      class="d-md-none"
+    >
+      <v-list nav dense>
+        <v-list-item>
+          <v-list-item-avatar>
+            <img src="img/logo.png" alt="シビックテック井戸端キャスト">
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>メニュー</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item href="index.html">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>HOME</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item href="episodes.html">
+          <v-list-item-icon>
+            <v-icon>mdi-podcast</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>EPISODE</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item href="about.html">
+          <v-list-item-icon>
+            <v-icon>mdi-information</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>ABOUT</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item href="countdowntimer.html">
+          <v-list-item-icon>
+            <v-icon>mdi-timer</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>TIMER</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-main>
       <v-container class="about-container">
@@ -314,6 +373,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="js/config.js"></script>
+<script src="js/utils.js"></script>
 <script src="js/about.js"></script>
 </body>
 </html>

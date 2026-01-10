@@ -76,72 +76,150 @@ def transcribe_audio(audio_file):
     print("文字起こし中...")
     
     prompt = """
-    この音声ファイルの内容を詳細に文字起こししてください。
-    話者が複数いる場合は、できるだけ話者を区別してください。
-    日本語で出力してください。
-    """
+この音声ファイルの内容を詳細に文字起こししてください。
+
+【出力形式の指示】
+- 話者が複数いる場合は、「話者名：」の形式で話者を明確に区別してください
+- 各発言の前に、その発言が始まる時間を [分:秒] の形式で記載してください（例：[1:23]）
+- 時間は話者が変わるときに必ず入れてください
+- 同じ話者が続けて話す場合は、重要な区切り（約1分ごと、またはトピックが変わるとき）に時間を入れてください
+- 見出しや装飾、記号（===、---、**など）は一切使用しないでください
+- 音声の内容のみを、そのまま文字起こししてください
+- 改行は自然な会話の流れに沿って入れてください
+- 日本語で出力してください
+
+【出力例】
+[0:00] 石井：今日はよろしくお願いします。
+[0:15] 小俣：こちらこそ、よろしくお願いします。
+[0:30] 石井：それでは、今日のトピックについて話していきましょう。
+[1:45] 小俣：そのトピックについて、私はこう考えています。
+
+上記の形式で、音声の内容をそのまま文字起こししてください。
+"""
     
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=[prompt, audio_file]
     )
-    return response.text
+    # 不要な装飾を削除（念のため）
+    text = response.text.strip()
+    # 見出しや装飾記号を削除
+    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)  # Markdown見出し
+    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)  # ===見出し
+    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)  # ---区切り線
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)  # **太字**
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)  # *強調*
+    return text.strip()
 
 def generate_summary(transcript):
     """文字起こしから要約を生成"""
     print("要約を生成中...")
     
     prompt = f"""
-    以下のポッドキャストの文字起こしから、要約を作成してください。
-    要約は300〜500文字程度で、主要なトピックと重要なポイントをまとめてください。
-    
-    文字起こし:
-    {transcript}
-    """
+以下のポッドキャストの文字起こしから、要約を作成してください。
+
+【出力形式の指示】
+- 要約は300〜500文字程度で、主要なトピックと重要なポイントをまとめてください
+- 見出しや装飾、記号（===、---、**など）は一切使用しないでください
+- 改行は自然な文の流れで入れてください（段落は1〜2箇所程度）
+- 日本語で出力してください
+- 「要約：」「まとめ：」などの前置きは不要です
+
+【出力例】
+本ポッドキャストでは、3名のゲストが「生成AIの活用」について語り合っています。主要なトピックとして、生成AIを使ったハッカソンの成功事例が挙げられ、非エンジニアでも短期間でプロトタイプを作成できるようになったことが話題となりました。
+
+文字起こし:
+{transcript[:8000]}
+"""
     
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=prompt
     )
-    return response.text
+    # 不要な装飾を削除
+    text = response.text.strip()
+    # 見出しや装飾記号を削除
+    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # 前置きを削除
+    text = re.sub(r'^(要約|まとめ|サマリー|Summary)[：:]\s*', '', text, flags=re.IGNORECASE)
+    return text.strip()
 
 def generate_title(transcript):
     """文字起こしからサブタイトルを生成"""
     print("サブタイトルを生成中...")
     
     prompt = f"""
-    以下のポッドキャストの文字起こしから、魅力的なサブタイトルを1つ提案してください。
-    サブタイトルは20〜40文字程度で、内容を的確に表現し、聞きたくなるようなものにしてください。
-    サブタイトルのみを出力してください（説明や前置きは不要です）。
-    
-    文字起こし:
-    {transcript}
-    """
+以下のポッドキャストの文字起こしから、魅力的なサブタイトルを1つ提案してください。
+
+【出力形式の指示】
+- サブタイトルは20〜40文字程度で、内容を的確に表現し、聞きたくなるようなものにしてください
+- サブタイトルのみを出力してください（説明や前置き、記号は一切不要です）
+- 「サブタイトル：」「タイトル：」などの前置きは不要です
+- 日本語で出力してください
+
+【出力例】
+生成AIが拓くシビックテックの未来
+
+文字起こし:
+{transcript[:8000]}
+"""
     
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=prompt
     )
-    return response.text.strip()
+    # 不要な装飾や前置きを削除
+    text = response.text.strip()
+    # 前置きを削除
+    text = re.sub(r'^(サブタイトル|タイトル|Title|Subtitle)[：:]\s*', '', text, flags=re.IGNORECASE)
+    # クォートを削除
+    text = re.sub(r'^["「](.+?)["」]$', r'\1', text)
+    # 記号を削除
+    text = re.sub(r'^[-\s]+', '', text)
+    text = re.sub(r'[-\s]+$', '', text)
+    return text.strip()
 
 def generate_detailed_description(transcript, sub_title, summary):
     """文字起こしから詳細説明文を生成"""
     print("詳細説明文を生成中...")
     
     prompt = f"""
-    以下のポッドキャストの情報から、魅力的な詳細説明文を作成してください。
-    説明文は150〜250文字程度で、リスナーが興味を持つような内容にしてください。
-    
-    サブタイトル: {sub_title}
-    要約: {summary}
-    文字起こし（抜粋）: {transcript[:1000]}...
-    """
+以下のポッドキャストの情報から、魅力的な詳細説明文を作成してください。
+
+【出力形式の指示】
+- 説明文は150〜250文字程度で、リスナーが興味を持つような内容にしてください
+- 見出しや装飾、記号（===、---、**など）は一切使用しないでください
+- 改行は1箇所程度で、自然な文の流れにしてください
+- 日本語で出力してください
+- 「説明：」「詳細説明：」などの前置きは不要です
+
+【出力例】
+生成AIの劇的な進化により、非エンジニアでも短期間でプロトタイプを作成できる時代が到来しました。本エピソードでは、実際の活用事例や今後の展望について、3名のゲストが語り合います。
+
+サブタイトル: {sub_title}
+要約: {summary}
+文字起こし（抜粋）: {transcript[:1000]}...
+"""
     
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=prompt
     )
-    return response.text
+    # 不要な装飾を削除
+    text = response.text.strip()
+    # 見出しや装飾記号を削除
+    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # 前置きを削除
+    text = re.sub(r'^(説明|詳細説明|Description)[：:]\s*', '', text, flags=re.IGNORECASE)
+    return text.strip()
 
 def process_audio_file(audio_path):
     """音声ファイルを処理して全ての情報を生成"""
