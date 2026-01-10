@@ -82,7 +82,7 @@ pip install python-dotenv
 PowerShellで一時的に設定：
 ```powershell
 $env:GEMINI_API_KEY="your_api_key_here"
-python transcribe_podcast.py
+python scripts/transcribe_podcast.py
 ```
 
 永続的に設定（システム環境変数）：
@@ -95,7 +95,7 @@ python transcribe_podcast.py
 
 ```bash
 export GEMINI_API_KEY="your_api_key_here"
-python transcribe_podcast.py
+python scripts/transcribe_podcast.py
 ```
 
 永続的に設定（~/.bashrc または ~/.zshrc）：

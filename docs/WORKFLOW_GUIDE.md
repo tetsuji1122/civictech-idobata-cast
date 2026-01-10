@@ -11,7 +11,7 @@
    ↓
 3. 書き起こし生成 (transcribe_podcast.py)
    ↓
-4. 誤字の修正 (fix_transcripts.py)
+4. 書き起こしの編集・修正 (edit_transcript.py)
    ↓
 5. Gitにコミット
    ↓
@@ -58,7 +58,7 @@ data_voice/
 
 ```bash
 # プロジェクトのルートディレクトリで実行
-python transcribe_podcast.py
+python scripts/transcribe_podcast.py
 ```
 
 **処理内容**:
@@ -74,7 +74,7 @@ python transcribe_podcast.py
   "episode_number": "1.0.12",
   "file_name": "ep1.0.12.m4a",
   "sub_title": "生成されたサブタイトル",
-  "description": "生成された説明文",
+  "detailed_description": "生成された説明文",
   "summary": "生成された要約",
   "transcript": "詳細な書き起こし全文"
 }
@@ -82,25 +82,19 @@ python transcribe_podcast.py
 
 ---
 
-### ステップ4：誤字の修正
+### ステップ4：書き起こしの編集・修正
 
-生成された書き起こしを確認し、誤字があれば修正します。
+生成された書き起こしを確認し、誤字があればGUIエディタで修正します。
 
 ```bash
-# 特定のエピソードを修正
-python scripts/fix_transcripts.py --episode 1.0.12 --wrong "おまた" --correct "小俣"
-
-# または辞書ファイルを使用
-python scripts/fix_transcripts.py --episode 1.0.12 --use-dict
+python scripts/edit_transcript.py
 ```
 
 **処理内容**:
-1. 指定したエピソードの書き起こしファイルを読み込み
-2. 誤った表記を正しい表記に置換
-3. バックアップを作成（`data/transcripts_backup/`）
-4. 修正後のファイルを保存
-
-**詳細**: [FIX_TRANSCRIPTS_README.md](FIX_TRANSCRIPTS_README.md)
+1. GUIエディタが起動します
+2. ファイルを選択して編集
+3. 検索・置換機能で誤字を修正
+4. 保存時に自動的にバックアップを作成（`data/transcripts_backup/`）
 
 ---
 
@@ -142,7 +136,7 @@ Spotifyなどのポッドキャスト配信プラットフォームに音声フ�
 エピソードが配信されたら、RSSフィードから最新情報を取得します。
 
 ```bash
-python update_episodes.py
+python scripts/update_episodes.py
 ```
 
 **処理内容**:
@@ -197,13 +191,10 @@ GitHubにプッシュすると、GitHub Pagesが自動的に更新されます�
 python scripts/transcribe_podcast.py
 ```
 
-### 誤字の修正
+### 書き起こしの編集・修正
 ```bash
-# 特定のエピソードを修正
-python scripts/fix_transcripts.py --episode 1.0.12 --wrong "誤字" --correct "正字"
-
-# 辞書ファイルを使用
-python scripts/fix_transcripts.py --episode 1.0.12 --use-dict
+# GUIエディタで編集
+python scripts/edit_transcript.py
 ```
 
 ### RSSフィード更新
@@ -265,7 +256,7 @@ data_voice/
 - [ ] `.env` ファイルにAPIキーが設定されている
 - [ ] `transcribe_podcast.py` が正常に実行された
 - [ ] 生成された書き起こしを確認した
-- [ ] 誤字があれば `fix_transcripts.py` で修正した
+- [ ] 誤字があれば `edit_transcript.py` で修正した
 - [ ] 修正後の書き起こしを再確認した
 - [ ] 書き起こしをGitにコミット・プッシュした
 - [ ] Spotifyに音声をアップロードした
@@ -306,7 +297,6 @@ data_voice/
 ## 📚 関連ドキュメント
 
 - [TRANSCRIPT_README.md](TRANSCRIPT_README.md) - 書き起こし管理の詳細
-- [FIX_TRANSCRIPTS_README.md](FIX_TRANSCRIPTS_README.md) - 誤字修正ツールの詳細
 - [SECURITY_GUIDE.md](SECURITY_GUIDE.md) - セキュリティガイド
 - [UPDATE_EPISODES_README.md](UPDATE_EPISODES_README.md) - RSSフィード更新の詳細
 

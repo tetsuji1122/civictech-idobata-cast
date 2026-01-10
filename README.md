@@ -35,18 +35,16 @@ civictech-idobata-cast/
 │
 ├── data/                   # データファイル
 │   ├── episodes.json           # エピソード情報
-│   ├── corrections.json        # 修正辞書
 │   └── transcripts/            # 書き起こしJSON
 │
 ├── scripts/                # Pythonスクリプト
 │   ├── transcribe_podcast.py       # 音声書き起こし
-│   ├── fix_transcripts.py          # 書き起こし修正
+│   ├── edit_transcript.py          # 書き起こし編集（GUI）
 │   └── update_episodes.py          # エピソード更新
 │
 └── docs/                   # ドキュメント
     ├── SCRIPTS_README.md           # スクリプト一覧
     ├── UPDATE_EPISODES_README.md   # エピソード更新ガイド
-    ├── FIX_TRANSCRIPTS_README.md   # 修正ツールガイド
     ├── TRANSCRIPT_README.md        # トランスクリプト管理
     ├── CONFIG_README.md            # 共通設定ガイド
     ├── SECURITY_GUIDE.md           # セキュリティガイド
@@ -69,10 +67,10 @@ python scripts/update_episodes.py
 python scripts/transcribe_podcast.py
 ```
 
-### 書き起こし修正
+### 書き起こし編集
 
 ```bash
-python scripts/fix_transcripts.py
+python scripts/edit_transcript.py
 ```
 
 詳細は [docs/SCRIPTS_README.md](docs/SCRIPTS_README.md) をご覧ください。

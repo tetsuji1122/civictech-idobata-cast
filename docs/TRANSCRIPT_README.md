@@ -66,7 +66,7 @@ data_voice/
 `transcribe_podcast.py`を使用して書き起こしを自動生成します：
 
 ```bash
-python transcribe_podcast.py
+python scripts/transcribe_podcast.py
 ```
 
 このスクリプトは：
@@ -192,7 +192,7 @@ jobs:
 
 ## 📚 参考
 
-- RSSフィード更新: `python update_episodes.py`
+- RSSフィード更新: `python scripts/update_episodes.py`
 - ローカルサーバー起動: `python -m http.server 8000`
 
 ## 🔄 音声ファイルの管理
@@ -221,7 +221,7 @@ jobs:
    - JSONファイル内の `episode_number` がファイル名と一致しているか？
 
 3. **episodes.jsonにエピソードが存在するか確認**
-   - RSSフィード更新: `python update_episodes.py`
+   - RSSフィード更新: `python scripts/update_episodes.py`
 
 4. **ブラウザのコンソールを確認**
    - F12キーを押して、エラーメッセージを確認

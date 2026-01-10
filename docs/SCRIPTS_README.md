@@ -8,11 +8,10 @@
 civictech-idobata-cast/
 ├── scripts/                    # Pythonスクリプト
 │   ├── transcribe_podcast.py           # 音声書き起こし
-│   ├── fix_transcripts.py              # 書き起こし修正
+│   ├── edit_transcript.py              # 書き起こし編集（GUI）
 │   └── update_episodes.py              # エピソード更新
 │
 ├── docs/                       # ドキュメント
-│   ├── FIX_TRANSCRIPTS_README.md       # 修正ツールのガイド
 │   ├── UPDATE_EPISODES_README.md       # 更新ツールのガイド
 │   ├── TRANSCRIPT_README.md            # トランスクリプト管理ガイド
 │   ├── CONFIG_README.md                # 共通設定ガイド
@@ -21,7 +20,6 @@ civictech-idobata-cast/
 │
 └── data/                       # データファイル
     ├── episodes.json                   # エピソード情報
-    ├── corrections.json                # 修正辞書
     └── transcripts/                    # 書き起こしJSON
 ```
 
@@ -36,7 +34,7 @@ civictech-idobata-cast/
 ```
 1. transcribe_podcast.py     ← 音声ファイルを書き起こし
    ↓
-2. fix_transcripts.py        ← 誤字を修正（必要に応じて）
+2. edit_transcript.py        ← 書き起こしを編集・修正（必要に応じて）
    ↓
 3. （エピソード配信）
    ↓
@@ -48,7 +46,7 @@ civictech-idobata-cast/
 | タイミング | スクリプト | 説明 |
 |-----------|-----------|------|
 | **収録後** | `transcribe_podcast.py` | 音声ファイル（`data_voice/`）を自動書き起こし |
-| **書き起こし確認後** | `fix_transcripts.py` | 誤字・表記ゆれを修正（必要に応じて） |
+| **書き起こし確認後** | `edit_transcript.py` | 書き起こしを編集・修正（必要に応じて） |
 | **エピソード配信後** | `update_episodes.py` | RSSフィードから最新エピソード情報を取得 |
 
 #### クイックリファレンス
@@ -57,8 +55,8 @@ civictech-idobata-cast/
 # 1. 書き起こし生成（収録後）
 python scripts/transcribe_podcast.py
 
-# 2. 誤字修正（必要に応じて）
-python scripts/fix_transcripts.py --episode 1.0.12 --wrong "誤字" --correct "正字"
+# 2. 書き起こし編集・修正（必要に応じて）
+python scripts/edit_transcript.py
 
 # 3. エピソード更新（配信後）
 python scripts/update_episodes.py
@@ -104,7 +102,24 @@ python scripts/transcribe_podcast.py
 
 ---
 
-### 2. `update_episodes.py` - エピソード更新
+### 2. `edit_transcript.py` - 書き起こし編集
+
+書き起こしJSONファイルをGUIエディタで編集・修正します。
+
+**機能:**
+- GUIエディタで直感的に編集
+- 検索・置換機能
+- タブで各フィールドを分けて編集
+- 自動バックアップ作成
+
+**使い方:**
+```bash
+python scripts/edit_transcript.py
+```
+
+---
+
+### 3. `update_episodes.py` - エピソード更新
 
 RSSフィードから最新のエピソード情報を取得して`episodes.json`を更新します。
 
@@ -130,33 +145,6 @@ python scripts/update_episodes.py --limit 50
 ```
 
 **詳細:** [docs/UPDATE_EPISODES_README.md](UPDATE_EPISODES_README.md)
-
----
-
-### 3. `fix_transcripts.py` - 書き起こし修正
-
-書き起こしJSONファイルの誤字・表記ゆれを修正します。
-
-**機能:**
-- コマンドライン引数で直接置換指定（推奨）
-- 修正辞書ファイルも使用可能
-- 自動バックアップ作成
-- ドライランで事前確認
-- エピソード番号を指定して安全に修正
-
-**使い方:**
-```bash
-# コマンドライン引数で直接指定（推奨）
-python scripts/fix_transcripts.py --episode 1.0.18 --wrong "誤字" --correct "正字" --dry-run
-
-# 辞書ファイルを使用
-python scripts/fix_transcripts.py --episode 1.0.18
-
-# 全ファイルを一括修正（注意）
-python scripts/fix_transcripts.py --all
-```
-
-**詳細:** [docs/FIX_TRANSCRIPTS_README.md](FIX_TRANSCRIPTS_README.md)
 
 ---
 
@@ -192,9 +180,8 @@ PODCAST_BACKUP_DIR=data_voice/backup
 # 1. 音声ファイルを書き起こし
 python scripts/transcribe_podcast.py
 
-# 2. 書き起こしの誤字を修正（コマンドライン引数で直接指定）
-python scripts/fix_transcripts.py --episode 1.0.XX --wrong "誤字" --correct "正字" --dry-run  # 確認
-python scripts/fix_transcripts.py --episode 1.0.XX --wrong "誤字" --correct "正字"             # 実行
+# 2. 書き起こしを編集・修正（GUIエディタを使用）
+python scripts/edit_transcript.py
 ```
 
 **配信後:**
@@ -208,10 +195,6 @@ python scripts/update_episodes.py
 ```bash
 # 週1回: 新しいエピソードをチェック
 python scripts/update_episodes.py
-
-# 修正辞書を更新した場合のみ: 全書き起こしを一括修正
-python scripts/fix_transcripts.py --all --dry-run  # 確認
-python scripts/fix_transcripts.py --all            # 実行（確認プロンプトあり）
 ```
 
 ---
@@ -232,5 +215,4 @@ python scripts/fix_transcripts.py --all            # 実行（確認プロンプ
 - [ワークフローガイド](WORKFLOW_GUIDE.md)
 - [書き起こし管理](TRANSCRIPT_README.md)
 - [エピソード更新](UPDATE_EPISODES_README.md)
-- [誤字修正ツール](FIX_TRANSCRIPTS_README.md)
 
