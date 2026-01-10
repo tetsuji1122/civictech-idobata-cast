@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta charset="utf-8">
+  <title>エピソード一覧 - シビックテック井戸端キャスト</title>
+  <meta name="description" content="シビックテック井戸端キャストの全エピソード一覧。気になるテーマから探せます。Code for Japan、オープンデータ、地域活性化など様々なトピックを取り上げています。">
+  <meta name="keywords" content="シビックテック,ポッドキャスト,エピソード一覧,Code for Japan,オープンデータ,地域活性化">
+  <link rel="canonical" href="https://civictech-idobata-cast.github.io/episodes.html">
+  
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="エピソード一覧 - シビックテック井戸端キャスト">
+  <meta property="og:description" content="シビックテック井戸端キャストの全エピソード一覧。気になるテーマから探せます。">
+  <meta property="og:url" content="https://civictech-idobata-cast.github.io/episodes.html">
+  <meta property="og:image" content="https://civictech-idobata-cast.github.io/img/keyvisual.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="エピソード一覧 - シビックテック井戸端キャスト">
+  <meta name="twitter:description" content="シビックテック井戸端キャストの全エピソード一覧。気になるテーマから探せます。">
+  
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/episodes.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <v-app>
+    <!-- ヘッダー -->
+    <v-app-bar app flat class="header-toolbar">
+      <v-container>
+        <v-row align="center" justify="space-between">
+          <v-col cols="auto">
+            <a href="index.html" style="display: inline-block; line-height: 0;">
+              <img class="pc" src="img/logo.png" alt="シビックテック井戸端キャスト" height="60" style="cursor: pointer;">
+              <img class="sp" src="img/logo.png" alt="シビックテック井戸端キャスト" height="40" style="cursor: pointer;">
+            </a>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn text class="nav-btn" href="index.html">
+              <v-icon left>mdi-home</v-icon>
+              HOME
+            </v-btn>
+            <v-btn text class="nav-btn" href="episodes.html">
+              <v-icon left>mdi-podcast</v-icon>
+              EPISODE
+            </v-btn>
+            <v-btn text class="nav-btn" href="about.html">
+              <v-icon left>mdi-information</v-icon>
+              ABOUT
+            </v-btn>
+            <v-btn text class="nav-btn" href="countdowntimer.html">
+              <v-icon left>mdi-timer</v-icon>
+              TIMER
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <!-- ページタイトル -->
+        <h1 class="page-title">エピソード一覧</h1>
+
+        <!-- フィルター・検索セクション -->
+        <div class="filter-section">
+          <v-row align="center">
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="searchQuery"
+                label="エピソードを検索"
+                prepend-inner-icon="mdi-magnify"
+                outlined
+                dense
+                clearable
+                hide-details
+                color="#003049"
+                @input="filterEpisodes"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
+              <v-select
+                v-model="selectedTag"
+                :items="allTags"
+                label="タグで絞り込み"
+                outlined
+                dense
+                clearable
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-tag"
+                @change="filterEpisodes"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="3">
+              <v-select
+                v-model="sortOrder"
+                :items="sortOptions"
+                label="並び順"
+                outlined
+                dense
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-sort"
+                @change="sortEpisodes"
+              ></v-select>
+            </v-col>
+          </v-row>
+          
+          <!-- 検索結果の表示 -->
+          <v-row class="mt-3">
+            <v-col cols="12">
+              <v-chip
+                v-if="searchQuery || selectedTag"
+                close
+                color="#003049"
+                text-color="white"
+                @click:close="clearFilters"
+              >
+                {{ filteredEpisodes.length }}件のエピソード
+              </v-chip>
+              <span v-else style="color: #003049; font-weight: 500;">
+                全{{ allEpisodes.length }}件のエピソード
+              </span>
+              <span v-if="displayedEpisodes.length < filteredEpisodes.length" style="color: #666; margin-left: 10px;">
+                （{{ displayedEpisodes.length }} / {{ filteredEpisodes.length }}件表示中）
+              </span>
+            </v-col>
+          </v-row>
+        </div>
+
+        <!-- ローディング -->
+        <v-row v-if="loading" justify="center" class="my-12">
+          <v-col cols="12" class="text-center">
+            <v-progress-circular indeterminate color="#003049" size="64"></v-progress-circular>
+          </v-col>
+        </v-row>
+
+        <!-- エピソード一覧 -->
+        <v-row v-else-if="displayedEpisodes.length > 0">
+          <transition-group name="episode-fade" tag="div" style="display: contents;">
+            <v-col
+              v-for="episode in displayedEpisodes"
+              :key="episode.id"
+              cols="12"
+              md="6"
+              lg="4"
+              class="episode-col"
+            >
+              <v-card class="episode-card" elevation="3">
+              <v-card-title>
+                <span class="episode-number">#{{ episode.number }}</span>
+              </v-card-title>
+              
+              <v-card-text>
+                <div class="episode-title mb-2">{{ episode.title }}</div>
+                <div class="episode-date mb-3">
+                  <v-icon small color="#003049">mdi-calendar</v-icon>
+                  {{ episode.date }}
+                  <v-icon small color="#003049" class="ml-3">mdi-clock-outline</v-icon>
+                  {{ episode.duration }}
+                </div>
+                <div class="episode-description">{{ episode.description }}</div>
+                
+                <v-chip-group class="mt-3">
+                  <v-chip
+                    v-for="tag in episode.tags"
+                    :key="tag"
+                    small
+                    color="#003049"
+                    text-color="white"
+                    @click="filterByTag(tag)"
+                  >
+                    {{ tag }}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-btn
+                  color="#003049"
+                  text
+                  :href="'episode-detail.html?id=' + episode.id"
+                  @click.prevent="goToDetail(episode.id)"
+                >
+                  詳細を見る
+                  <v-icon right>mdi-arrow-right</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                  icon
+                  color="#1DB954"
+                  :href="episode.spotifyUrl"
+                  target="_blank"
+                  title="Spotifyで聴く"
+                >
+                  <v-icon>mdi-spotify</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          </transition-group>
+        </v-row>
+
+        <!-- 読み込み中インジケーター -->
+        <transition name="loading-fade">
+          <v-row v-if="isLoadingMore" justify="center" class="mt-8 mb-4">
+            <v-col cols="12" class="text-center">
+              <v-progress-circular indeterminate color="#003049" size="48"></v-progress-circular>
+              <div class="mt-3" style="color: #003049; font-weight: 500;">読み込み中...</div>
+            </v-col>
+          </v-row>
+        </transition>
+
+        <!-- すべて読み込み完了 -->
+        <transition name="loading-fade">
+          <v-row v-if="!hasMoreItems && displayedEpisodes.length > 0 && !isLoadingMore" justify="center" class="mt-8 mb-4">
+            <v-col cols="12" class="text-center">
+              <v-divider class="mb-4"></v-divider>
+              <div style="color: #666; font-size: 0.95rem;">
+                <v-icon color="#666" class="mr-2">mdi-check-circle</v-icon>
+                すべてのエピソードを表示しました
+              </div>
+            </v-col>
+          </v-row>
+        </transition>
+
+        <!-- 検索結果なし -->
+        <v-row v-if="!loading && filteredEpisodes.length === 0" class="my-12">
+          <v-col cols="12">
+            <div class="no-results">
+              <v-icon size="80" color="#003049">mdi-magnify</v-icon>
+              <div class="mt-4">該当するエピソードが見つかりませんでした</div>
+              <v-btn
+                color="#003049"
+                text
+                class="mt-4"
+                @click="clearFilters"
+              >
+                フィルターをクリア
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
+
+        <!-- ページトップに戻るボタン -->
+        <v-btn
+          v-show="showScrollTop"
+          fixed
+          bottom
+          right
+          fab
+          color="#003049"
+          dark
+          @click="scrollToTop"
+        >
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+
+      </v-container>
+    </v-main>
+
+    <!-- フッター -->
+    <v-footer color="#003049" dark padless>
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col cols="12" class="text-center">
+            <v-btn icon href="https://twitter.com/civictechcast" target="_blank" title="X (Twitter)">
+              <v-icon>mdi-twitter</v-icon>
+            </v-btn>
+            <v-btn icon href="https://github.com/civictech-idobata-cast" target="_blank" title="GitHub">
+              <v-icon>mdi-github</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col cols="12" class="text-center py-2">
+            &copy; {{ new Date().getFullYear() }} シビックテック井戸端キャスト
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
+  </v-app>
+</div>
+
+<!-- Vue.js を読み込む -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="js/config.js"></script>
+<script src="js/episodes.js"></script>
+</body>
+</html>
+

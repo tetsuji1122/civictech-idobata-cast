@@ -1,0 +1,229 @@
+/* About Page Specific Styles */
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #003049;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* キャッチフレーズカード */
+.catchphrase-card {
+  background: linear-gradient(135deg, #003049 0%, #0056a3 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 48, 73, 0.2);
+}
+
+.catchphrase {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #FFC300;
+  line-height: 1.6;
+}
+
+/* セクションタイトル */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #003049;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding-bottom: 0;
+}
+
+/* 共通スタイルの黄色い線を無効化 */
+.section-title::after {
+  display: none;
+}
+
+.subsection-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #003049;
+  margin-bottom: 16px;
+}
+
+/* チームカード */
+.team-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.member-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #003049;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 8px;
+}
+
+.member-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #003049;
+  margin-top: 16px;
+}
+
+/* コンテンツカード */
+.content-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.content-text:last-child {
+  margin-bottom: 0;
+}
+
+/* 配信方針カード */
+.policy-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.policy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.policy-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #003049;
+  margin: 16px 0;
+  line-height: 1.5;
+}
+
+.policy-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+}
+
+/* ハイライトカード */
+.highlight-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  text-align: center;
+}
+
+/* まとめカード */
+.summary-card {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #003049 0%, #0056a3 100%);
+}
+
+.summary-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FFC300;
+}
+
+.summary-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* CTA */
+.cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #003049;
+}
+
+/* レスポンシブ対応 */
+@media only screen and (max-width: 750px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+  }
+
+  .catchphrase {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .subsection-title {
+    font-size: 1.2rem;
+  }
+
+  .content-text {
+    font-size: 1rem;
+  }
+
+  .policy-title {
+    font-size: 1.1rem;
+  }
+
+  .policy-text {
+    font-size: 0.95rem;
+  }
+
+  .summary-title {
+    font-size: 1.5rem;
+  }
+
+  .summary-text {
+    font-size: 1rem;
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+  }
+  
+  .member-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .catchphrase br.sp {
+    display: inline;
+  }
+}
+
+@media only screen and (min-width: 751px) {
+  .catchphrase br.sp {
+    display: none;
+  }
+}
+

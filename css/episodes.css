@@ -1,0 +1,106 @@
+/* episodes.html用のスタイル */
+.page-title {
+  color: #003049;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.filter-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.search-field {
+  background: white;
+}
+
+.no-results {
+  color: #003049;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 50px 0;
+}
+
+/* エピソードカードのアニメーション */
+.episode-fade-enter-active {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.episode-fade-enter {
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* アニメーション用のスタイル */
+.episode-col {
+  transition: all 0.3s ease;
+}
+
+/* カードホバーエフェクト */
+.episode-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.episode-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 48, 73, 0.15) !important;
+}
+
+/* ローディングアニメーション */
+.loading-fade-enter-active,
+.loading-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.loading-fade-enter,
+.loading-fade-leave-to {
+  opacity: 0;
+}
+
+/* パルスアニメーション */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.v-progress-circular {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@media only screen and (max-width: 750px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta charset="utf-8">
+  <title>このポッドキャストについて - シビックテック井戸端キャスト</title>
+  <meta name="description" content="シビックテック井戸端キャストの始まりや配信方針について紹介します。ポッドキャスト文化からシビックテックの入り口を広げる、音声メディアプロジェクトです。">
+  <meta name="keywords" content="シビックテック,ポッドキャスト,Code for Japan,コミュニティ,オープンデータ">
+  <link rel="canonical" href="https://civictech-idobata-cast.github.io/about.html">
+  
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="このポッドキャストについて - シビックテック井戸端キャスト">
+  <meta property="og:description" content="シビックテック井戸端キャストの始まりや配信方針について紹介します。">
+  <meta property="og:url" content="https://civictech-idobata-cast.github.io/about.html">
+  <meta property="og:image" content="https://civictech-idobata-cast.github.io/img/keyvisual.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="このポッドキャストについて - シビックテック井戸端キャスト">
+  <meta name="twitter:description" content="シビックテック井戸端キャストの始まりや配信方針について紹介します。">
+  
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/about.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <v-app>
+    <!-- ヘッダー -->
+    <v-app-bar app flat class="header-toolbar">
+      <v-container>
+        <v-row align="center" justify="space-between">
+          <v-col cols="auto">
+            <a href="index.html" style="display: inline-block; line-height: 0;">
+              <img class="pc" src="img/logo.png" alt="シビックテック井戸端キャスト" height="60" style="cursor: pointer;">
+              <img class="sp" src="img/logo.png" alt="シビックテック井戸端キャスト" height="40" style="cursor: pointer;">
+            </a>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn text class="nav-btn" href="index.html">
+              <v-icon left>mdi-home</v-icon>
+              HOME
+            </v-btn>
+            <v-btn text class="nav-btn" href="episodes.html">
+              <v-icon left>mdi-podcast</v-icon>
+              EPISODE
+            </v-btn>
+            <v-btn text class="nav-btn" href="about.html">
+              <v-icon left>mdi-information</v-icon>
+              ABOUT
+            </v-btn>
+            <v-btn text class="nav-btn" href="countdowntimer.html">
+              <v-icon left>mdi-timer</v-icon>
+              TIMER
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+
+    <v-main>
+      <v-container class="about-container">
+        <!-- ページタイトル -->
+        <v-row justify="center" class="mt-8 mb-8">
+          <v-col cols="12" class="text-center">
+            <h1 class="page-title">このポッドキャストについて</h1>
+            <p class="page-subtitle">About Civictech Idobata Cast</p>
+          </v-col>
+        </v-row>
+
+        <!-- Cキャスチーム -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8">
+            <h2 class="section-title">
+              <v-icon large color="#003049">mdi-account-group</v-icon>
+              Cキャスチーム
+            </h2>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-card class="team-card">
+                  <v-card-text class="text-center">
+                    <img src="img/cast_ishii.png" alt="長崎の石井" class="member-image">
+                    <h3 class="member-name">長崎の石井</h3>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card class="team-card">
+                  <v-card-text class="text-center">
+                    <img src="img/cast_ohta.png" alt="埼玉の太田" class="member-image">
+                    <h3 class="member-name">埼玉の太田</h3>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card class="team-card">
+                  <v-card-text class="text-center">
+                    <img src="img/cast_omata.png" alt="川崎の小俣" class="member-image">
+                    <h3 class="member-name">川崎の小俣</h3>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
+        <!-- はじめたキッカケ -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8">
+            <h2 class="section-title">
+              <v-icon large color="#003049">mdi-lightbulb-on</v-icon>
+              はじめたキッカケ
+            </h2>
+            <v-card class="content-card">
+              <v-card-text class="pa-6">
+                <h3 class="subsection-title">シビックテックの入り口を広げたい</h3>
+                <p class="content-text">
+                  新型コロナウイルスの世界的な流行により、シビックテックに関心をもつ人たちが増えてきています。しかし、シビックテックは具体的にどんなことをすればよいのかよくわからないことも多いため、まずはどんなことをやっているのかを分かりやすく伝えていきたいと考えていました。
+                </p>
+                <p class="content-text">
+                  そんな時にCIVIC TECH FORUMの講演でFairly.fmの高橋さんが「<strong>ポッドキャストは世界の入り口になる</strong>」という話をされていました。
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <!-- ポッドキャストは「どこでもドア」 -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8">
+            <h2 class="section-title">
+              <v-icon large color="#003049">mdi-door-open</v-icon>
+              ポッドキャストは「どこでもドア」
+            </h2>
+            <v-card class="content-card">
+              <v-card-text class="pa-6">
+                <h3 class="subsection-title">入り口にピッタリ</h3>
+                <p class="content-text">
+                  ポッドキャストは音声メディアでラジオと同じように他事をしながらでも聴くことができます。しかも時間にとらわれずにリスナーが好きな時間に聴くこともできます。それはまさに色々な世界へ通じる「どこでもドア」です。シビックテックの世界へ入ってくる人たちのための入り口にピッタリです。
+                </p>
+                <p class="content-text">
+                  と、いうことでやり方もわかりませんでしたがはじめて見ることにしました。
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <!-- 配信方針 -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8">
+            <h2 class="section-title">
+              <v-icon large color="#003049">mdi-compass</v-icon>
+              3つの配信方針
+            </h2>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-card class="policy-card">
+                  <v-card-text class="text-center pa-6">
+                    <v-icon size="60" color="#FFC300">mdi-account-school</v-icon>
+                    <h3 class="policy-title">初心者に<br>分かり易く</h3>
+                    <p class="policy-text">
+                      シビックテックで使われる難しいカタカナ用語も丁寧に説明。うちわネタにならないよう気を付けています。
+                    </p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card class="policy-card">
+                  <v-card-text class="text-center pa-6">
+                    <v-icon size="60" color="#FFC300">mdi-clock-outline</v-icon>
+                    <h3 class="policy-title">1エピソード<br>10分程度</h3>
+                    <p class="policy-text">
+                      スキマ時間に気軽に聴いてもらえるよう、1エピソードを10分程度に設定しています。
+                    </p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card class="policy-card">
+                  <v-card-text class="text-center pa-6">
+                    <v-icon size="60" color="#FFC300">mdi-heart-pulse</v-icon>
+                    <h3 class="policy-title">無理しないけど<br>続ける</h3>
+                    <p class="policy-text">
+                      スマホのマイクで気軽に収録。飲み屋さんや移動中でも録音できる環境を大切にしています。
+                    </p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
+        <!-- 企画会議もそのまま配信 -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8">
+            <v-card class="highlight-card">
+              <v-card-text class="pa-6">
+                <v-icon large color="#FFC300" class="mb-2">mdi-microphone</v-icon>
+                <h3 class="subsection-title">企画会議もそのまま配信</h3>
+                <p class="content-text">
+                  自分たちが収録に慣れるためにも、数多く録音して配信するのが良いだろうということで、配信ネタやBGM等を考える企画会議も収録して配信しています。
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <!-- CTA -->
+        <v-row justify="center" class="mb-12">
+          <v-col cols="12" md="10" lg="8" class="text-center">
+            <h2 class="cta-title">お気軽に聴いてくださいね</h2>
+            <div class="mt-6">
+              <v-btn
+                large
+                color="#003049"
+                dark
+                :href="platformLinks.spotify"
+                target="_blank"
+                class="mx-2 mb-2"
+              >
+                <v-icon left>mdi-spotify</v-icon>
+                Spotifyで聴く
+              </v-btn>
+              <v-btn
+                large
+                color="#003049"
+                dark
+                :href="platformLinks.applePodcasts"
+                target="_blank"
+                class="mx-2 mb-2"
+              >
+                <v-icon left>mdi-apple</v-icon>
+                Apple Podcastsで聴く
+              </v-btn>
+              <v-btn
+                large
+                color="#003049"
+                dark
+                :href="platformLinks.youtube"
+                target="_blank"
+                class="mx-2 mb-2"
+              >
+                <v-icon left>mdi-youtube</v-icon>
+                YouTubeで聴く
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
+
+      </v-container>
+    </v-main>
+
+    <!-- フッター -->
+    <v-footer color="#003049" dark class="pa-4">
+      <v-container>
+        <v-row>
+          <v-col cols="12" class="text-center">
+            <p>&copy; 2021-2025 シビックテック井戸端キャスト</p>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
+  </v-app>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="js/config.js"></script>
+<script src="js/about.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# 環境変数・設定ファイル
+.env
+.env.local
+config.ini
+secrets.json
+api_keys.txt
+
+# 音声ファイル（録音データ）
+*.m4a
+*.mp3
+*.wav
+*.aac
+*.flac
+*.ogg
+*.wma
+
+# 例外: countdowntimerで使用する効果音は含める
+!se/**/*.mp3
+
+# 書き起こし関連フォルダ
+podcast/
+output/
+transcripts_temp/
+data_voice/
+data_voice/backup/
+*.m4a.json
+
+# バックアップファイル
+*.backup
+*.backup-*
+data/episodes.json.backup*
+data/episodes.json.backup-*
+# 書き起こしバックアップフォルダ
+transcripts_backup/
+data/transcripts_backup/
+**/transcripts_backup/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ログファイル
+*.log
+logs/
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+
