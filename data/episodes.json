@@ -1218,7 +1218,7 @@
         }
       ],
       "id": 68,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.2.19",
@@ -1241,7 +1241,7 @@
         }
       ],
       "id": 69,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.2.20",
@@ -1259,7 +1259,7 @@
       "transcript": "",
       "links": [],
       "id": 70,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.2.22",
@@ -1282,7 +1282,7 @@
         }
       ],
       "id": 71,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.2.23",
@@ -1298,7 +1298,7 @@
       "transcript": "",
       "links": [],
       "id": 72,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.0",
@@ -1316,7 +1316,7 @@
       "transcript": "",
       "links": [],
       "id": 73,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.1",
@@ -1523,7 +1523,7 @@
       "transcript": "",
       "links": [],
       "id": 84,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.12",
@@ -1541,7 +1541,7 @@
       "transcript": "",
       "links": [],
       "id": 85,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.13",
@@ -1559,7 +1559,7 @@
       "transcript": "",
       "links": [],
       "id": 86,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.14",
@@ -1581,7 +1581,7 @@
         }
       ],
       "id": 87,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.15",
@@ -1604,7 +1604,7 @@
         }
       ],
       "id": 88,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.16",
@@ -1627,7 +1627,7 @@
         }
       ],
       "id": 89,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.17",
@@ -1645,7 +1645,7 @@
       "transcript": "",
       "links": [],
       "id": 90,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.18",
@@ -1663,7 +1663,7 @@
       "transcript": "",
       "links": [],
       "id": 91,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.19",
@@ -1686,7 +1686,7 @@
         }
       ],
       "id": 92,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.20",
@@ -1702,7 +1702,7 @@
       "transcript": "",
       "links": [],
       "id": 93,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.21",
@@ -1718,7 +1718,7 @@
       "transcript": "",
       "links": [],
       "id": 94,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.22",
@@ -1734,7 +1734,7 @@
       "transcript": "",
       "links": [],
       "id": 95,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.3.23",
@@ -1803,7 +1803,7 @@
       "transcript": "",
       "links": [],
       "id": 99,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.3",
@@ -1821,7 +1821,7 @@
       "transcript": "",
       "links": [],
       "id": 100,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.4",
@@ -1839,7 +1839,7 @@
       "transcript": "",
       "links": [],
       "id": 101,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.5",
@@ -1857,7 +1857,7 @@
       "transcript": "",
       "links": [],
       "id": 102,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.6",
@@ -1875,7 +1875,7 @@
       "transcript": "",
       "links": [],
       "id": 103,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.7",
@@ -1893,7 +1893,7 @@
       "transcript": "",
       "links": [],
       "id": 104,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.8",
@@ -1911,7 +1911,7 @@
       "transcript": "",
       "links": [],
       "id": 105,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.9",
@@ -1929,7 +1929,7 @@
       "transcript": "",
       "links": [],
       "id": 106,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.10",
@@ -1946,7 +1946,7 @@
       "transcript": "",
       "links": [],
       "id": 107,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.11",
@@ -2030,7 +2030,7 @@
       "transcript": "",
       "links": [],
       "id": 112,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.16",
@@ -2046,7 +2046,7 @@
       "transcript": "",
       "links": [],
       "id": 113,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.17",
@@ -2062,7 +2062,7 @@
       "transcript": "",
       "links": [],
       "id": 114,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.18",
@@ -2078,7 +2078,7 @@
       "transcript": "",
       "links": [],
       "id": 115,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.19",
@@ -2100,7 +2100,7 @@
         }
       ],
       "id": 116,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.20",
@@ -2123,7 +2123,7 @@
         }
       ],
       "id": 117,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.21",
@@ -2141,7 +2141,7 @@
       "transcript": "",
       "links": [],
       "id": 118,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.22",
@@ -2158,7 +2158,7 @@
       "transcript": "",
       "links": [],
       "id": 119,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.23",
@@ -2180,7 +2180,7 @@
         }
       ],
       "id": 120,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.0",
@@ -2348,7 +2348,7 @@
         }
       ],
       "id": 128,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.8",
@@ -2371,7 +2371,7 @@
         }
       ],
       "id": 129,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.9",
@@ -2388,7 +2388,7 @@
       "transcript": "",
       "links": [],
       "id": 130,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.10",
@@ -2424,7 +2424,7 @@
       "transcript": "",
       "links": [],
       "id": 132,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.12",
@@ -2442,7 +2442,7 @@
       "transcript": "",
       "links": [],
       "id": 133,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.13",
@@ -2463,7 +2463,7 @@
         }
       ],
       "id": 134,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.14",
@@ -2486,7 +2486,7 @@
         }
       ],
       "id": 135,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.15",
@@ -2508,7 +2508,7 @@
         }
       ],
       "id": 136,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.16",
@@ -2525,7 +2525,7 @@
       "transcript": "",
       "links": [],
       "id": 137,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.17",
@@ -2541,7 +2541,7 @@
       "transcript": "",
       "links": [],
       "id": 138,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.18",
@@ -2557,7 +2557,7 @@
       "transcript": "",
       "links": [],
       "id": 139,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.19",
@@ -2573,7 +2573,7 @@
       "transcript": "",
       "links": [],
       "id": 140,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.20",
@@ -2589,7 +2589,7 @@
       "transcript": "",
       "links": [],
       "id": 141,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.21",
