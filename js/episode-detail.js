@@ -29,8 +29,8 @@ let app = new Vue({
       let transcript = this.episode.transcript;
       
       // タイムスタンプをハイライト表示（Markdown変換前に処理）
-      transcript = transcript.replace(/\*\*(\d{2}:\d{2}(?:\s*-\s*\d{2}:\d{2})?)\*\*/g, '<span class="timestamp">$1</span>');
-      transcript = transcript.replace(/\[(\d{2}:\d{2})\]/g, '<span class="timestamp">[$1]</span>');
+      transcript = transcript.replace(/\*\*(\d{1,2}:\d{2}(?:\s*-\s*\d{1,2}:\d{2})?)\*\*/g, '<span class="timestamp">$1</span>');
+      transcript = transcript.replace(/\[(\d{1,2}:\d{2})\]/g, '<span class="timestamp">[$1]</span>');
       
       // Markdownをパース
       return this.parseMarkdown(transcript);
@@ -184,8 +184,12 @@ let app = new Vue({
           // 前後のエピソードを取得
           this.findAdjacentEpisodes(episodeId);
           
-          // 書き起こしを別ファイルから読み込み
-          await this.loadTranscript(this.episode.number);
+          // 書き起こしを別ファイルから読み込み（has_transcriptがtrueの場合のみ）
+          if (this.episode.has_transcript === true) {
+            await this.loadTranscript(this.episode.number);
+          } else {
+            console.log(`[INFO] 書き起こしファイルが存在しないため、読み込みをスキップ: ep${this.episode.number}`);
+          }
           
           // 書き起こし読み込み後のlinksを確認
           console.log('[INFO] 書き起こし読み込み後のlinks:', {

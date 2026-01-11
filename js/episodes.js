@@ -301,13 +301,14 @@ let app = new Vue({
     },
     exportToCSV() {
       // CSVデータを生成
-      const headers = ['エピソード番号', 'タイトル', '配信日', '再生時間', '説明', 'タグ', 'Spotify URL'];
+      const headers = ['エピソード番号', 'タイトル', '配信日', '再生時間', '説明', 'タグ', 'Spotify URL', '書き起こし有無'];
       
       // ヘッダー行
       const csvRows = [headers.map(header => this.escapeCSV(header)).join(',')];
       
       // データ行（フィルター済みのエピソードをエクスポート）
       this.filteredEpisodes.forEach(episode => {
+        const hasTranscript = episode.has_transcript === true ? 'あり' : 'なし';
         const row = [
           episode.number || '',
           episode.title || '',
@@ -315,7 +316,8 @@ let app = new Vue({
           episode.duration || '',
           episode.description || '',
           (episode.tags && episode.tags.length > 0) ? episode.tags.join('; ') : '',
-          episode.spotifyUrl || ''
+          episode.spotifyUrl || '',
+          hasTranscript
         ];
         csvRows.push(row.map(cell => this.escapeCSV(cell)).join(','));
       });

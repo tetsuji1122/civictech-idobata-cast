@@ -354,7 +354,7 @@
           </v-row>
 
           <!-- 全文書き起こし -->
-          <v-row v-if="episode.transcript">
+          <v-row v-if="episode.has_transcript === true && episode.transcript">
             <v-col cols="12">
               <div class="content-section">
                 <h2 class="section-title">

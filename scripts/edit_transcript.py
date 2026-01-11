@@ -28,6 +28,8 @@ class TranscriptEditor:
         
         self.current_file = None
         self.data = {}
+        self.file_list = []  # ファイルリスト（自然順ソート済み）
+        self.current_file_index = -1  # 現在のファイルのインデックス
         
         self.create_widgets()
         self.load_file_list()
@@ -154,6 +156,30 @@ class TranscriptEditor:
         # ショートカットキー
         self.root.bind('<Control-f>', lambda e: self.find_entry.focus())
         self.root.bind('<Control-h>', lambda e: self.find_entry.focus())
+        self.root.bind('<Control-s>', lambda e: self.save_file())
+        
+        # 左右矢印キーで前後のファイルを読み込む（Ctrl+矢印キー）
+        self.root.bind('<Control-Left>', lambda e: self.load_previous_file())
+        self.root.bind('<Control-Right>', lambda e: self.load_next_file())
+        
+        # テキストウィジェット内でもCtrl+Sで保存できるように設定
+        def save_on_ctrl_s(event):
+            self.save_file()
+            return "break"  # デフォルトの動作を防ぐ
+        
+        # テキストウィジェット内でもCtrl+矢印キーで前後のファイルを読み込む
+        def load_prev_on_ctrl_left(event):
+            self.load_previous_file()
+            return "break"
+        
+        def load_next_on_ctrl_right(event):
+            self.load_next_file()
+            return "break"
+        
+        for text_widget in [self.sub_title, self.detailed_description, self.summary, self.transcript]:
+            text_widget.bind('<Control-s>', save_on_ctrl_s)
+            text_widget.bind('<Control-Left>', load_prev_on_ctrl_left)
+            text_widget.bind('<Control-Right>', load_next_on_ctrl_right)
         
         # 検索・置換関連の変数
         self.last_find_pos = 1.0
@@ -174,18 +200,36 @@ class TranscriptEditor:
         if status_type == "success":
             self.root.after(3000, lambda: self.show_status("準備完了", "info"))
     
+    def natural_sort_key(self, filename):
+        """
+        ファイル名を自然順ソート（数値順）するためのキー関数
+        例: ep0.0.1.json -> (0, 0, 1)
+        """
+        import re
+        # ep{数字}.{数字}.{数字}.json の形式から数値を抽出
+        match = re.search(r'ep(\d+)\.(\d+)\.(\d+)\.json', filename)
+        if match:
+            # タプルとして返す（数値として比較される）
+            return (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+        # マッチしない場合は元のファイル名でソート
+        return (999999, 999999, 999999, filename)
+    
     def load_file_list(self):
         """ファイル一覧を読み込む"""
         if not TRANSCRIPTS_DIR.exists():
             self.show_status(f"エラー: フォルダが見つかりません: {TRANSCRIPTS_DIR}", "error")
             return
         
-        files = sorted(TRANSCRIPTS_DIR.glob("*.json"))
+        files = list(TRANSCRIPTS_DIR.glob("*.json"))
+        # 自然順ソート（数値順）でソート
+        files.sort(key=lambda f: self.natural_sort_key(f.name))
+        self.file_list = files  # ファイルリストを保持
         file_names = [f.name for f in files]
         self.file_combo['values'] = file_names
         
         if file_names:
             self.file_combo.current(0)
+            self.current_file_index = 0
             self.load_selected_file()
     
     def select_file(self):
@@ -198,11 +242,26 @@ class TranscriptEditor:
         )
         
         if file_path:
-            self.current_file = Path(file_path)
+            file_path = Path(file_path)
+            self.current_file = file_path
+            
+            # ファイルリスト内のインデックスを更新
+            file_name = file_path.name
+            for i, f in enumerate(self.file_list):
+                if f.name == file_name:
+                    self.current_file_index = i
+                    # コンボボックスの選択も更新
+                    self.file_combo.current(i)
+                    break
+            
             self.load_file(file_path)
     
     def on_file_selected(self, event=None):
         """コンボボックスでファイルが選択された時"""
+        # コンボボックスの選択インデックスを更新
+        selected_index = self.file_combo.current()
+        if selected_index >= 0:
+            self.current_file_index = selected_index
         self.load_selected_file()
     
     def load_selected_file(self):
@@ -213,7 +272,46 @@ class TranscriptEditor:
         
         file_path = TRANSCRIPTS_DIR / selected
         self.current_file = file_path
+        
+        # 現在のファイルのインデックスを更新
+        for i, f in enumerate(self.file_list):
+            if f.name == selected:
+                self.current_file_index = i
+                break
+        
         self.load_file(file_path)
+    
+    def load_previous_file(self):
+        """前のファイルを読み込む"""
+        if not self.file_list or self.current_file_index <= 0:
+            self.show_status("最初のファイルです", "warning")
+            return
+        
+        self.current_file_index -= 1
+        file_path = self.file_list[self.current_file_index]
+        self.current_file = file_path
+        
+        # コンボボックスの選択も更新
+        self.file_combo.current(self.current_file_index)
+        
+        self.load_file(file_path)
+        self.show_status(f"前のファイルを読み込みました: {file_path.name}", "success")
+    
+    def load_next_file(self):
+        """次のファイルを読み込む"""
+        if not self.file_list or self.current_file_index >= len(self.file_list) - 1:
+            self.show_status("最後のファイルです", "warning")
+            return
+        
+        self.current_file_index += 1
+        file_path = self.file_list[self.current_file_index]
+        self.current_file = file_path
+        
+        # コンボボックスの選択も更新
+        self.file_combo.current(self.current_file_index)
+        
+        self.load_file(file_path)
+        self.show_status(f"次のファイルを読み込みました: {file_path.name}", "success")
     
     def load_file(self, file_path):
         """ファイルを読み込んでエディタに表示"""
