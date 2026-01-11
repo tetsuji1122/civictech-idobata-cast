@@ -1,0 +1,7 @@
+書き起こしフラグ管理の改善とUI修正
+
+- update_episodes.py: 書き起こしフラグの更新ロジックを改善し、全エピソードのフラグを確実に更新
+- episodes.js: CSVエクスポートに書き起こし有無フラグを追加
+- episode-detail.js: タイムスタンプの正規表現を修正し、1桁の分（0-9分）も正しくハイライト表示
+- episode-detail.html: 書き起こし表示条件をhas_transcriptフラグで判定
+- episodes.json: 全エピソードの書き起こしフラグを更新
