@@ -1,19 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+ポッドキャスト文字起こしスクリプト
+
+Gemini APIを使用して音声ファイルを文字起こしし、
+要約、サブタイトル、詳細説明を自動生成する
+"""
+
 import os
-from google import genai
-from google.genai import types
-from pathlib import Path
 import json
 import time
-import re
 import shutil
+import re
+import traceback
+from pathlib import Path
+from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
-import sys
+from google import genai
+from google.genai import types
 
-# プロジェクトルートのパスを取得
-PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT))
+# 共通ユーティリティのインポート
+from utils import extract_episode_number, PROJECT_ROOT
 
-# .envファイルから環境変数を読み込む（プロジェクトルートの.envを読み込む）
+# 環境変数の読み込み
 load_dotenv(PROJECT_ROOT / '.env')
 
 # Gemini APIキーを設定
@@ -26,35 +35,59 @@ if not GEMINI_API_KEY:
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 環境変数からパスを取得（プロジェクトルートからの相対パス）
-PODCAST_INPUT_DIR = os.getenv('PODCAST_INPUT_DIR', str(PROJECT_ROOT / 'data_voice'))
-PODCAST_OUTPUT_DIR = os.getenv('PODCAST_OUTPUT_DIR', str(PROJECT_ROOT / 'data' / 'transcripts'))
-PODCAST_BACKUP_DIR = os.getenv('PODCAST_BACKUP_DIR', str(PROJECT_ROOT / 'data_voice' / 'backup'))
+# デフォルトパス設定
+DEFAULT_INPUT_DIR = PROJECT_ROOT / 'data_voice'
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / 'data' / 'transcripts'
+DEFAULT_BACKUP_DIR = PROJECT_ROOT / 'data_voice' / 'backup'
 
-def extract_episode_number(filename):
-    """
-    ファイル名からエピソード番号を抽出
-    例: ep1.0.12.m4a -> "1.0.12"
-    """
-    match = re.search(r'ep(\d+\.\d+\.\d+)', filename, re.IGNORECASE)
-    if match:
-        return match.group(1)
-    return None
+# 環境変数からパスを取得
+PODCAST_INPUT_DIR = Path(os.getenv('PODCAST_INPUT_DIR', str(DEFAULT_INPUT_DIR)))
+PODCAST_OUTPUT_DIR = Path(os.getenv('PODCAST_OUTPUT_DIR', str(DEFAULT_OUTPUT_DIR)))
+PODCAST_BACKUP_DIR = Path(os.getenv('PODCAST_BACKUP_DIR', str(DEFAULT_BACKUP_DIR)))
 
-def upload_audio_file(file_path):
-    """音声ファイルをGemini APIにアップロード"""
-    print(f"音声ファイルをアップロード中: {file_path}")
+# 音声ファイル設定
+AUDIO_EXTENSIONS = [".m4a", ".mp3", ".wav", ".mp4"]
+MIME_TYPE_MAP = {
+    ".m4a": "audio/mp4",
+    ".mp3": "audio/mpeg",
+    ".wav": "audio/wav",
+    ".mp4": "video/mp4"
+}
+
+# Gemini モデル
+MODEL_NAME = "gemini-3-flash-preview"
+
+
+def get_mime_type(file_path: Path) -> str:
+    """
+    ファイル拡張子からMIMEタイプを取得
     
-    # ファイル拡張子からMIMEタイプを決定
-    file_path_obj = Path(file_path)
-    ext = file_path_obj.suffix.lower()
-    mime_type_map = {
-        ".m4a": "audio/mp4",
-        ".mp3": "audio/mpeg",
-        ".wav": "audio/wav",
-        ".mp4": "video/mp4"
-    }
-    mime_type = mime_type_map.get(ext, "audio/mp4")
+    Args:
+        file_path: 音声ファイルのパス
+        
+    Returns:
+        MIMEタイプ
+    """
+    ext = file_path.suffix.lower()
+    return MIME_TYPE_MAP.get(ext, "audio/mp4")
+
+
+def upload_audio_file(file_path: Path) -> Any:
+    """
+    音声ファイルをGemini APIにアップロード
+    
+    Args:
+        file_path: 音声ファイルのパス
+        
+    Returns:
+        アップロードされたファイルオブジェクト
+        
+    Raises:
+        ValueError: アップロードに失敗した場合
+    """
+    print(f"音声ファイルをアップロード中: {file_path.name}")
+    
+    mime_type = get_mime_type(file_path)
     
     with open(file_path, 'rb') as f:
         audio_file = client.files.upload(file=f, config={"mime_type": mime_type})
@@ -71,8 +104,48 @@ def upload_audio_file(file_path):
     print(f"アップロード完了: {audio_file.uri}")
     return audio_file
 
-def transcribe_audio(audio_file):
-    """音声ファイルを文字起こし"""
+
+def clean_ai_output(text: str, remove_prefixes: Optional[List[str]] = None) -> str:
+    """
+    AI出力から不要な装飾や前置きを削除
+    
+    Args:
+        text: クリーンアップ対象のテキスト
+        remove_prefixes: 削除する前置きパターンのリスト
+        
+    Returns:
+        クリーンアップされたテキスト
+    """
+    text = text.strip()
+    
+    # 見出しや装飾記号を削除
+    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)  # Markdown見出し
+    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)  # ===
+    text = re.sub(r'^-+\s*$', '', text, flags=re.MULTILINE)  # ---
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)  # **太字**
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)  # *強調*
+    
+    # 前置きを削除
+    if remove_prefixes:
+        pattern = '^(' + '|'.join(remove_prefixes) + r')[：:]\s*'
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+    
+    # クォートを削除
+    text = re.sub(r'^["「](.+?)["」]$', r'\1', text)
+    
+    return text.strip()
+
+
+def transcribe_audio(audio_file: Any) -> str:
+    """
+    音声ファイルを文字起こし
+    
+    Args:
+        audio_file: アップロード済みの音声ファイルオブジェクト
+        
+    Returns:
+        文字起こしテキスト
+    """
     print("文字起こし中...")
     
     prompt = """
@@ -98,21 +171,24 @@ def transcribe_audio(audio_file):
 """
     
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model=MODEL_NAME,
         contents=[prompt, audio_file]
     )
-    # 不要な装飾を削除（念のため）
-    text = response.text.strip()
-    # 見出しや装飾記号を削除
-    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)  # Markdown見出し
-    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)  # ===見出し
-    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)  # ---区切り線
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)  # **太字**
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)  # *強調*
-    return text.strip()
+    
+    return clean_ai_output(response.text)
 
-def generate_summary(transcript):
-    """文字起こしから要約を生成"""
+
+def generate_summary(transcript: str, max_length: int = 8000) -> str:
+    """
+    文字起こしから要約を生成
+    
+    Args:
+        transcript: 文字起こしテキスト
+        max_length: プロンプトに含める文字起こしの最大長
+        
+    Returns:
+        要約テキスト
+    """
     print("要約を生成中...")
     
     prompt = f"""
@@ -129,27 +205,31 @@ def generate_summary(transcript):
 本ポッドキャストでは、3名のゲストが「生成AIの活用」について語り合っています。主要なトピックとして、生成AIを使ったハッカソンの成功事例が挙げられ、非エンジニアでも短期間でプロトタイプを作成できるようになったことが話題となりました。
 
 文字起こし:
-{transcript[:8000]}
+{transcript[:max_length]}
 """
     
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model=MODEL_NAME,
         contents=prompt
     )
-    # 不要な装飾を削除
-    text = response.text.strip()
-    # 見出しや装飾記号を削除
-    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # 前置きを削除
-    text = re.sub(r'^(要約|まとめ|サマリー|Summary)[：:]\s*', '', text, flags=re.IGNORECASE)
-    return text.strip()
+    
+    return clean_ai_output(
+        response.text,
+        remove_prefixes=['要約', 'まとめ', 'サマリー', 'Summary']
+    )
 
-def generate_title(transcript):
-    """文字起こしからサブタイトルを生成"""
+
+def generate_title(transcript: str, max_length: int = 8000) -> str:
+    """
+    文字起こしからサブタイトルを生成
+    
+    Args:
+        transcript: 文字起こしテキスト
+        max_length: プロンプトに含める文字起こしの最大長
+        
+    Returns:
+        サブタイトル
+    """
     print("サブタイトルを生成中...")
     
     prompt = f"""
@@ -165,26 +245,38 @@ def generate_title(transcript):
 生成AIが拓くシビックテックの未来
 
 文字起こし:
-{transcript[:8000]}
+{transcript[:max_length]}
 """
     
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model=MODEL_NAME,
         contents=prompt
     )
-    # 不要な装飾や前置きを削除
-    text = response.text.strip()
-    # 前置きを削除
-    text = re.sub(r'^(サブタイトル|タイトル|Title|Subtitle)[：:]\s*', '', text, flags=re.IGNORECASE)
-    # クォートを削除
-    text = re.sub(r'^["「](.+?)["」]$', r'\1', text)
-    # 記号を削除
-    text = re.sub(r'^[-\s]+', '', text)
-    text = re.sub(r'[-\s]+$', '', text)
-    return text.strip()
+    
+    return clean_ai_output(
+        response.text,
+        remove_prefixes=['サブタイトル', 'タイトル', 'Title', 'Subtitle']
+    )
 
-def generate_detailed_description(transcript, sub_title, summary):
-    """文字起こしから詳細説明文を生成"""
+
+def generate_detailed_description(
+    transcript: str,
+    sub_title: str,
+    summary: str,
+    max_length: int = 1000
+) -> str:
+    """
+    文字起こしから詳細説明文を生成
+    
+    Args:
+        transcript: 文字起こしテキスト
+        sub_title: サブタイトル
+        summary: 要約
+        max_length: プロンプトに含める文字起こしの最大長
+        
+    Returns:
+        詳細説明文
+    """
     print("詳細説明文を生成中...")
     
     prompt = f"""
@@ -202,155 +294,203 @@ def generate_detailed_description(transcript, sub_title, summary):
 
 サブタイトル: {sub_title}
 要約: {summary}
-文字起こし（抜粋）: {transcript[:1000]}...
+文字起こし（抜粋）: {transcript[:max_length]}...
 """
     
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model=MODEL_NAME,
         contents=prompt
     )
-    # 不要な装飾を削除
-    text = response.text.strip()
-    # 見出しや装飾記号を削除
-    text = re.sub(r'^#{1,6}\s+.*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'^=+\s*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'^-\s*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # 前置きを削除
-    text = re.sub(r'^(説明|詳細説明|Description)[：:]\s*', '', text, flags=re.IGNORECASE)
-    return text.strip()
+    
+    return clean_ai_output(
+        response.text,
+        remove_prefixes=['説明', '詳細説明', 'Description']
+    )
 
-def process_audio_file(audio_path):
-    """音声ファイルを処理して全ての情報を生成"""
+
+def process_audio_file(audio_path: Path) -> Dict[str, Any]:
+    """
+    音声ファイルを処理して全ての情報を生成
+    
+    Args:
+        audio_path: 音声ファイルのパス
+        
+    Returns:
+        処理結果の辞書
+    """
     print(f"\n{'='*60}")
     print(f"処理開始: {audio_path.name}")
     print(f"{'='*60}\n")
     
     # 音声ファイルをアップロード
-    audio_file = upload_audio_file(str(audio_path))
+    audio_file = upload_audio_file(audio_path)
     
-    # 文字起こし
-    transcript = transcribe_audio(audio_file)
-    
-    # 要約、タイトル、詳細説明文を生成
-    summary = generate_summary(transcript)
-    sub_title = generate_title(transcript)
-    detailed_description = generate_detailed_description(transcript, sub_title, summary)
-    
-    # エピソード番号を抽出
-    episode_number = extract_episode_number(audio_path.name)
-    if not episode_number:
-        print(f"[WARNING] エピソード番号が取得できませんでした: {audio_path.name}")
-        # デフォルトのエピソード番号を使用するか、エラーにする
-        episode_number = "0.0.0"
-    
-    # 結果を辞書にまとめる（仕様に合わせた構造）
-    result = {
-        "episode_number": episode_number,
-        "file_name": audio_path.name,
-        "sub_title": sub_title,
-        "detailed_description": detailed_description,
-        "summary": summary,
-        "transcript": transcript
-    }
-    
-    # アップロードしたファイルを削除（クォータの節約）
-    client.files.delete(name=audio_file.name)
-    print(f"アップロードファイルを削除: {audio_file.name}")
-    
-    return result
+    try:
+        # 文字起こし
+        transcript = transcribe_audio(audio_file)
+        
+        # 要約、タイトル、詳細説明文を生成
+        summary = generate_summary(transcript)
+        sub_title = generate_title(transcript)
+        detailed_description = generate_detailed_description(transcript, sub_title, summary)
+        
+        # エピソード番号を抽出
+        episode_number = extract_episode_number(audio_path.name)
+        if not episode_number:
+            print(f"[WARNING] エピソード番号が取得できませんでした: {audio_path.name}")
+            episode_number = "0.0.0"
+        
+        # 結果を辞書にまとめる
+        result = {
+            "episode_number": episode_number,
+            "file_name": audio_path.name,
+            "sub_title": sub_title,
+            "detailed_description": detailed_description,
+            "summary": summary,
+            "transcript": transcript
+        }
+        
+        return result
+        
+    finally:
+        # アップロードしたファイルを削除（クォータの節約）
+        try:
+            client.files.delete(name=audio_file.name)
+            print(f"アップロードファイルを削除: {audio_file.name}")
+        except Exception as e:
+            print(f"[WARNING] アップロードファイルの削除に失敗: {e}")
 
-def save_results(result, output_dir):
-    """結果をJSONファイルに保存（仕様準拠の構造）"""
-    output_dir = Path(output_dir)
+
+def save_results(result: Dict[str, Any], output_dir: Path) -> None:
+    """
+    結果をJSONファイルに保存
+    
+    Args:
+        result: 処理結果の辞書
+        output_dir: 出力ディレクトリのパス
+    """
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # エピソード番号からファイル名を生成
     episode_number = result["episode_number"]
-    
-    # JSON形式で全データを保存
     json_path = output_dir / f"ep{episode_number}.json"
+    
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
+    
     print(f"JSONファイルを保存: {json_path}")
 
-def move_to_backup(audio_file, backup_dir):
-    """処理済み音声ファイルをバックアップフォルダに移動"""
-    backup_path = Path(backup_dir)
-    backup_path.mkdir(parents=True, exist_ok=True)
+
+def move_to_backup(audio_file: Path, backup_dir: Path) -> None:
+    """
+    処理済み音声ファイルをバックアップフォルダに移動
     
-    destination = backup_path / audio_file.name
+    Args:
+        audio_file: 音声ファイルのパス
+        backup_dir: バックアップディレクトリのパス
+    """
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    
+    destination = backup_dir / audio_file.name
     shutil.move(str(audio_file), str(destination))
     print(f"音声ファイルをバックアップに移動: {destination}")
 
-def main():
-    """メイン処理"""
-    # 絶対パスに変換（プロジェクトルートからの相対パスを解決）
-    input_dir_path = Path(PODCAST_INPUT_DIR)
-    if not input_dir_path.is_absolute():
-        input_dir_path = PROJECT_ROOT / input_dir_path
-    
-    output_dir_path = Path(PODCAST_OUTPUT_DIR)
-    if not output_dir_path.is_absolute():
-        output_dir_path = PROJECT_ROOT / output_dir_path
-    
-    backup_dir_path = Path(PODCAST_BACKUP_DIR)
-    if not backup_dir_path.is_absolute():
-        backup_dir_path = PROJECT_ROOT / backup_dir_path
 
-    # 入力フォルダが存在しない場合は作成を試みる
-    if not input_dir_path.exists():
-        print(f"[INFO] 入力フォルダ '{input_dir_path}' が見つかりません。作成します...")
-        try:
-            input_dir_path.mkdir(parents=True, exist_ok=True)
-            print(f"[OK] 入力フォルダを作成しました: {input_dir_path}")
-            print(f"[INFO] 音声ファイルを '{input_dir_path}' フォルダに配置してください。")
-            return
-        except Exception as e:
-            print(f"エラー: 入力フォルダ '{input_dir_path}' の作成に失敗しました: {e}")
-            print(f"      手動でフォルダを作成してから再実行してください。")
-            return
-
-    audio_extensions = [".m4a", ".mp3", ".wav", ".mp4"]
+def get_audio_files(input_dir: Path) -> List[Path]:
+    """
+    入力ディレクトリから音声ファイルを取得
+    
+    Args:
+        input_dir: 入力ディレクトリのパス
+        
+    Returns:
+        音声ファイルのパスリスト
+    """
     audio_files = []
-    for ext in audio_extensions:
-        audio_files.extend(input_dir_path.glob(f"*{ext}"))
+    for ext in AUDIO_EXTENSIONS:
+        audio_files.extend(input_dir.glob(f"*{ext}"))
+    return sorted(audio_files)
 
-    if not audio_files:
-        print(f"エラー: 入力フォルダ '{input_dir_path}' 内に音声ファイルが見つかりません。")
-        print(f"       音声ファイル（.m4a, .mp3, .wav, .mp4）を '{input_dir_path}' フォルダに配置してください。")
+
+def ensure_input_dir(input_dir: Path) -> bool:
+    """
+    入力ディレクトリの存在を確認し、必要に応じて作成
+    
+    Args:
+        input_dir: 入力ディレクトリのパス
+        
+    Returns:
+        ディレクトリが利用可能ならTrue
+    """
+    if input_dir.exists():
+        return True
+    
+    print(f"[INFO] 入力フォルダ '{input_dir}' が見つかりません。作成します...")
+    try:
+        input_dir.mkdir(parents=True, exist_ok=True)
+        print(f"[OK] 入力フォルダを作成しました: {input_dir}")
+        print(f"[INFO] 音声ファイルを '{input_dir}' フォルダに配置してください。")
+        return False
+    except Exception as e:
+        print(f"エラー: 入力フォルダ '{input_dir}' の作成に失敗しました: {e}")
+        print(f"      手動でフォルダを作成してから再実行してください。")
+        return False
+
+
+def main() -> None:
+    """メイン処理"""
+    # パスの正規化（絶対パスに変換）
+    input_dir = PODCAST_INPUT_DIR if PODCAST_INPUT_DIR.is_absolute() else PROJECT_ROOT / PODCAST_INPUT_DIR
+    output_dir = PODCAST_OUTPUT_DIR if PODCAST_OUTPUT_DIR.is_absolute() else PROJECT_ROOT / PODCAST_OUTPUT_DIR
+    backup_dir = PODCAST_BACKUP_DIR if PODCAST_BACKUP_DIR.is_absolute() else PROJECT_ROOT / PODCAST_BACKUP_DIR
+    
+    # 入力ディレクトリの確認
+    if not ensure_input_dir(input_dir):
         return
-
-    print(f"\n[INFO] 入力フォルダ: {input_dir_path}")
-    print(f"[INFO] 出力フォルダ: {output_dir_path}")
-    print(f"[INFO] バックアップフォルダ: {backup_dir_path}\n")
+    
+    # 音声ファイルの取得
+    audio_files = get_audio_files(input_dir)
+    
+    if not audio_files:
+        print(f"エラー: 入力フォルダ '{input_dir}' 内に音声ファイルが見つかりません。")
+        print(f"       音声ファイル（{', '.join(AUDIO_EXTENSIONS)}）を '{input_dir}' フォルダに配置してください。")
+        return
+    
+    # 処理情報の表示
+    print(f"\n[INFO] 入力フォルダ: {input_dir}")
+    print(f"[INFO] 出力フォルダ: {output_dir}")
+    print(f"[INFO] バックアップフォルダ: {backup_dir}\n")
     print(f"見つかった音声ファイル: {len(audio_files)}個")
     for audio_file in audio_files:
         print(f"  - {audio_file.name}")
-
+    
+    # 各音声ファイルを処理
+    success_count = 0
+    error_count = 0
+    
     for audio_file in audio_files:
         try:
             result = process_audio_file(audio_file)
-            save_results(result, output_dir_path)
-            
-            # 処理成功後、音声ファイルをバックアップフォルダに移動
-            move_to_backup(audio_file, backup_dir_path)
+            save_results(result, output_dir)
+            move_to_backup(audio_file, backup_dir)
             
             print(f"\n[OK] {audio_file.name} の処理が完了しました\n")
+            success_count += 1
+            
         except Exception as e:
             print(f"\n[ERROR] {audio_file.name} の処理中にエラーが発生しました: {e}\n")
-            print(f"[INFO] {audio_file.name} は移動せずに {input_dir_path} に残します\n")
-            import traceback
+            print(f"[INFO] {audio_file.name} は移動せずに {input_dir} に残します\n")
             traceback.print_exc()
-            continue
-
+            error_count += 1
+    
+    # 処理結果のサマリー
     print(f"\n{'='*60}")
-    print("全ての処理が完了しました")
-    print(f"結果は '{output_dir_path}' フォルダに保存されています")
-    print(f"処理済み音声ファイルは '{backup_dir_path}' に移動されました")
+    print("処理完了")
+    print(f"  成功: {success_count}件")
+    print(f"  失敗: {error_count}件")
+    print(f"結果は '{output_dir}' フォルダに保存されています")
+    print(f"処理済み音声ファイルは '{backup_dir}' に移動されました")
     print(f"{'='*60}\n")
+
 
 if __name__ == "__main__":
     main()
-
