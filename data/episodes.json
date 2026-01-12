@@ -4471,7 +4471,7 @@
         }
       ],
       "id": 241,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.10.1",
@@ -5332,7 +5332,7 @@
       "transcript": "",
       "links": [],
       "id": 287,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.11.23",
@@ -5348,7 +5348,7 @@
       "transcript": "",
       "links": [],
       "id": 288,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.0",
@@ -5364,7 +5364,7 @@
       "transcript": "",
       "links": [],
       "id": 289,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.1",
@@ -5380,7 +5380,7 @@
       "transcript": "",
       "links": [],
       "id": 290,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.2",
@@ -5396,7 +5396,7 @@
       "transcript": "",
       "links": [],
       "id": 291,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.3",
@@ -5419,7 +5419,7 @@
         }
       ],
       "id": 292,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.4",
@@ -5611,7 +5611,7 @@
         }
       ],
       "id": 302,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.14",
@@ -5627,7 +5627,7 @@
       "transcript": "",
       "links": [],
       "id": 303,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.15",
@@ -5643,7 +5643,7 @@
       "transcript": "",
       "links": [],
       "id": 304,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.16",
@@ -5659,7 +5659,7 @@
       "transcript": "",
       "links": [],
       "id": 305,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.17",
@@ -5675,7 +5675,7 @@
       "transcript": "",
       "links": [],
       "id": 306,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.18",
@@ -5691,7 +5691,7 @@
       "transcript": "",
       "links": [],
       "id": 307,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.19",
@@ -5708,7 +5708,7 @@
       "transcript": "",
       "links": [],
       "id": 308,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.20",
@@ -5729,7 +5729,7 @@
         }
       ],
       "id": 309,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.21",
@@ -5745,7 +5745,7 @@
       "transcript": "",
       "links": [],
       "id": 310,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.22",
@@ -5766,7 +5766,7 @@
         }
       ],
       "id": 311,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.23",
@@ -5783,7 +5783,7 @@
       "transcript": "",
       "links": [],
       "id": 312,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.0",
@@ -5799,7 +5799,7 @@
       "transcript": "",
       "links": [],
       "id": 313,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.1",
@@ -5815,7 +5815,7 @@
       "transcript": "",
       "links": [],
       "id": 314,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.2",
@@ -5832,7 +5832,7 @@
       "transcript": "",
       "links": [],
       "id": 315,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.3",
@@ -5854,7 +5854,7 @@
         }
       ],
       "id": 316,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.4",
@@ -5875,7 +5875,7 @@
         }
       ],
       "id": 317,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.5",
@@ -5898,7 +5898,7 @@
         }
       ],
       "id": 318,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.6",
@@ -5915,7 +5915,7 @@
       "transcript": "",
       "links": [],
       "id": 319,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.7",
@@ -5931,7 +5931,7 @@
       "transcript": "",
       "links": [],
       "id": 320,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.13.8",
