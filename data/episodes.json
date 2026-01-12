@@ -445,7 +445,7 @@
         }
       ],
       "id": 26,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.2",
@@ -468,7 +468,7 @@
         }
       ],
       "id": 27,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.3",
@@ -540,7 +540,7 @@
       "transcript": "",
       "links": [],
       "id": 31,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.7",
@@ -771,7 +771,7 @@
       "transcript": "",
       "links": [],
       "id": 44,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.20",
@@ -787,7 +787,7 @@
       "transcript": "",
       "links": [],
       "id": 45,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.21",
@@ -803,7 +803,7 @@
       "transcript": "",
       "links": [],
       "id": 46,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.22",
@@ -819,7 +819,7 @@
       "transcript": "",
       "links": [],
       "id": 47,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.1.23",
@@ -1997,7 +1997,7 @@
       "transcript": "",
       "links": [],
       "id": 110,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.14",
@@ -2014,7 +2014,7 @@
       "transcript": "",
       "links": [],
       "id": 111,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.4.15",
@@ -2198,7 +2198,7 @@
       "transcript": "",
       "links": [],
       "id": 121,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.1",
@@ -2220,7 +2220,7 @@
         }
       ],
       "id": 122,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.2",
@@ -2236,7 +2236,7 @@
       "transcript": "",
       "links": [],
       "id": 123,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.5.3",
@@ -4801,7 +4801,7 @@
       "transcript": "",
       "links": [],
       "id": 259,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.10.19",
@@ -5237,7 +5237,7 @@
         }
       ],
       "id": 282,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.11.18",
@@ -5467,7 +5467,7 @@
       "transcript": "",
       "links": [],
       "id": 295,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.12.7",
@@ -7843,7 +7843,7 @@
       "transcript": "",
       "links": [],
       "id": 423,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.17.15",
@@ -7860,7 +7860,7 @@
       "transcript": "",
       "links": [],
       "id": 424,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.17.16",
@@ -7878,7 +7878,7 @@
       "transcript": "",
       "links": [],
       "id": 425,
-      "has_transcript": false
+      "has_transcript": true
     },
     {
       "number": "0.17.17",
@@ -10963,6 +10963,23 @@
       "transcript": "[00:00] オープニング\n2026年最初の「シビックテック井戸端キャスト」へようこそ！\n\n[00:30] 2025年の活動データ\n2025年は年間126本のエピソードを配信し、累計787本となりました。\n\n[05:00] 人気エピソードランキング\n2025年に配信したエピソードの中で、特に人気だったエピソードを紹介します。\n\n[10:00] 意外な傾向\nデータを分析してみると、意外な人気傾向が見えてきました。\n\n[13:00] クロージング\n今年もよろしくお願いします！",
       "links": [],
       "has_transcript": true
+    },
+    {
+      "number": "1.0.17",
+      "title": "ep1.0.17 日本のステーブルコイン",
+      "date": "2026-01-11",
+      "duration": "15:21",
+      "description": "「円じゃダメなの？」そんな素朴な疑問から、デジタル決済の未来を深掘り！本エピソードでは、価格が安定したデジタル通貨「ステーブルコイン」をテーマに、2025年に公的承認を得た日本円連動型コイン『JPYC』の正体に迫ります。既存のキャッシュレス決済との違いや、AIによる自動決済、シビックテックでの活用など、特定の企業に依存しない新しい「お金」の形とは？",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-17-e3db0fp",
+      "tags": [
+        "シビックテック",
+        "技術"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 594
     }
   ]
 }
