@@ -306,8 +306,8 @@ let app = new Vue({
       // ヘッダー行
       const csvRows = [headers.map(header => this.escapeCSV(header)).join(',')];
       
-      // データ行（フィルター済みのエピソードをエクスポート）
-      this.filteredEpisodes.forEach(episode => {
+      // データ行（全エピソードをエクスポート）
+      this.allEpisodes.forEach(episode => {
         const hasTranscript = episode.has_transcript === true ? 'あり' : 'なし';
         const row = [
           episode.number || '',
@@ -347,7 +347,7 @@ let app = new Vue({
       link.click();
       document.body.removeChild(link);
       
-      console.log(`[INFO] CSVエクスポート完了: ${this.filteredEpisodes.length}件`);
+      console.log(`[INFO] CSVエクスポート完了: ${this.allEpisodes.length}件`);
     },
     escapeCSV(value) {
       // CSVの値をエスケープ
