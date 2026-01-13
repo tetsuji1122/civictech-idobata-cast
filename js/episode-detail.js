@@ -153,8 +153,8 @@ let app = new Vue({
           return;
         }
         
-        // エピソードデータを読み込み
-        const response = await fetch(CONFIG.paths.episodes);
+        // エピソードデータを読み込み（キャッシュを無効化）
+        const response = await fetchWithoutCache(CONFIG.paths.episodes);
         const data = await response.json();
         this.allEpisodes = data.episodes;
         

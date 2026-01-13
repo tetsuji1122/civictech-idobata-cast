@@ -12,7 +12,7 @@ let app = new Vue({
   methods: {
     async loadEpisodes() {
       try {
-        const response = await fetch(CONFIG.paths.episodes);
+        const response = await fetchWithoutCache(CONFIG.paths.episodes);
         const data = await response.json();
         // 日付順にソートして最新3件を取得
         const sortedEpisodes = [...data.episodes].sort((a, b) => {

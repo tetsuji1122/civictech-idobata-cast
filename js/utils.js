@@ -35,3 +35,26 @@ function setLinkTag(rel, href) {
   }
   link.setAttribute('href', href);
 }
+
+/**
+ * キャッシュを無効化してJSONファイルを取得
+ * episodes.jsonが毎日更新されるため、常に最新版を取得する
+ * 
+ * @param {string} url - 取得するJSONファイルのURL
+ * @returns {Promise<Response>} fetchのResponseオブジェクト
+ */
+async function fetchWithoutCache(url) {
+  // クエリパラメータにタイムスタンプを追加してキャッシュを回避
+  const timestamp = new Date().getTime();
+  const urlWithCacheBust = `${url}?t=${timestamp}`;
+  
+  // fetch APIでキャッシュを無効化
+  return fetch(urlWithCacheBust, {
+    cache: 'no-store',
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
+  });
+}

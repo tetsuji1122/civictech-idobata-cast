@@ -32,7 +32,7 @@ let app = new Vue({
   methods: {
     async loadEpisodes() {
       try {
-        const response = await fetch(CONFIG.paths.episodes);
+        const response = await fetchWithoutCache(CONFIG.paths.episodes);
         const data = await response.json();
         this.allEpisodes = data.episodes;
         this.filteredEpisodes = [...this.allEpisodes];
