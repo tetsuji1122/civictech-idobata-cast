@@ -81,13 +81,31 @@ python scripts/edit_transcript.py
 
 エピソード情報はGitHub Actionsにより自動更新されます。
 
+### エピソード情報の自動更新
+
 - **スケジュール**: 毎日6:30 JST（UTC 21:30）
 - **ワークフロー**: `.github/workflows/update_episodes.yml`
 - **実行内容**: `scripts/update_episodes.py`を実行し、変更があれば自動コミット
 
+### X（Twitter）への自動投稿
+
+- **スケジュール**: 毎時0分にチェック
+- **ワークフロー**: `.github/workflows/post_to_x.yml`
+- **実行内容**: RSSフィードをチェックし、新しいエピソードがあればXに自動投稿
+
+**設定方法**:
+1. GitHubリポジトリの「Settings」→「Secrets and variables」→「Actions」を開く
+2. 以下のSecretsを追加：
+   - `X_BEARER_TOKEN`（推奨）: X API v2のBearer Token
+   - または OAuth 1.0a方式の場合：
+     - `X_API_KEY`
+     - `X_API_SECRET`
+     - `X_ACCESS_TOKEN`
+     - `X_ACCESS_TOKEN_SECRET`
+
 手動実行も可能です：
 1. GitHubリポジトリの「Actions」タブを開く
-2. 「Update Episodes」ワークフローを選択
+2. 実行したいワークフローを選択
 3. 「Run workflow」ボタンをクリック
 
 ---

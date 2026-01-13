@@ -1,0 +1,57 @@
+name: Post to X on New Episode
+
+on:
+  schedule:
+    # 毎時0分にチェック（RSSフィードの更新を頻繁にチェック）
+    - cron: '0 * * * *'
+  workflow_dispatch:  # 手動実行も可能にする
+
+jobs:
+  post-to-x:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install requests requests-oauthlib
+      
+      - name: Run post_to_x.py
+        run: |
+          cd scripts
+          python post_to_x.py
+        env:
+          # X API認証情報（GitHub Secretsから取得）
+          # Bearer Token方式（推奨）
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          # または OAuth 1.0a方式
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        continue-on-error: true  # エラーが発生してもワークフローを継続
+      
+      - name: Commit state file if changed
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain .github/last_episode_state.json)" ]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add .github/last_episode_state.json
+            git commit -m "chore: 最新エピソード状態を更新 [skip ci]" || exit 0
+            git push || exit 0
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
