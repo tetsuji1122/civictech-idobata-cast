@@ -77,6 +77,21 @@ python scripts/edit_transcript.py
 
 ---
 
+## 🤖 自動更新（GitHub Actions）
+
+エピソード情報はGitHub Actionsにより自動更新されます。
+
+- **スケジュール**: 毎日6:30 JST（UTC 21:30）
+- **ワークフロー**: `.github/workflows/update_episodes.yml`
+- **実行内容**: `scripts/update_episodes.py`を実行し、変更があれば自動コミット
+
+手動実行も可能です：
+1. GitHubリポジトリの「Actions」タブを開く
+2. 「Update Episodes」ワークフローを選択
+3. 「Run workflow」ボタンをクリック
+
+---
+
 ## 🔧 開発
 
 ### ローカルサーバー起動
