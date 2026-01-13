@@ -10980,6 +10980,23 @@
       "links": [],
       "has_transcript": true,
       "id": 594
+    },
+    {
+      "number": "1.0.18",
+      "title": "ep1.0.18 Cキャス企画会議　全文文字起こし",
+      "date": "2026-01-13",
+      "duration": "11:53",
+      "description": "Googleの生成AI「Gemini」を活用し、ポッドキャストの文字起こしから要約までを自動化する驚きの仕組みを試作。精度高く進化するAI技術に驚きつつ、GitHub Pagesを使った公式サイトの構築や、過去回をキーワードで探せる「全文検索機能」の実装など、音声データを資産に変える熱い野望を語り合います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-18-C-e3db0ja",
+      "tags": [
+        "データ",
+        "技術"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 595
     }
   ]
 }
