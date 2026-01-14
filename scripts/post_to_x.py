@@ -25,11 +25,12 @@ RSS_FEED_URL = "https://anchor.fm/s/6981b208/podcast/rss"
 STATE_FILE = PROJECT_ROOT / ".github" / "last_episode_state.json"
 
 # X API設定（環境変数から取得）
+# 注意: X API v2の投稿エンドポイントはOAuth 1.0a User Contextが必要です
+# Bearer Token（Application-Only）は投稿には使用できません
 X_API_KEY = os.environ.get("X_API_KEY")
 X_API_SECRET = os.environ.get("X_API_SECRET")
 X_ACCESS_TOKEN = os.environ.get("X_ACCESS_TOKEN")
 X_ACCESS_TOKEN_SECRET = os.environ.get("X_ACCESS_TOKEN_SECRET")
-X_BEARER_TOKEN = os.environ.get("X_BEARER_TOKEN")  # Bearer Token方式の場合
 
 # X API v2 エンドポイント
 X_API_V2_POST_URL = "https://api.twitter.com/2/tweets"
@@ -192,54 +193,13 @@ def post_to_x_v2_oauth1(tweet_text: str) -> bool:
         return False
 
 
-def post_to_x_v2_bearer(tweet_text: str) -> bool:
-    """
-    Bearer Tokenを使用してXにポスト（X API v2）
-    
-    Args:
-        tweet_text: ツイート文
-        
-    Returns:
-        成功した場合True
-    """
-    if not X_BEARER_TOKEN:
-        print("[ERROR] X Bearer Tokenが設定されていません")
-        return False
-    
-    headers = {
-        "Authorization": f"Bearer {X_BEARER_TOKEN}",
-        "Content-Type": "application/json"
-    }
-    
-    payload = {
-        "text": tweet_text
-    }
-    
-    try:
-        response = requests.post(
-            X_API_V2_POST_URL,
-            json=payload,
-            headers=headers,
-            timeout=10
-        )
-        
-        if response.status_code == 201:
-            result = response.json()
-            print(f"[OK] Xにポストしました: {result.get('data', {}).get('id', 'N/A')}")
-            return True
-        else:
-            print(f"[ERROR] Xへのポストに失敗しました: {response.status_code}")
-            print(f"レスポンス: {response.text}")
-            return False
-            
-    except Exception as e:
-        print(f"[ERROR] Xへのポスト中にエラーが発生しました: {e}")
-        return False
-
-
 def post_to_x(tweet_text: str) -> bool:
     """
-    Xにポスト（認証方法を自動選択）
+    Xにポスト（OAuth 1.0a User Contextを使用）
+    
+    注意: X API v2の投稿エンドポイント（POST /2/tweets）は
+    OAuth 1.0a User ContextまたはOAuth 2.0 User Contextが必要です。
+    Bearer Token（Application-Only）は投稿には使用できません。
     
     Args:
         tweet_text: ツイート文
@@ -247,18 +207,18 @@ def post_to_x(tweet_text: str) -> bool:
     Returns:
         成功した場合True
     """
-    # Bearer Token方式を優先
-    if X_BEARER_TOKEN:
-        return post_to_x_v2_bearer(tweet_text)
-    # OAuth 1.0a方式
-    elif all([X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET]):
+    # OAuth 1.0a方式のみ使用
+    if all([X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET]):
         return post_to_x_v2_oauth1(tweet_text)
     else:
         print("[ERROR] X API認証情報が設定されていません")
-        print("[INFO] 以下の環境変数を設定してください:")
-        print("  - X_BEARER_TOKEN（推奨）")
-        print("  または")
-        print("  - X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET")
+        print("[INFO] 以下の環境変数を設定してください（OAuth 1.0a方式）:")
+        print("  - X_API_KEY")
+        print("  - X_API_SECRET")
+        print("  - X_ACCESS_TOKEN")
+        print("  - X_ACCESS_TOKEN_SECRET")
+        print("\n[注意] Bearer Tokenは投稿エンドポイントでは使用できません。")
+        print("       OAuth 1.0a User Contextが必要です。")
         return False
 
 

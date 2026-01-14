@@ -50,26 +50,10 @@ X（Twitter）API v2を使用して自動投稿機能を設定するための、
 
 プロジェクトとアプリが作成されると、認証情報を取得できます。
 
-#### 方法A: Bearer Token（推奨・簡単）
+#### OAuth 1.0a（必須）
 
-**Bearer Token方式のメリット**:
-- 設定が簡単（1つのトークンのみ）
-- 読み取り専用の操作に最適
-- セキュリティが高い
-
-**取得手順**:
-
-1. プロジェクトのダッシュボードで「Keys and tokens」タブを開く
-2. 「Bearer Token」セクションで「Generate」をクリック
-3. 生成されたBearer Tokenを**すぐにコピー**して安全な場所に保存
-   - **重要**: このトークンは再表示できません。紛失した場合は再生成が必要です
-4. 「Yes, I have saved the Bearer Token」にチェックを入れて「Done」をクリック
-
-#### 方法B: OAuth 1.0a（4つの認証情報が必要）
-
-**OAuth 1.0a方式のメリット**:
-- より細かい権限制御が可能
-- ユーザー固有の操作が可能
+**重要**: X API v2の投稿エンドポイント（POST /2/tweets）はOAuth 1.0a User Contextが必要です。
+Bearer Token（Application-Only）は投稿には使用できません。
 
 **取得手順**:
 
@@ -104,13 +88,7 @@ X（Twitter）API v2を使用して自動投稿機能を設定するための、
 3. 左メニューから「Secrets and variables」→「Actions」を選択
 4. 「New repository secret」をクリック
 
-#### Bearer Token方式の場合:
-
-- **Name**: `X_BEARER_TOKEN`
-- **Value**: コピーしたBearer Token
-- 「Add secret」をクリック
-
-#### OAuth 1.0a方式の場合:
+#### OAuth 1.0a方式（必須）:
 
 以下の4つのSecretsを追加：
 
@@ -161,7 +139,9 @@ X（Twitter）API v2を使用して自動投稿機能を設定するための、
 - プロジェクトとアプリが正しく作成されているか確認
 - ブラウザのキャッシュをクリアして再読み込み
 
-**Q: 投稿が失敗する**
+**Q: 投稿が失敗する（403エラー: Unsupported Authentication）**
+- **重要**: Bearer Tokenは投稿エンドポイントでは使用できません
+- OAuth 1.0a方式の4つの認証情報（API Key, API Secret, Access Token, Access Token Secret）が正しく設定されているか確認
 - 権限が「Read and Write」になっているか確認
 - Access Tokenを再生成してみる
 - ワークフローのログでエラーメッセージを確認

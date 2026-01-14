@@ -40,15 +40,14 @@ X API v2を使用するため、以下のいずれかの方法で認証情報を
 3. 「New repository secret」をクリック
 4. 以下のSecretsを追加：
 
-**Bearer Token方式（推奨）の場合:**
-- Name: `X_BEARER_TOKEN`
-- Value: 取得したBearer Token
-
-**OAuth 1.0a方式の場合:**
+**OAuth 1.0a方式（必須）:**
 - Name: `X_API_KEY` → Value: API Key
 - Name: `X_API_SECRET` → Value: API Secret Key
 - Name: `X_ACCESS_TOKEN` → Value: Access Token
 - Name: `X_ACCESS_TOKEN_SECRET` → Value: Access Token Secret
+
+**注意**: X API v2の投稿エンドポイント（POST /2/tweets）はOAuth 1.0a User Contextが必要です。
+Bearer Token（Application-Only）は投稿には使用できません。
 
 ### 3. ワークフローの確認
 
