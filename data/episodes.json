@@ -10997,6 +10997,22 @@
       "links": [],
       "has_transcript": true,
       "id": 595
+    },
+    {
+      "number": "1.0.19",
+      "title": "ep1.0.19 ドメイン名を決めよう",
+      "date": "2026-01-15",
+      "duration": "11:09",
+      "description": "このポッドキャストのホームページをつくるまえにドメイン名（インターネットの住所）を決めよう。どんな名前で、どんなサービスを使うとよいか雑談です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-19-e3dlk87",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 596
     }
   ]
 }
