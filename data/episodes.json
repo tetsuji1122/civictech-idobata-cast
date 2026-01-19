@@ -11013,6 +11013,28 @@
       "links": [],
       "has_transcript": true,
       "id": 596
+    },
+    {
+      "number": "1.0.20",
+      "title": "ep1.0.20 シビックテック・ジャパンがオープン・ナレッジ・ファウンデーション・ジャパンと連携協定",
+      "date": "2026-01-18",
+      "duration": "9:15",
+      "description": "シビックテック・ジャパンとオープン・ナレッジ・ファウンデーション・ジャパンと連携協定をむすんで、オープンデータデイ2026を盛り上げるニュースを取り上げます。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-20-e3dlkad",
+      "tags": [
+        "シビックテック",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://note.com/ctjp/n/n07895f0c081d"
+        }
+      ],
+      "has_transcript": true,
+      "id": 597
     }
   ]
 }
