@@ -12,6 +12,7 @@ import shutil
 import argparse
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional, Any
+from datetime import datetime
 
 # 共通ユーティリティのインポート
 from utils import (
@@ -190,12 +191,34 @@ def fetch_episodes_from_rss(rss_url: str, limit: Optional[int] = None) -> List[D
     if feed.bozo:
         print(f"[WARNING] RSSフィードの解析にエラーがあります: {feed.bozo_exception}")
     
-    entries_to_process = feed.entries if limit is None else feed.entries[:limit]
+    # エントリを日付順にソート（最新のものが先頭に）
+    # published_parsedが利用可能な場合はそれを使用、なければpublishedをパース
+    def get_entry_date(entry):
+        """エントリの日付を取得（ソート用）"""
+        # feedparserがパース済みの日付を使用（最も確実）
+        if hasattr(entry, 'published_parsed') and entry.published_parsed:
+            return entry.published_parsed
+        # フォールバック: published文字列をパース
+        try:
+            published_str = entry.get('published', '')
+            if published_str:
+                parsed_date = parse_date(published_str)
+                dt = datetime.strptime(parsed_date, "%Y-%m-%d")
+                return dt.timetuple()
+        except (ValueError, AttributeError) as e:
+            # 日付が取得できない場合は古いものとして扱う
+            pass
+        # 日付が取得できない場合は古いものとして扱う
+        return (1970, 1, 1, 0, 0, 0, 0, 0, 0)
+    
+    sorted_entries = sorted(feed.entries, key=get_entry_date, reverse=True)
+    
+    entries_to_process = sorted_entries if limit is None else sorted_entries[:limit]
     
     if limit:
-        print(f"[INFO] 最新{limit}件のエピソードをチェックします")
+        print(f"[INFO] 最新{limit}件のエピソードをチェックします（日付順にソート済み）")
     else:
-        print(f"[INFO] 全{len(feed.entries)}件のエピソードをチェックします")
+        print(f"[INFO] 全{len(feed.entries)}件のエピソードをチェックします（日付順にソート済み）")
     
     episodes = []
     
@@ -203,7 +226,16 @@ def fetch_episodes_from_rss(rss_url: str, limit: Optional[int] = None) -> List[D
         # エピソード番号を抽出
         episode_number = extract_episode_number(entry.title)
         if not episode_number:
-            print(f"[WARNING] エピソード番号が取得できませんでした: {entry.title}")
+            # より詳細な情報を出力
+            published_date = entry.get('published', '日付不明')
+            print(f"[WARNING] エピソード番号が取得できませんでした:")
+            print(f"  タイトル: {entry.title}")
+            print(f"  配信日: {published_date}")
+            print(f"  リンク: {entry.get('link', 'N/A')}")
+            # タイトルに数字.数字.数字のパターンがあるかチェック
+            number_pattern = re.search(r'\d+\.\d+\.\d+', entry.title)
+            if number_pattern:
+                print(f"  注意: タイトルに数字パターン '{number_pattern.group()}' が見つかりましたが、抽出できませんでした")
             continue
         
         # 基本情報を取得

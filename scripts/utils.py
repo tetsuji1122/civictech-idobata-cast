@@ -27,9 +27,21 @@ def extract_episode_number(text: str) -> Optional[str]:
         "1.0.12"
         >>> extract_episode_number("ep0.6.1 FOSS4Gって何？")
         "0.6.1"
+        >>> extract_episode_number("1.0.12 エピソードタイトル")
+        "1.0.12"
     """
+    # パターン1: ep接頭辞付き（例: "ep1.0.12"）
     match = re.search(r'ep(\d+\.\d+\.\d+)', text, re.IGNORECASE)
-    return match.group(1) if match else None
+    if match:
+        return match.group(1)
+    
+    # パターン2: ep接頭辞なしで、数字.数字.数字の形式（例: "1.0.12"）
+    # ただし、タイトルの先頭付近にある場合のみ（誤検出を避けるため）
+    match = re.search(r'(?:^|\s)(\d+\.\d+\.\d+)(?:\s|$)', text)
+    if match:
+        return match.group(1)
+    
+    return None
 
 
 def format_duration(duration_str: str) -> str:
