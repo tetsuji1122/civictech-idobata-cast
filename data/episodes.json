@@ -11035,6 +11035,27 @@
       ],
       "has_transcript": true,
       "id": 597
+    },
+    {
+      "number": "1.0.21",
+      "title": "ep1.0.21 ホームページ開設しました",
+      "date": "2026-01-20",
+      "duration": "10:47",
+      "description": "このポッドキャストのホームページ「idobatacast.com」を開設しました。過去の配信を検索でき、生成AIで作成した全文書き起こしが見ることができますよ。ぜひ使ってくださいね。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-21-e3dlklb",
+      "tags": [
+        "技術"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://idobatacast.com/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 598
     }
   ]
 }
