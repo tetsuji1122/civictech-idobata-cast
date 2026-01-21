@@ -1,0 +1,123 @@
+/* word-trends.html用のスタイル */
+.page-title {
+  color: #003049;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px 0 20px;
+}
+
+.info-alert {
+  background-color: #f5f5f5;
+  border-left-color: #003049 !important;
+  border-left-width: 4px;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.trend-controls {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.trend-timeline {
+  margin-bottom: 40px;
+}
+
+.trend-card {
+  height: 100%;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trend-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 48, 73, 0.15) !important;
+}
+
+.trend-header {
+  align-items: flex-start;
+}
+
+.trend-year {
+  color: #003049;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.trend-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.trend-section-title {
+  color: #003049;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.word-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.word-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.word-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #003049;
+  font-weight: 500;
+}
+
+.word-text {
+  letter-spacing: 0.02em;
+}
+
+.word-count {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.word-bar {
+  height: 8px;
+  background: #f1f1f1;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.word-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #003049, #FFC300);
+  border-radius: 999px;
+}
+
+.trend-subsection {
+  margin-top: 18px;
+}
+
+@media only screen and (max-width: 750px) {
+  .page-title {
+    font-size: 1.8rem;
+    margin-top: 20px;
+  }
+
+  .trend-controls {
+    padding: 16px;
+  }
+
+  .trend-year {
+    font-size: 1.4rem;
+  }
+}
