@@ -11056,6 +11056,23 @@
       ],
       "has_transcript": true,
       "id": 598
+    },
+    {
+      "number": "1.0.22",
+      "title": "ep1.0.22 全文書き起こしデータで遊ぶ",
+      "date": "2026-01-22",
+      "duration": "11:52",
+      "description": "ホームページでエピソードの全文書き起こしデータを公開しています。全文書き起こしデータからどんなことができるか雑談です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-22-e3e0ds4",
+      "tags": [
+        "データ",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 599
     }
   ]
 }
