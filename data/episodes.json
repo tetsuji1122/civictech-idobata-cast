@@ -11073,6 +11073,22 @@
       "links": [],
       "has_transcript": true,
       "id": 599
+    },
+    {
+      "number": "1.0.23",
+      "title": "ep1.0.23 時速600kmの世界",
+      "date": "2026-01-25",
+      "duration": "8:14",
+      "description": "本エピソードが600回になりました。600回記念として600にちなんだ話題を取り上げます。リニアは時速600kmだそうですよ。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-23-600km-e3e0du6",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 600
     }
   ]
 }
