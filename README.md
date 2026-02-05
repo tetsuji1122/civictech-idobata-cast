@@ -21,6 +21,7 @@ civictech-idobata-cast/
 ├── episode-detail.html     # エピソード詳細
 ├── about.html              # このポッドキャストについて
 ├── countdowntimer.html     # 収録用タイマー
+├── word-trends.html        # 頻出ワード年表
 │
 ├── js/                     # JavaScript
 │   ├── config.js          # 共通設定
@@ -35,17 +36,20 @@ civictech-idobata-cast/
 │
 ├── data/                   # データファイル
 │   ├── episodes.json           # エピソード情報
+│   ├── word-trends.json        # 頻出ワード年表データ
 │   └── transcripts/            # 書き起こしJSON
 │
 ├── scripts/                # Pythonスクリプト
 │   ├── transcribe_podcast.py       # 音声書き起こし
 │   ├── edit_transcript.py          # 書き起こし編集（GUI）
-│   └── update_episodes.py          # エピソード更新
+│   ├── update_episodes.py          # エピソード更新
+│   └── analyze_word_trends.py      # 頻出ワード年表生成
 │
 └── docs/                   # ドキュメント
     ├── SCRIPTS_README.md           # スクリプト一覧
     ├── UPDATE_EPISODES_README.md   # エピソード更新ガイド
     ├── TRANSCRIPT_README.md        # トランスクリプト管理
+    ├── WORD_TRENDS_README.md       # 頻出ワード年表ガイド
     ├── CONFIG_README.md            # 共通設定ガイド
     ├── SECURITY_GUIDE.md           # セキュリティガイド
     └── WORKFLOW_GUIDE.md           # ワークフローガイド
@@ -73,7 +77,13 @@ python scripts/transcribe_podcast.py
 python scripts/edit_transcript.py
 ```
 
-詳細は [docs/SCRIPTS_README.md](docs/SCRIPTS_README.md) をご覧ください。
+### 頻出ワード年表生成
+
+```bash
+python scripts/analyze_word_trends.py
+```
+
+詳細は [docs/SCRIPTS_README.md](docs/SCRIPTS_README.md) および [docs/WORD_TRENDS_README.md](docs/WORD_TRENDS_README.md) をご覧ください。
 
 ---
 
@@ -131,6 +141,9 @@ http://localhost:8000 にアクセス
 ## 📚 ドキュメント
 
 - [スクリプト一覧](docs/SCRIPTS_README.md)
+- [エピソード更新](docs/UPDATE_EPISODES_README.md)
+- [書き起こし管理](docs/TRANSCRIPT_README.md)
+- [頻出ワード年表](docs/WORD_TRENDS_README.md)
 - [共通設定](docs/CONFIG_README.md)
 - [セキュリティガイド](docs/SECURITY_GUIDE.md)
 - [ワークフロー](docs/WORKFLOW_GUIDE.md)

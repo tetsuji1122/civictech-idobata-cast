@@ -31,7 +31,11 @@ const CONFIG = {
   paths: {
     episodes: 'data/episodes.json',
     transcripts: 'data/transcripts/',
-    images: 'img/'
+    images: 'img/',
+    wordTrends: 'data/word-trends.json',
+    episodeInsights: 'data/episode-insights.json',
+    sentimentTrends: 'data/sentiment-trends.json',
+    wordNetwork: 'data/word-network.json'
   },
   
   // デフォルト画像

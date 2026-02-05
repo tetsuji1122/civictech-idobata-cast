@@ -1,0 +1,402 @@
+{
+  "generated_at": "2026-01-22T05:59:52.425246",
+  "trends": [
+    {
+      "year": 2021,
+      "episodeCount": 50,
+      "totalWords": 515,
+      "topWords": [
+        {
+          "word": "岐阜",
+          "count": 107
+        },
+        {
+          "word": "日本",
+          "count": 59
+        },
+        {
+          "word": "金沢",
+          "count": 54
+        },
+        {
+          "word": "佐賀",
+          "count": 28
+        },
+        {
+          "word": "新潟",
+          "count": 17
+        },
+        {
+          "word": "石川",
+          "count": 10
+        },
+        {
+          "word": "愛知",
+          "count": 9
+        },
+        {
+          "word": "瀬戸",
+          "count": 9
+        },
+        {
+          "word": "安達",
+          "count": 8
+        },
+        {
+          "word": "ドイツ",
+          "count": 8
+        }
+      ],
+      "risingWords": [],
+      "newWords": [
+        "岐阜",
+        "日本",
+        "金沢",
+        "佐賀",
+        "新潟"
+      ]
+    },
+    {
+      "year": 2022,
+      "episodeCount": 156,
+      "totalWords": 2676,
+      "topWords": [
+        {
+          "word": "岐阜",
+          "count": 353
+        },
+        {
+          "word": "日本",
+          "count": 144
+        },
+        {
+          "word": "ジャパン",
+          "count": 104
+        },
+        {
+          "word": "佐賀",
+          "count": 95
+        },
+        {
+          "word": "安田",
+          "count": 88
+        },
+        {
+          "word": "安達",
+          "count": 86
+        },
+        {
+          "word": "府中",
+          "count": 70
+        },
+        {
+          "word": "千葉",
+          "count": 65
+        },
+        {
+          "word": "福島",
+          "count": 61
+        },
+        {
+          "word": "東京",
+          "count": 60
+        }
+      ],
+      "risingWords": [
+        {
+          "word": "岐阜",
+          "delta": 246
+        },
+        {
+          "word": "ジャパン",
+          "delta": 99
+        },
+        {
+          "word": "日本",
+          "delta": 85
+        },
+        {
+          "word": "安達",
+          "delta": 78
+        },
+        {
+          "word": "府中",
+          "delta": 68
+        }
+      ],
+      "newWords": [
+        "安田",
+        "九州",
+        "奈良",
+        "青森",
+        "大和郡山"
+      ]
+    },
+    {
+      "year": 2023,
+      "episodeCount": 134,
+      "totalWords": 2539,
+      "topWords": [
+        {
+          "word": "岐阜",
+          "count": 289
+        },
+        {
+          "word": "日本",
+          "count": 137
+        },
+        {
+          "word": "安田",
+          "count": 131
+        },
+        {
+          "word": "東京",
+          "count": 93
+        },
+        {
+          "word": "山形",
+          "count": 90
+        },
+        {
+          "word": "ジャパン",
+          "count": 64
+        },
+        {
+          "word": "岩手",
+          "count": 58
+        },
+        {
+          "word": "千葉",
+          "count": 57
+        },
+        {
+          "word": "生駒",
+          "count": 53
+        },
+        {
+          "word": "奈良",
+          "count": 51
+        }
+      ],
+      "risingWords": [
+        {
+          "word": "山形",
+          "delta": 82
+        },
+        {
+          "word": "岩手",
+          "delta": 56
+        },
+        {
+          "word": "安田",
+          "delta": 43
+        },
+        {
+          "word": "東京",
+          "delta": 33
+        },
+        {
+          "word": "三河",
+          "delta": 29
+        }
+      ],
+      "newWords": [
+        "草加",
+        "コジコジ",
+        "豊橋",
+        "白川",
+        "平野"
+      ]
+    },
+    {
+      "year": 2024,
+      "episodeCount": 125,
+      "totalWords": 2546,
+      "topWords": [
+        {
+          "word": "日本",
+          "count": 163
+        },
+        {
+          "word": "岐阜",
+          "count": 148
+        },
+        {
+          "word": "東京",
+          "count": 145
+        },
+        {
+          "word": "足立",
+          "count": 107
+        },
+        {
+          "word": "草津",
+          "count": 96
+        },
+        {
+          "word": "牛島",
+          "count": 87
+        },
+        {
+          "word": "岡本",
+          "count": 68
+        },
+        {
+          "word": "佐賀",
+          "count": 63
+        },
+        {
+          "word": "広島",
+          "count": 55
+        },
+        {
+          "word": "福岡",
+          "count": 48
+        }
+      ],
+      "risingWords": [
+        {
+          "word": "足立",
+          "delta": 105
+        },
+        {
+          "word": "草津",
+          "delta": 94
+        },
+        {
+          "word": "東京",
+          "delta": 52
+        },
+        {
+          "word": "広島",
+          "delta": 52
+        },
+        {
+          "word": "佐賀",
+          "delta": 48
+        }
+      ],
+      "newWords": [
+        "牛島",
+        "岡本",
+        "徳島",
+        "登米",
+        "町田"
+      ]
+    },
+    {
+      "year": 2025,
+      "episodeCount": 124,
+      "totalWords": 2767,
+      "topWords": [
+        {
+          "word": "日本",
+          "count": 276
+        },
+        {
+          "word": "東京",
+          "count": 119
+        },
+        {
+          "word": "岐阜",
+          "count": 101
+        },
+        {
+          "word": "安田",
+          "count": 99
+        },
+        {
+          "word": "福島",
+          "count": 93
+        },
+        {
+          "word": "昭和",
+          "count": 73
+        },
+        {
+          "word": "沖縄",
+          "count": 61
+        },
+        {
+          "word": "大田",
+          "count": 61
+        },
+        {
+          "word": "九州",
+          "count": 57
+        },
+        {
+          "word": "台湾",
+          "count": 41
+        }
+      ],
+      "risingWords": [
+        {
+          "word": "日本",
+          "delta": 113
+        },
+        {
+          "word": "安田",
+          "delta": 97
+        },
+        {
+          "word": "福島",
+          "delta": 92
+        },
+        {
+          "word": "昭和",
+          "delta": 64
+        },
+        {
+          "word": "大田",
+          "delta": 59
+        }
+      ],
+      "newWords": [
+        "浦和",
+        "金砂郷",
+        "立石",
+        "浪江",
+        "印西"
+      ]
+    },
+    {
+      "year": 2026,
+      "episodeCount": 6,
+      "totalWords": 62,
+      "topWords": [
+        {
+          "word": "名古屋",
+          "count": 15
+        },
+        {
+          "word": "日本",
+          "count": 14
+        },
+        {
+          "word": "ジャパン",
+          "count": 6
+        },
+        {
+          "word": "愛知",
+          "count": 4
+        },
+        {
+          "word": "昭和",
+          "count": 3
+        },
+        {
+          "word": "岐阜",
+          "count": 3
+        }
+      ],
+      "risingWords": [
+        {
+          "word": "ローマ",
+          "delta": 1
+        }
+      ],
+      "newWords": []
+    }
+  ]
+}

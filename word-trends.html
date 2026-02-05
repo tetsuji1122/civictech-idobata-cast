@@ -24,6 +24,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/word-trends.css" rel="stylesheet">
 </head>
@@ -125,23 +126,25 @@
       <v-container>
         <h1 class="page-title">頻出ワード年表</h1>
 
-        <v-alert
-          border="left"
-          elevation="0"
-          outlined
-          class="info-alert"
-        >
-          書き起こし全文から年別に頻出ワードを抽出したサンプル年表です。
-          実データではなく仮データで表示しています。
-        </v-alert>
+        <!-- ローディング -->
+        <v-row v-if="loading" justify="center" class="my-12">
+          <v-col cols="12" class="text-center">
+            <v-progress-circular indeterminate color="#003049" size="64"></v-progress-circular>
+            <div class="mt-3" style="color: #003049; font-weight: 500;">年表データを読み込み中...</div>
+          </v-col>
+        </v-row>
+
+        <!-- データ表示 -->
+        <div v-else>
 
         <div class="trend-controls">
           <v-row align="center">
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="3">
               <v-select
-                v-model="selectedYear"
+                v-model="selectedYears"
                 :items="yearOptions"
-                label="年を選択"
+                label="年を選択（複数可）"
+                multiple
                 outlined
                 dense
                 clearable
@@ -150,7 +153,34 @@
                 prepend-inner-icon="mdi-calendar"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="3">
+              <v-select
+                v-model="selectedTag"
+                :items="tagOptions"
+                label="タグで絞り込み"
+                item-text="text"
+                item-value="value"
+                outlined
+                dense
+                clearable
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-tag"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="3">
+              <v-text-field
+                v-model="searchQuery"
+                label="検索ワード"
+                outlined
+                dense
+                clearable
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-magnify"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="3">
               <v-select
                 v-model="selectedMetric"
                 :items="metricOptions"
@@ -162,7 +192,7 @@
                 prepend-inner-icon="mdi-chart-bar"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="6">
               <v-switch
                 v-model="showDelta"
                 label="前年との差分を表示"
@@ -170,10 +200,100 @@
                 color="#003049"
               ></v-switch>
             </v-col>
+            <v-col cols="12" md="6" class="text-right">
+              <v-btn color="#003049" outlined @click="resetFilters">
+                <v-icon left>mdi-filter-remove</v-icon>
+                フィルタをクリア
+              </v-btn>
+            </v-col>
           </v-row>
         </div>
 
-        <div class="trend-timeline">
+        <div class="dashboard-section">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-card class="dashboard-card" elevation="3">
+                <v-card-title class="dashboard-title">
+                  <v-icon left color="#003049">mdi-chart-line</v-icon>
+                  センチメント推移
+                </v-card-title>
+                <v-card-text>
+                  <canvas ref="sentimentChart" class="chart-canvas"></canvas>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-card class="dashboard-card" elevation="3">
+                <v-card-title class="dashboard-title">
+                  <v-icon left color="#003049">mdi-graph</v-icon>
+                  単語ネットワーク
+                </v-card-title>
+                <v-card-text>
+                  <div ref="networkContainer" class="network-container"></div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12">
+              <v-card class="dashboard-card" elevation="3">
+                <v-card-title class="dashboard-title">
+                  <v-icon left color="#003049">mdi-compare</v-icon>
+                  エピソード類似度
+                </v-card-title>
+                <v-card-text>
+                  <v-row align="center">
+                    <v-col cols="12" md="6">
+                      <v-select
+                        v-model="selectedEpisodeId"
+                        :items="episodeOptions"
+                        label="基準エピソード"
+                        item-text="text"
+                        item-value="value"
+                        outlined
+                        dense
+                        clearable
+                        hide-details
+                        color="#003049"
+                        prepend-inner-icon="mdi-play-circle"
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-row v-if="selectedEpisode">
+                    <v-col cols="12">
+                      <div class="similarity-list">
+                        <div
+                          v-for="episode in selectedEpisode.similarEpisodes"
+                          :key="episode.id"
+                          class="similarity-item"
+                        >
+                          <div>
+                            <div class="similarity-title">{{ episode.number }} {{ episode.title }}</div>
+                            <div class="similarity-score">類似度: {{ formatScore(episode.score) }}</div>
+                          </div>
+                          <v-btn
+                            color="#003049"
+                            text
+                            :href="'episode-detail.html?id=' + episode.id"
+                          >
+                            詳細を見る
+                            <v-icon right>mdi-arrow-right</v-icon>
+                          </v-btn>
+                        </div>
+                      </div>
+                    </v-col>
+                  </v-row>
+                  <div v-else class="similarity-placeholder">
+                    エピソードを選択すると類似回を表示します。
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
+
+        <div v-if="!loading" class="trend-timeline">
           <v-row>
             <v-col
               v-for="trend in filteredTrends"
@@ -250,6 +370,7 @@
             </v-col>
           </v-row>
         </div>
+        </div>
       </v-container>
     </v-main>
 
@@ -279,6 +400,8 @@
 <!-- Vue.js を読み込む -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/word-trends.js"></script>

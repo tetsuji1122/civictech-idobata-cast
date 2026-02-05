@@ -22,6 +22,70 @@
   margin-bottom: 30px;
 }
 
+.dashboard-section {
+  margin-bottom: 40px;
+}
+
+.dashboard-card {
+  height: 100%;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 48, 73, 0.15) !important;
+}
+
+.dashboard-title {
+  color: #003049;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.chart-canvas {
+  width: 100%;
+  max-height: 280px;
+}
+
+.network-container {
+  height: 320px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.similarity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.similarity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.similarity-title {
+  color: #003049;
+  font-weight: 600;
+}
+
+.similarity-score {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.similarity-placeholder {
+  color: #666;
+  font-size: 0.95rem;
+  padding: 10px 0;
+}
+
 .trend-timeline {
   margin-bottom: 40px;
 }
@@ -115,6 +179,20 @@
 
   .trend-controls {
     padding: 16px;
+  }
+
+  .dashboard-title {
+    font-size: 1rem;
+  }
+
+  .network-container {
+    height: 260px;
+  }
+
+  .similarity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .trend-year {

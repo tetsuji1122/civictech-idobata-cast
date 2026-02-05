@@ -9,7 +9,8 @@ civictech-idobata-cast/
 ├── scripts/                    # Pythonスクリプト
 │   ├── transcribe_podcast.py           # 音声書き起こし
 │   ├── edit_transcript.py              # 書き起こし編集（GUI）
-│   └── update_episodes.py              # エピソード更新
+│   ├── update_episodes.py              # エピソード更新
+│   └── analyze_word_trends.py          # 頻出ワード年表生成
 │
 ├── docs/                       # ドキュメント
 │   ├── UPDATE_EPISODES_README.md       # 更新ツールのガイド
@@ -20,6 +21,7 @@ civictech-idobata-cast/
 │
 └── data/                       # データファイル
     ├── episodes.json                   # エピソード情報
+    ├── word-trends.json                # 頻出ワード年表データ
     └── transcripts/                    # 書き起こしJSON
 ```
 
@@ -145,6 +147,36 @@ python scripts/update_episodes.py --limit 50
 ```
 
 **詳細:** [docs/UPDATE_EPISODES_README.md](UPDATE_EPISODES_README.md)
+
+---
+
+### 4. `analyze_word_trends.py` - 頻出ワード年表生成
+
+書き起こしデータから年別の頻出ワードを抽出し、年表データを生成します。
+
+**機能:**
+- MeCabを使用した形態素解析
+- 年別の頻出ワードTop10を抽出
+- 前年比の増加ワードを計算
+- 新規登場ワードを抽出
+
+**使い方:**
+```bash
+# 基本的な使い方
+python scripts/analyze_word_trends.py
+```
+
+**必要な環境:**
+- MeCab（`mecab-python3`、`unidic-lite`）
+- `scikit-learn`（類似度計算）
+
+**出力:**
+- `data/word-trends.json`: 年表データ（JSON形式）
+- `data/episode-insights.json`: エピソード洞察データ
+- `data/sentiment-trends.json`: センチメント推移
+- `data/word-network.json`: 単語ネットワーク
+
+**詳細:** [docs/WORD_TRENDS_README.md](WORD_TRENDS_README.md)
 
 ---
 
