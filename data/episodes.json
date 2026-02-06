@@ -11089,6 +11089,28 @@
       "links": [],
       "has_transcript": true,
       "id": 600
+    },
+    {
+      "number": "1.1.0",
+      "title": "ep1.1.0 オープンデータデイ　プレイベント",
+      "date": "2026-02-05",
+      "duration": "12:14",
+      "description": "2.11に開催されるオープンデータデイのプレイベントを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-0-e3emlo6",
+      "tags": [
+        "イベント",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday2026.peatix.com/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 601
     }
   ]
 }
