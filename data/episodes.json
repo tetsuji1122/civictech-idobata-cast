@@ -11111,6 +11111,27 @@
       ],
       "has_transcript": true,
       "id": 601
+    },
+    {
+      "number": "1.1.1",
+      "title": "ep1.1.1 UDC2025一次審査通過作品紹介",
+      "date": "2026-02-08",
+      "duration": "12:46",
+      "description": "今年のアーバンデータチャレンジの一次審査を通過した作品が公開されました。気になる作品を紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-1-UDC2025-e3emm4i",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://urbandata-challenge.jp/news/2025-finalist"
+        }
+      ],
+      "has_transcript": true,
+      "id": 602
     }
   ]
 }
