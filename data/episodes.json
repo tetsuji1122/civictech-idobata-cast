@@ -11132,6 +11132,22 @@
       ],
       "has_transcript": true,
       "id": 602
+    },
+    {
+      "number": "1.1.2",
+      "title": "ep1.1.2 zoomの代わりを探そう！",
+      "date": "2026-02-10",
+      "duration": "13:11",
+      "description": "オンラインミーティングツールのzoomの代わりになりそうなサービスを探しますよ。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-2-zoom-e3emmec",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 603
     }
   ]
 }
