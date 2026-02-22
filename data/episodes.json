@@ -11165,6 +11165,22 @@
       "links": [],
       "has_transcript": true,
       "id": 604
+    },
+    {
+      "number": "1.1.4",
+      "title": "ep1.1.4 トラステッド・ウェブって何ですか？",
+      "date": "2026-02-22",
+      "duration": "13:06",
+      "description": "Trusted Webは「インターネットに新しい信頼の枠組みを付加する」ための日本政府の取り組みです。どんなことなのか解説しますよ。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-4-e3f9gut",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 605
     }
   ]
 }
