@@ -11197,6 +11197,28 @@
       "links": [],
       "has_transcript": true,
       "id": 606
+    },
+    {
+      "number": "1.1.6",
+      "title": "ep1.1.6 本日開幕！データの祭典へようこそ@OpenDataDay",
+      "date": "2026-03-06",
+      "duration": "5:17",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。オープンデータデイのイベントを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-6-OpenDataDay-e3fk154",
+      "tags": [
+        "イベント",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 607
     }
   ]
 }
