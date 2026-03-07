@@ -11219,6 +11219,27 @@
       ],
       "has_transcript": true,
       "id": 607
+    },
+    {
+      "number": "1.1.7",
+      "title": "ep1.1.7 地図はみんなでつくるもの@OpenDataDay",
+      "date": "2026-03-07",
+      "duration": "6:16",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。Day2のテーマは地図はみんなでつくるものです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-7-OpenDataDay-e3fk176",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 608
     }
   ]
 }
