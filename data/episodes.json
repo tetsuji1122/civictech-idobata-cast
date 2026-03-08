@@ -11240,6 +11240,27 @@
       ],
       "has_transcript": true,
       "id": 608
+    },
+    {
+      "number": "1.1.8",
+      "title": "ep1.1.8 行政データをもっと身近に@OpenDataDay",
+      "date": "2026-03-08",
+      "duration": "6:03",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。Day3のテーマは行政データをもっと身近にです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-8-OpenDataDay-e3fk1cr",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 609
     }
   ]
 }
