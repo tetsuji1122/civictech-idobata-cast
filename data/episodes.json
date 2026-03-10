@@ -11282,6 +11282,27 @@
       ],
       "has_transcript": true,
       "id": 610
+    },
+    {
+      "number": "1.1.10",
+      "title": "ep1.1.10 私たちの生活に寄り添うデータ@OpenDataDay",
+      "date": "2026-03-10",
+      "duration": "6:03",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。Day5のテーマは私たちの生活に寄り添うデータです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-10-OpenDataDay-e3fk1vl",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 611
     }
   ]
 }
