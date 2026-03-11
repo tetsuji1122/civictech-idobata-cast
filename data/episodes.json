@@ -11303,6 +11303,28 @@
       ],
       "has_transcript": true,
       "id": 611
+    },
+    {
+      "number": "1.1.11",
+      "title": "ep1.1.11 文化と歴史をデジタルで残す@OpenDataDay",
+      "date": "2026-03-11",
+      "duration": "6:54",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。Day6のテーマは文化と歴史をデジタルで残すです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-11-OpenDataDay-e3fk23a",
+      "tags": [
+        "データ",
+        "文化"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 612
     }
   ]
 }
