@@ -11325,6 +11325,28 @@
       ],
       "has_transcript": true,
       "id": 612
+    },
+    {
+      "number": "1.1.12",
+      "title": "ep1.1.12 明日からのシビックテック@OpenDataDay",
+      "date": "2026-03-12",
+      "duration": "6:13",
+      "description": "世界中でデータを開放し、活用を祝う『オープンデータデイ2026』のメインデーです。7日間連続で配信します。Day7のテーマは明日からのシビックテックです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-12-OpenDataDay-e3fk24r",
+      "tags": [
+        "シビックテック",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://opendataday.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 613
     }
   ]
 }
