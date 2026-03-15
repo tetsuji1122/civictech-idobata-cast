@@ -11347,6 +11347,23 @@
       ],
       "has_transcript": true,
       "id": 613
+    },
+    {
+      "number": "1.1.13",
+      "title": "ep1.1.13 バウムクーヘンの歴史",
+      "date": "2026-03-15",
+      "duration": "9:10",
+      "description": "3月4日はバウムクーヘンの日ということで、バウムクーヘンの歴史を雑談します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-13-e3fun33",
+      "tags": [
+        "文化",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 614
     }
   ]
 }
