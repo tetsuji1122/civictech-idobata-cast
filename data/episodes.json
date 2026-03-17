@@ -11364,6 +11364,22 @@
       "links": [],
       "has_transcript": true,
       "id": 614
+    },
+    {
+      "number": "1.1.14",
+      "title": "ep1.1.14 Cキャス企画会議 Discordで収録してみよう",
+      "date": "2026-03-17",
+      "duration": "11:04",
+      "description": "チャットツールであるDiscordをつかってポッドキャストの収録をしてみますよ。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-14-C-Discord-e3fun5p",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 615
     }
   ]
 }
