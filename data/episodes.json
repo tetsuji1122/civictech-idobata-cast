@@ -11380,6 +11380,24 @@
       "links": [],
       "has_transcript": true,
       "id": 615
+    },
+    {
+      "number": "1.1.15",
+      "title": "ep1.1.15 オープンデータデイ（佐賀、熊本、長崎）参加レポート",
+      "date": "2026-03-19",
+      "duration": "12:21",
+      "description": "オープンデータデイに開催されたイベントへの参加レポートです。佐賀、熊本、長崎の取り組みを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-15-e3ga9rf",
+      "tags": [
+        "イベント",
+        "データ",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 616
     }
   ]
 }
