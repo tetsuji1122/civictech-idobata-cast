@@ -11398,6 +11398,23 @@
       "links": [],
       "has_transcript": true,
       "id": 616
+    },
+    {
+      "number": "1.1.16",
+      "title": "ep1.1.16 オープンデータデイ埼玉（さいたま、戸田）参加レポート",
+      "date": "2026-03-22",
+      "duration": "15:41",
+      "description": "オープンデータデイに開催されたイベントの参加レポートです。埼玉、戸田の取り組みを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-16-e3ga9tm",
+      "tags": [
+        "イベント",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 617
     }
   ]
 }
