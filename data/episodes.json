@@ -11415,6 +11415,29 @@
       "links": [],
       "has_transcript": true,
       "id": 617
+    },
+    {
+      "number": "1.1.17",
+      "title": "ep1.1.17 Cキャス会議　オープンデータカタログ 「Civic Tech Field Guide」 に登録しよう",
+      "date": "2026-03-24",
+      "duration": "23:01",
+      "description": "「Civic Tech Field Guide」に登録します。東京大学シビックテック・デザイン学創成寄付研究部門（CTDI）による研究活動の一環として日本の優れたシビックテックの取り組みを世界へ発信します。回答フォーム",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-17-C--Civic-Tech-Field-Guide-e3gmvla",
+      "tags": [
+        "シビックテック",
+        "データ",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://forms.gle/Bf9ZZa2ERufGmtfA8"
+        }
+      ],
+      "has_transcript": false,
+      "id": 618
     }
   ]
 }
