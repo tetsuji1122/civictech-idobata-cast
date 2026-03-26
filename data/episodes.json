@@ -11438,6 +11438,22 @@
       ],
       "has_transcript": true,
       "id": 618
+    },
+    {
+      "number": "1.1.18",
+      "title": "ep1.1.18 フルスタック型AIサービスとは？",
+      "date": "2026-03-26",
+      "duration": "13:26",
+      "description": "フルスタック型AIサービスを紹介します。バイブコーディングでいろいろなサービスがつくれちゃいます。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-18-AI-e3gmvrr",
+      "tags": [
+        "技術"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 619
     }
   ]
 }
