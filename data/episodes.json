@@ -11454,6 +11454,27 @@
       "links": [],
       "has_transcript": true,
       "id": 619
+    },
+    {
+      "number": "1.1.19",
+      "title": "ep1.1.19 #桜咲プロジェクトを紹介します",
+      "date": "2026-03-29",
+      "duration": "8:19",
+      "description": "桜の写真をとってオープンデータとして共有する取り組みを紹介します。桜咲プロジェクト",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-19-e3h156u",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://note.com/yukimat/n/n230284cc3031"
+        }
+      ],
+      "has_transcript": true,
+      "id": 620
     }
   ]
 }
