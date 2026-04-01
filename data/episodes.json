@@ -11475,6 +11475,22 @@
       ],
       "has_transcript": true,
       "id": 620
+    },
+    {
+      "number": "1.1.20",
+      "title": "ep1.1.20 エイプリルフールの歴史",
+      "date": "2026-03-31",
+      "duration": "11:31",
+      "description": "今日はエイプリルフールです。エイプリルフールの歴史を紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-20-e3h15aj",
+      "tags": [
+        "文化"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 621
     }
   ]
 }
