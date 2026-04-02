@@ -11491,6 +11491,28 @@
       "links": [],
       "has_transcript": true,
       "id": 621
+    },
+    {
+      "number": "1.1.21",
+      "title": "ep1.1.21 Civic Tech Fun Fun Report",
+      "date": "2026-04-02",
+      "duration": "9:20",
+      "description": "Code for Japanの取り組みで、Civic Tech Fun Fun Reportを紹介します。毎月発行されるシビックテック活動のブログです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-21-Civic-Tech-Fun-Fun-Report-e3h15d7",
+      "tags": [
+        "Code for",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://www.code4japan.org/news"
+        }
+      ],
+      "has_transcript": true,
+      "id": 622
     }
   ]
 }
