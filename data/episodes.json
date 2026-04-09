@@ -11513,6 +11513,27 @@
       ],
       "has_transcript": true,
       "id": 622
+    },
+    {
+      "number": "1.1.22",
+      "title": "ep1.1.22【2026年度】シビックテック・デザイン学講座",
+      "date": "2026-04-09",
+      "duration": "13:04",
+      "description": "シビックテック・デザイン学講座の募集のお知らせです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-222026-e3hkh4o",
+      "tags": [
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://dss.csis.u-tokyo.ac.jp/event/lecture_ctdi_2026/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 623
     }
   ]
 }
