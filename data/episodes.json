@@ -11534,6 +11534,22 @@
       ],
       "has_transcript": true,
       "id": 623
+    },
+    {
+      "number": "1.1.23",
+      "title": "ep1.1.23 Cキャス企画会議　お金のこと",
+      "date": "2026-04-12",
+      "duration": "15:18",
+      "description": "ポッドキャストをはじめるのにどれぐらいのお金がかかるか雑談します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-1-23-C-e3hkh70",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 624
     }
   ]
 }
