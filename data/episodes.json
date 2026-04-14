@@ -11550,6 +11550,23 @@
       "links": [],
       "has_transcript": true,
       "id": 624
+    },
+    {
+      "number": "1.2.0",
+      "title": "ep1.2.0 キーボードの世界",
+      "date": "2026-04-14",
+      "duration": "18:44",
+      "description": "キーボードの歴史について雑談します。みなさんはどんなキーボードをつかっていますか？",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-0-e3hkh8h",
+      "tags": [
+        "文化",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 625
     }
   ]
 }
