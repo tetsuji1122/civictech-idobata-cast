@@ -221,7 +221,7 @@ class TranscriptEditor:
             return
         
         files = list(TRANSCRIPTS_DIR.glob("*.json"))
-        files.sort(key=lambda f: natural_sort_key(f.name))
+        files.sort(key=lambda f: f.stat().st_mtime, reverse=True)
         self.file_list = files
         
         file_names = [f.name for f in files]

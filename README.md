@@ -106,8 +106,7 @@ python scripts/analyze_word_trends.py
 **設定方法**:
 1. GitHubリポジトリの「Settings」→「Secrets and variables」→「Actions」を開く
 2. 以下のSecretsを追加：
-   - `X_BEARER_TOKEN`（推奨）: X API v2のBearer Token
-   - または OAuth 1.0a方式の場合：
+   - OAuth 1.0a方式:
      - `X_API_KEY`
      - `X_API_SECRET`
      - `X_ACCESS_TOKEN`
@@ -140,13 +139,7 @@ http://localhost:8000 にアクセス
 
 ## 📚 ドキュメント
 
-- [スクリプト一覧](docs/SCRIPTS_README.md)
-- [エピソード更新](docs/UPDATE_EPISODES_README.md)
-- [書き起こし管理](docs/TRANSCRIPT_README.md)
-- [頻出ワード年表](docs/WORD_TRENDS_README.md)
-- [共通設定](docs/CONFIG_README.md)
-- [セキュリティガイド](docs/SECURITY_GUIDE.md)
-- [ワークフロー](docs/WORKFLOW_GUIDE.md)
+- [ドキュメント索引](docs/README.md)
 
 ---
 
