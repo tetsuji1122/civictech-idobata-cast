@@ -11583,6 +11583,23 @@
       "links": [],
       "has_transcript": true,
       "id": 626
+    },
+    {
+      "number": "1.2.2",
+      "title": "ep1.2.2 早稲田大学の丸山さん",
+      "date": "2026-04-26",
+      "duration": "9:31",
+      "description": "早稲田大学の丸山さんをゲストに迎えて、シビックテックを知ったキッカケやシビックテックの埼玉をレポートした話を伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-2-e3ieg63",
+      "tags": [
+        "ゲスト",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": false,
+      "id": 627
     }
   ]
 }
