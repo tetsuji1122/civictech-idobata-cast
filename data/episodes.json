@@ -11600,6 +11600,23 @@
       "links": [],
       "has_transcript": true,
       "id": 627
+    },
+    {
+      "number": "1.2.3",
+      "title": "ep1.2.3 OpenStreetMapについて教えて",
+      "date": "2026-04-30",
+      "duration": "21:27",
+      "description": "早稲田大学の丸山さんをゲストに迎えて、OpenStreetMapの活動についていろいろと雑談します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-3-OpenStreetMap-e3ieg7i",
+      "tags": [
+        "ゲスト",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 628
     }
   ]
 }
