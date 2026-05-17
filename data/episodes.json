@@ -11656,6 +11656,27 @@
       ],
       "has_transcript": true,
       "id": 630
+    },
+    {
+      "number": "1.2.6",
+      "title": "ep1.2.6 CIVIC TECH FORUM 2026 その２",
+      "date": "2026-05-17",
+      "duration": "9:23",
+      "description": "5/23に開催されるCIVIC TECH FORUM 2026を紹介します。CIVIC TECH FORUM 2026",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-6-CIVIC-TECH-FORUM-2026-e3jb2g4",
+      "tags": [
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://ctf2026.peatix.com/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 631
     }
   ]
 }
