@@ -11677,6 +11677,22 @@
       ],
       "has_transcript": true,
       "id": 631
+    },
+    {
+      "number": "1.2.7",
+      "title": "ep1.2.7 くいだおれの街：大阪のおいしいもの",
+      "date": "2026-05-19",
+      "duration": "9:41",
+      "description": "大阪は「食い倒れ」の街です。せっかく大阪にいくのでおいしいものを食べてみたい。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-7-e3jb2j4",
+      "tags": [
+        "ライフスタイル"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 632
     }
   ]
 }
