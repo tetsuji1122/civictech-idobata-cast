@@ -11693,6 +11693,23 @@
       "links": [],
       "has_transcript": true,
       "id": 632
+    },
+    {
+      "number": "1.2.8",
+      "title": "ep1.2.8 たこ焼きのルーツ",
+      "date": "2026-05-21",
+      "duration": "13:47",
+      "description": "たこ焼きの歴史とたこ焼きに関するデータを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-8-e3jnaqc",
+      "tags": [
+        "データ",
+        "文化"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 633
     }
   ]
 }
