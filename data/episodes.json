@@ -11710,6 +11710,27 @@
       "links": [],
       "has_transcript": true,
       "id": 633
+    },
+    {
+      "number": "1.2.9",
+      "title": "ep1.2.9 大阪なんでもランキング",
+      "date": "2026-05-24",
+      "duration": "10:50",
+      "description": "大阪の特徴をさまざまなランキングから考えます。都道府県ランキング（大阪）",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-9-e3jnas8",
+      "tags": [
+        "イベント"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://todo-ran.com/t/tdfk/osaka"
+        }
+      ],
+      "has_transcript": true,
+      "id": 634
     }
   ]
 }
