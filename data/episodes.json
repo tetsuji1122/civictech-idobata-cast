@@ -11731,6 +11731,23 @@
       ],
       "has_transcript": true,
       "id": 634
+    },
+    {
+      "number": "1.2.10",
+      "title": "ep1.2.10 CIVIC TECH FORUM 2026 ふりかえり",
+      "date": "2026-05-28",
+      "duration": "15:06",
+      "description": "5/23に開催されたCIVIC TECH FORUM 2026をふりかえります。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-10-CIVIC-TECH-FORUM-2026-e3k1mq8",
+      "tags": [
+        "イベント",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 635
     }
   ]
 }
