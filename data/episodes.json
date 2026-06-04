@@ -11748,6 +11748,23 @@
       "links": [],
       "has_transcript": true,
       "id": 635
+    },
+    {
+      "number": "1.2.11",
+      "title": "ep1.2.11 志塾フリースクールラシーナの田重田さん",
+      "date": "2026-06-04",
+      "duration": "9:23",
+      "description": "志塾フリースクールラシーナの田重田さんをゲストに迎えて、シビックテックに関わったキッカケや普段やっていることを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-11-e3ka6q8",
+      "tags": [
+        "ゲスト",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 636
     }
   ]
 }
