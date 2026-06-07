@@ -11765,6 +11765,28 @@
       "links": [],
       "has_transcript": true,
       "id": 636
+    },
+    {
+      "number": "1.2.12",
+      "title": "ep1.2.12 地域に開かれた場所でフリースクール",
+      "date": "2026-06-07",
+      "duration": "11:46",
+      "description": "志塾フリースクールラシーナの田重田さんをゲストに迎えて、駄菓子屋やカフェもある「泉北BASE」をはじめたキッカケを伺います。泉北BASE",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-12-e3ka6t7",
+      "tags": [
+        "ゲスト",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://www.senbokubase.shijuku-fs.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 637
     }
   ]
 }
