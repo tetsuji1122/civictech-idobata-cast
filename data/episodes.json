@@ -11787,6 +11787,23 @@
       ],
       "has_transcript": true,
       "id": 637
+    },
+    {
+      "number": "1.2.13",
+      "title": "ep1.2.13 AIにはまっています",
+      "date": "2026-06-09",
+      "duration": "12:09",
+      "description": "志塾フリースクールラシーナの田重田さんをゲストに迎えて、AIをつかってフリースクール運営で蓄積された「暗黙知」を、AIの力でどう形式知化するのか？を伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-13-AI-e3ka763",
+      "tags": [
+        "ゲスト",
+        "技術"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 638
     }
   ]
 }
