@@ -11804,6 +11804,23 @@
       "links": [],
       "has_transcript": true,
       "id": 638
+    },
+    {
+      "number": "1.2.14",
+      "title": "ep1.2.14 梅雨とデータ",
+      "date": "2026-06-11",
+      "duration": "13:47",
+      "description": "全国各地で梅雨入りしましたね。梅雨とデータにまつわる雑談です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-14-e3kke2l",
+      "tags": [
+        "データ",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 639
     }
   ]
 }
