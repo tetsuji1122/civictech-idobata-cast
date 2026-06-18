@@ -11860,6 +11860,23 @@
       ],
       "has_transcript": true,
       "id": 641
+    },
+    {
+      "number": "1.2.17",
+      "title": "ep1.2.17 石高プロジェクトの長橋さん",
+      "date": "2026-06-18",
+      "duration": "9:09",
+      "description": "石高プロジェクトの長橋さんをゲストに迎えて、シビックテックに関わったキッカケを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-17-e3kvt46",
+      "tags": [
+        "ゲスト",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 642
     }
   ]
 }
