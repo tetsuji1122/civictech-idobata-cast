@@ -11877,6 +11877,27 @@
       "links": [],
       "has_transcript": true,
       "id": 642
+    },
+    {
+      "number": "1.2.18",
+      "title": "ep1.2.18 石高プロジェクトをご紹介",
+      "date": "2026-06-21",
+      "duration": "15:35",
+      "description": "石高プロジェクトの長橋さんをゲストに石高プロジェクトを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-18-e3kvtd2",
+      "tags": [
+        "ゲスト"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://www.kokudaka.jp/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 643
     }
   ]
 }
