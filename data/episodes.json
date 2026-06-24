@@ -11898,6 +11898,27 @@
       ],
       "has_transcript": true,
       "id": 643
+    },
+    {
+      "number": "1.2.19",
+      "title": "ep1.2.19 田んぼづくりをやっています",
+      "date": "2026-06-23",
+      "duration": "12:18",
+      "description": "石高プロジェクトの長橋さんをゲストに迎え、田んぼづくりを紹介してもらいます。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-19-e3kvtf0",
+      "tags": [
+        "ゲスト"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://www.kokudaka.jp/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 644
     }
   ]
 }
