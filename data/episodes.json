@@ -11919,6 +11919,28 @@
       ],
       "has_transcript": true,
       "id": 644
+    },
+    {
+      "number": "1.2.20",
+      "title": "ep1.2.20 勝手にイベント紹介：Code for Kusatsu 10周年",
+      "date": "2026-07-02",
+      "duration": "9:09",
+      "description": "勝手にイベント紹介：7/12に開催予定のCode for Kusatsu 10周年を紹介します。申し込みフォーム",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-20-Code-for-Kusatsu-10-e3lhnnb",
+      "tags": [
+        "イベント",
+        "Code for"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://forms.gle/Fi2coTjQyQ7Afbzf9"
+        }
+      ],
+      "has_transcript": false,
+      "id": 645
     }
   ]
 }
