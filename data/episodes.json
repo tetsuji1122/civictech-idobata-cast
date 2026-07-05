@@ -11941,6 +11941,22 @@
       ],
       "has_transcript": true,
       "id": 645
+    },
+    {
+      "number": "1.2.21",
+      "title": "ep1.2.21 SVGMapって何ですか？",
+      "date": "2026-07-05",
+      "duration": "12:22",
+      "description": "SVGMapというのが面白そうです。「ウェブ地図サービスを同じ地図上に重ねて描画できる「ハイパーレイヤリング」という技術」頼しい",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-21-SVGMap-e3lhnqc",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 646
     }
   ]
 }
