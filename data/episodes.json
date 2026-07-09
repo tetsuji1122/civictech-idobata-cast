@@ -11957,6 +11957,23 @@
       "links": [],
       "has_transcript": true,
       "id": 646
+    },
+    {
+      "number": "1.2.22",
+      "title": "ep1.2.22 ちばレポの松島さん",
+      "date": "2026-07-09",
+      "duration": "12:00",
+      "description": "ちばレポの松島さんをゲストに迎えて、シビックテックに関わったキッカケを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-22-e3lsjvu",
+      "tags": [
+        "ゲスト",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 647
     }
   ]
 }
