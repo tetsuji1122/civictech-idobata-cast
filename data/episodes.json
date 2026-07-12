@@ -11974,6 +11974,23 @@
       "links": [],
       "has_transcript": true,
       "id": 647
+    },
+    {
+      "number": "1.2.23",
+      "title": "ep1.2.23 ちばレポの誕生秘話と３次元データ",
+      "date": "2026-07-12",
+      "duration": "14:26",
+      "description": "ちばレポの松島さんをゲストに迎えて、ちばレポの誕生秘話と３次元データを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-2-23-e3lsk1p",
+      "tags": [
+        "ゲスト",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 648
     }
   ]
 }
