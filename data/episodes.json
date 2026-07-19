@@ -12025,6 +12025,23 @@
       "links": [],
       "has_transcript": true,
       "id": 650
+    },
+    {
+      "number": "1.3.2",
+      "title": "ep1.3.2 Cキャス企画会議　データでふりかえり",
+      "date": "2026-07-19",
+      "duration": "13:37",
+      "description": "Cキャス企画会議です。2026年上半期の配信をデータでふりかえります。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-2-C-e3m66a8",
+      "tags": [
+        "イベント",
+        "データ"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 651
     }
   ]
 }
