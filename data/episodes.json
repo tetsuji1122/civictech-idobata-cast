@@ -12108,6 +12108,24 @@
       "links": [],
       "has_transcript": true,
       "id": 655
+    },
+    {
+      "number": "1.3.7",
+      "title": "ep1.3.7 草津市議会議員の藤本さん",
+      "date": "2026-07-30",
+      "duration": "9:47",
+      "description": "草津市議会議員の藤本さんをゲストに迎えて、シビックテックに関わったキッカケを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-7-e3mnh10",
+      "tags": [
+        "ゲスト",
+        "シビックテック",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 656
     }
   ]
 }
