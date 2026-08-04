@@ -12143,6 +12143,23 @@
       "links": [],
       "has_transcript": true,
       "id": 657
+    },
+    {
+      "number": "1.3.9",
+      "title": "ep1.3.9 おにぎらずと窯焼きピッツァ",
+      "date": "2026-08-04",
+      "duration": "12:27",
+      "description": "草津市議会議員の藤本さんをゲストに迎えて、お弁当の手間を減らすおにぎらずと地元でおいししい窯焼きピッツァを紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-9-e3mnh83",
+      "tags": [
+        "ゲスト",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 658
     }
   ]
 }
