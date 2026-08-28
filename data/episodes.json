@@ -12160,6 +12160,22 @@
       "links": [],
       "has_transcript": true,
       "id": 658
+    },
+    {
+      "number": "1.3.10",
+      "title": "ep1.3.10 お盆のルーツと各地の行事",
+      "date": "2026-08-27",
+      "duration": "8:58",
+      "description": "日本各地のお盆のルーツとディープな行事を紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-10-e3o03ol",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 659
     }
   ]
 }
