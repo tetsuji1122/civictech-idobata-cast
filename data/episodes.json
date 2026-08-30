@@ -12176,6 +12176,22 @@
       "links": [],
       "has_transcript": true,
       "id": 659
+    },
+    {
+      "number": "1.3.11",
+      "title": "ep1.3.11 渋滞予測ってどうやるの？",
+      "date": "2026-08-30",
+      "duration": "12:04",
+      "description": "渋滞予測のベースは「過去3年分の実績の重ね合わせ」だそうです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-11-e3o03q0",
+      "tags": [
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 660
     }
   ]
 }
