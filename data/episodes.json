@@ -12192,6 +12192,28 @@
       "links": [],
       "has_transcript": true,
       "id": 660
+    },
+    {
+      "number": "1.3.12",
+      "title": "ep1.3.12 Code for Japan Summit 2026",
+      "date": "2026-09-10",
+      "duration": "11:05",
+      "description": "Code for Japan Summit 2026 をご紹介。今年のテーマは「公共とAI」です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-12-Code-for-Japan-Summit-2026-e3ok6r0",
+      "tags": [
+        "Code for",
+        "技術"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://summit.code4japan.org/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 661
     }
   ]
 }
