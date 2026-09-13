@@ -12214,6 +12214,27 @@
       ],
       "has_transcript": true,
       "id": 661
+    },
+    {
+      "number": "1.3.13",
+      "title": "ep1.3.13 市民協働まちづくり講座2026",
+      "date": "2026-09-13",
+      "duration": "10:00",
+      "description": "沖縄の宜野湾市で開催されているシミ協働まちづくり講座2026の様子をお伝えします。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-13-2026-e3ok6vc",
+      "tags": [
+        "地域"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://ginowan-civictech-2026.ipublishing.jp/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 662
     }
   ]
 }
