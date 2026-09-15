@@ -12235,6 +12235,23 @@
       ],
       "has_transcript": true,
       "id": 662
+    },
+    {
+      "number": "1.3.14",
+      "title": "ep1.3.14 Cキャスの企画会議　AIの次はフィジカル！？",
+      "date": "2026-09-15",
+      "duration": "13:17",
+      "description": "AIに食傷気味のホスト3人でAIの次を雑談します。フィジカルがキーワード！？",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-14-C-AI-e3ok75d",
+      "tags": [
+        "技術",
+        "雑談"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 663
     }
   ]
 }
