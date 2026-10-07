@@ -12329,6 +12329,29 @@
       ],
       "has_transcript": true,
       "id": 667
+    },
+    {
+      "number": "1.3.19",
+      "title": "ep1.3.19 長崎の魅力を紹介「たべもの」編",
+      "date": "2026-10-06",
+      "duration": "13:58",
+      "description": "長崎の魅力紹介シリーズ。ちゃんぽんやトルコライスなど魅力的なおいしいものを紹介します。アーバンデータチャレンジ中間シンポジウム@長崎",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-19-e3plfic",
+      "tags": [
+        "データ",
+        "地域",
+        "ライフスタイル"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://udc2026-2nd-symposium.peatix.com/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 668
     }
   ]
 }
