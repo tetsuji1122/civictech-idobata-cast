@@ -12352,6 +12352,28 @@
       ],
       "has_transcript": true,
       "id": 668
+    },
+    {
+      "number": "1.3.20",
+      "title": "ep1.3.20 生成AIで自分のまわりがどう変わる@博多",
+      "date": "2026-10-08",
+      "duration": "10:08",
+      "description": "勝手にイベント紹介シリーズ。10/16（金）に開催される生成AIで自分のまわりがどう変わる＠博多を紹介します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-3-20-AI-e3q3rrp",
+      "tags": [
+        "イベント",
+        "技術"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://www.facebook.com/events/1036577839365928/"
+        }
+      ],
+      "has_transcript": false,
+      "id": 669
     }
   ]
 }
