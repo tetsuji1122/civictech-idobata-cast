@@ -44,14 +44,13 @@ let app = new Vue({
       // podcasters.spotify.com 形式の場合
       // https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-0-3-Sora-2-e3b6vi4
       // ↓
-      // https://creators.spotify.com/pod/profile/civictechcast/embed/episodes/ep1-0-3-Sora-2-e3b6vi4/a-acak43f
-      // ユーザーが提供した形式を使用
-      // 注意: CSPエラーが発生する場合がありますが、多くの場合プレーヤーは動作します
+      // https://podcasters.spotify.com/pod/show/civictechcast/embed/episodes/ep1-0-3-Sora-2-e3b6vi4
       if (url.includes('podcasters.spotify.com/pod/show/civictechcast/episodes/')) {
         const episodeId = url.match(/episodes\/([^\/\?]+)/);
         if (episodeId && episodeId[1]) {
-          // ユーザーが提供した形式を使用
-          return `https://creators.spotify.com/pod/profile/civictechcast/embed/episodes/${episodeId[1]}/a-acak43f`;
+          // creators.spotify.com 形式はCSPエラー(frame-ancestors)が発生する場合があるため、
+          // より互換性の高い podcasters.spotify.com の埋め込み形式を使用します
+          return `https://podcasters.spotify.com/pod/show/civictechcast/embed/episodes/${episodeId[1]}`;
         }
       }
       
