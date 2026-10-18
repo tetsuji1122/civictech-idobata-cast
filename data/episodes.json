@@ -12436,6 +12436,22 @@
       "links": [],
       "has_transcript": true,
       "id": 672
+    },
+    {
+      "number": "1.4.0",
+      "title": "ep1.4.0 ポッドキャストをUDCに応募しよう",
+      "date": "2026-10-18",
+      "duration": "12:35",
+      "description": "このポッドキャストをUDCに応募したいと思います。過去の全文書き起こしデータを使って何かできないか考えてみようかな？",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-0-UDC-e3qh2va",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 673
     }
   ]
 }
