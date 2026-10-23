@@ -12452,6 +12452,23 @@
       "links": [],
       "has_transcript": true,
       "id": 673
+    },
+    {
+      "number": "1.4.1",
+      "title": "ep1.4.1 みんなの夜学：市民参加とデジタルガバナンス",
+      "date": "2026-10-22",
+      "duration": "10:47",
+      "description": "シビックテックのキーワードを学ぶシリーズ。今回は「市民参加とデジタルガバナンス」です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-1-e3qsc89",
+      "tags": [
+        "シビックテック",
+        "地域"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 674
     }
   ]
 }
