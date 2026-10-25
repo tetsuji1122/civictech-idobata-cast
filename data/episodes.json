@@ -12469,6 +12469,22 @@
       "links": [],
       "has_transcript": true,
       "id": 674
+    },
+    {
+      "number": "1.4.2",
+      "title": "ep1.4.2 みんなの夜学：ソーシャルインパクト",
+      "date": "2026-10-25",
+      "duration": "11:02",
+      "description": "シビックテックのキーワードを学ぶシリーズ。今回は「ソーシャルインパクト」です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-2-e3qscap",
+      "tags": [
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 675
     }
   ]
 }
