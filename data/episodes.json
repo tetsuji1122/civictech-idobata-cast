@@ -12485,6 +12485,27 @@
       "links": [],
       "has_transcript": true,
       "id": 675
+    },
+    {
+      "number": "1.4.3",
+      "title": "ep1.4.3 80億分の１",
+      "date": "2026-10-27",
+      "duration": "8:56",
+      "description": "世界の統計情報を活用した人生シミュレーションゲーム「80億分の１」を紹介します。80億分の１",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-3-80-e3qscdn",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://1in8b.life/ja/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 676
     }
   ]
 }
