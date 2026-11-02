@@ -12506,6 +12506,24 @@
       ],
       "has_transcript": true,
       "id": 676
+    },
+    {
+      "number": "1.4.4",
+      "title": "ep1.4.4 Code for Yamaguchiの福田さん",
+      "date": "2026-11-01",
+      "duration": "10:01",
+      "description": "Code for Yamaguchiの福田さんをゲストに迎えて、シビックテックに関わったキッカケを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-4-Code-for-Yamaguchi-e3rgjra",
+      "tags": [
+        "ゲスト",
+        "Code for",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 677
     }
   ]
 }
