@@ -12524,6 +12524,24 @@
       "links": [],
       "has_transcript": true,
       "id": 677
+    },
+    {
+      "number": "1.4.5",
+      "title": "ep1.4.5 エンジニアがシビックテックで果たすべきこと",
+      "date": "2026-11-03",
+      "duration": "15:49",
+      "description": "Code for Yamaguchiの福田さんをゲストに迎えて、エンジニアがシビックテックで果たすべきことについて話します。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-5-e3rgjtl",
+      "tags": [
+        "ゲスト",
+        "Code for",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 678
     }
   ]
 }
