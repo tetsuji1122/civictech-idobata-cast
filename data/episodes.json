@@ -12542,6 +12542,24 @@
       "links": [],
       "has_transcript": true,
       "id": 678
+    },
+    {
+      "number": "1.4.6",
+      "title": "ep1.4.6 趣味の料理と山口のおいしいもの",
+      "date": "2026-11-05",
+      "duration": "15:49",
+      "description": "Code for Yamaguchiの福田さんをゲストに迎えて、趣味の料理と山口のおいしいものを紹介してもらいます。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-6-e3rgk22",
+      "tags": [
+        "ゲスト",
+        "Code for",
+        "ライフスタイル"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 679
     }
   ]
 }
