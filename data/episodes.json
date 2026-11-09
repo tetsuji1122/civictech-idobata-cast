@@ -12560,6 +12560,22 @@
       "links": [],
       "has_transcript": true,
       "id": 679
+    },
+    {
+      "number": "1.4.7",
+      "title": "ep1.4.7 アーバンデータチャレンジに応募しよう",
+      "date": "2026-11-08",
+      "duration": "16:09",
+      "description": "アーバンデータチャレンジの作品応募に挑戦します。作品はこのポッドキャストの全文データです。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-7-e3rtrph",
+      "tags": [
+        "データ"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": false,
+      "id": 680
     }
   ]
 }
