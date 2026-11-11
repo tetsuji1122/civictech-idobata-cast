@@ -12574,7 +12574,7 @@
       ],
       "transcript": "",
       "links": [],
-      "has_transcript": false,
+      "has_transcript": true,
       "id": 680
     },
     {
@@ -12590,7 +12590,7 @@
       ],
       "transcript": "",
       "links": [],
-      "has_transcript": false,
+      "has_transcript": true,
       "id": 681
     }
   ]
