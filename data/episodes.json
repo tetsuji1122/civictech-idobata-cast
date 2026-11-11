@@ -12576,6 +12576,22 @@
       "links": [],
       "has_transcript": false,
       "id": 680
+    },
+    {
+      "number": "1.4.8",
+      "title": "ep1.4.8 みんなの夜学：デジタル民主主義",
+      "date": "2026-11-10",
+      "duration": "18:07",
+      "description": "シビックテックのキーワードを学ぶシリーズ。今回は「デジタル民主主義」です。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-8-e3rtrsn",
+      "tags": [
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": false,
+      "id": 681
     }
   ]
 }
