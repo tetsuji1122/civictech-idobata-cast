@@ -12592,6 +12592,27 @@
       "links": [],
       "has_transcript": true,
       "id": 681
+    },
+    {
+      "number": "1.4.9",
+      "title": "ep1.4.9 出身地、当てます",
+      "date": "2026-11-12",
+      "duration": "9:38",
+      "description": "質問に答えていくと自分の出身地が当てられてしまうWebアプリを紹介します。出身地、当てます",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-9-e3rts0d",
+      "tags": [
+        "技術"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://nkworks-games.com/shusshin-ken/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 682
     }
   ]
 }
