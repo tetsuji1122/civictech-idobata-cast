@@ -38,9 +38,16 @@ new Vue({
     yearCache: {},
     searchResults: [],
     displayLimit: 50,
-    hasSearched: false
+    hasSearched: false,
+    chronology: null,
+    chronologyPanel: 0,
+    selectedTrendKeyword: 'シビックテック'
   },
   computed: {
+    currentKeywordTrend() {
+      if (!this.chronology || !this.chronology.keyword_trends) return null;
+      return this.chronology.keyword_trends.find(k => k.keyword === this.selectedTrendKeyword) || this.chronology.keyword_trends[0];
+    },
     displayedResults() {
       return this.searchResults.slice(0, this.displayLimit);
     },
@@ -152,16 +159,58 @@ new Vue({
 
       return (hasLeadingEllipsis ? '…' : '') + escaped + (hasTrailingEllipsis ? '…' : '');
     },
+    async loadWordChronology() {
+      try {
+        const response = await fetch('data/word-chronology.json?v=20261122');
+        if (response.ok) {
+          const data = await response.json();
+          this.chronology = data;
+          if (data.keyword_trends && data.keyword_trends.length > 0) {
+            this.selectedTrendKeyword = data.keyword_trends[0].keyword;
+          }
+        }
+      } catch (e) {
+        console.warn('言葉の年表データの読み込みに失敗しました（検索機能には影響しません）:', e);
+      }
+    },
+    selectChronologyWord(word) {
+      if (!word) return;
+      this.searchQuery = word;
+      this.selectedSpeaker = 'all';
+      this.selectedYear = 'all';
+      this.performSearch();
+      this.$nextTick(() => {
+        this.scrollToResults();
+      });
+    },
+    scrollToResults() {
+      if (typeof document === 'undefined') return;
+      const el = document.getElementById('search-results-anchor');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    getTrendBarWidth(count, maxVal) {
+      if (!count || !maxVal) return '0%';
+      const pct = Math.round((count / maxVal) * 100);
+      return Math.max(3, pct) + '%';
+    },
+    clearSearch() {
+      this.searchQuery = '';
+      this.searchResults = [];
+      this.hasSearched = false;
+      this.chronologyPanel = 0; // 年表を再オープン
+    },
     async performSearch() {
       const q = this.searchQuery.trim();
       if (!q) {
-        this.searchResults = [];
-        this.hasSearched = false;
+        this.clearSearch();
         return;
       }
 
       this.loading = true;
       this.hasSearched = true;
+      this.chronologyPanel = null; // 検索結果を優先して年表を折りたたむ
       this.displayLimit = 50;
 
       const terms = this.normalize(q).split(/\s+/).filter(t => t.length > 0);
@@ -226,6 +275,7 @@ new Vue({
   },
   mounted() {
     this.updateMetaTags();
+    this.loadWordChronology();
     const urlParams = new URLSearchParams(window.location.search);
     const q = urlParams.get('q');
     if (q) {

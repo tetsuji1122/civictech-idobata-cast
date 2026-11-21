@@ -27,7 +27,7 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <link href="css/style.css?v=20261122" rel="stylesheet">
-  <link href="css/search.css?v=20261122" rel="stylesheet">
+  <link href="css/search.css?v=20261122c" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -124,7 +124,7 @@
             append-icon="mdi-arrow-right-circle"
             @click:append="performSearch"
             @keyup.enter="performSearch"
-            @click:clear="searchResults = []; hasSearched = false"
+            @click:clear="clearSearch"
             color="#003049"
             hide-details
             class="mb-3"
@@ -179,6 +179,127 @@
             </v-col>
           </v-row>
         </v-card>
+        <!-- 言葉の年表セクション -->
+        <v-expansion-panels v-if="chronology" v-model="chronologyPanel" class="chronology-panels mb-6">
+          <v-expansion-panel class="chronology-card">
+            <v-expansion-panel-header class="chronology-header py-3">
+              <div class="d-flex align-center flex-wrap">
+                <v-icon color="#003049" class="mr-2">mdi-chart-timeline-variant</v-icon>
+                <span class="font-weight-bold section-heading">言葉の年表（2021〜2026）</span>
+                <v-chip x-small color="#003049" outlined class="ml-2">ポッドキャスト頻出ワード</v-chip>
+              </div>
+            </v-expansion-panel-header>
+
+            <v-expansion-panel-content class="pt-2">
+              <!-- 説明と注意書き -->
+              <p class="chronology-desc mb-2">
+                全エピソードの書き起こしから集計した年別の頻出ワードTop 15と重要キーワードの推移です。
+                単語をクリックすると、そのまま発話検索を実行できます。
+              </p>
+              <v-alert dense outlined type="info" color="#666" class="chronology-notice mb-4">
+                <v-icon x-small color="#666" class="mr-1">mdi-information-outline</v-icon>
+                {{ chronology.notes }}
+              </v-alert>
+
+              <!-- 年表テーブル -->
+              <div class="d-flex align-center justify-space-between mb-2">
+                <h3 class="chronology-subheading">
+                  <v-icon small color="#003049" class="mr-1">mdi-format-list-numbered</v-icon>
+                  年別 頻出ワード Top 15
+                </h3>
+                <span class="grey--text text-caption d-sm-none">（横スクロール可能 →）</span>
+              </div>
+              <div class="chronology-table-wrapper mb-6">
+                <table class="chronology-table">
+                  <thead>
+                    <tr>
+                      <th class="rank-col">順位</th>
+                      <th v-for="y in chronology.years" :key="y.year">
+                        {{ y.year }}年<br>
+                        <span class="ep-count">({{ y.episode_count }}話)</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="r in 15" :key="r">
+                      <td class="rank-cell">
+                        <span :class="'rank-badge rank-' + r">{{ r }}</span>
+                      </td>
+                      <td v-for="y in chronology.years" :key="y.year">
+                        <button
+                          v-if="y.words && y.words[r - 1]"
+                          type="button"
+                          class="chronology-word-btn"
+                          @click="selectChronologyWord(y.words[r - 1].word)"
+                          :title="y.words[r - 1].word + ' で発話検索'"
+                        >
+                          <span class="word-name">{{ y.words[r - 1].word }}</span>
+                          <span class="word-count">{{ y.words[r - 1].count }}</span>
+                        </button>
+                        <span v-else class="grey--text">-</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- キーワード年別推移 -->
+              <div class="d-flex align-center justify-space-between mb-2">
+                <h3 class="chronology-subheading">
+                  <v-icon small color="#003049" class="mr-1">mdi-chart-bar</v-icon>
+                  キーワード推移
+                </h3>
+                <span class="grey--text text-caption">（クリックで発話検索）</span>
+              </div>
+
+              <!-- キーワード選択チップ -->
+              <v-chip-group
+                v-model="selectedTrendKeyword"
+                mandatory
+                class="mb-3"
+              >
+                <v-chip
+                  v-for="kt in chronology.keyword_trends"
+                  :key="kt.keyword"
+                  :value="kt.keyword"
+                  small
+                  outlined
+                  filter
+                  color="#003049"
+                  class="mr-2 mb-2"
+                >
+                  {{ kt.keyword }}
+                </v-chip>
+              </v-chip-group>
+
+              <!-- 横棒グラフ -->
+              <div v-if="currentKeywordTrend" class="trend-chart mb-2">
+                <div
+                  v-for="y in ['2021', '2022', '2023', '2024', '2025', '2026']"
+                  :key="y"
+                  class="trend-row"
+                  @click="selectChronologyWord(currentKeywordTrend.keyword)"
+                  :title="currentKeywordTrend.keyword + ' で発話検索'"
+                >
+                  <div class="trend-year">{{ y }}年</div>
+                  <div class="trend-bar-track">
+                    <div
+                      class="trend-bar-fill"
+                      :style="{ width: getTrendBarWidth(currentKeywordTrend.counts[y], currentKeywordTrend.max) }"
+                    ></div>
+                  </div>
+                  <div class="trend-count">
+                    {{ currentKeywordTrend.counts[y] || 0 }}<span class="unit">回</span>
+                  </div>
+                </div>
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+        <!-- 検索結果アンカー -->
+        <div id="search-results-anchor"></div>
+
 
         <!-- ローディング -->
         <div v-if="loading" class="text-center my-12">
@@ -291,6 +412,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="js/config.js?v=20261122"></script>
 <script src="js/utils.js?v=20261122"></script>
-<script src="js/search.js?v=20261122b"></script>
+<script src="js/search.js?v=20261122c"></script>
 </body>
 </html>

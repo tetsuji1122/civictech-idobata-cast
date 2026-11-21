@@ -111,3 +111,215 @@
   font-size: 0.85rem;
   color: #666;
 }
+/* 言葉の年表セクション */
+.chronology-panels {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chronology-card {
+  background: white !important;
+  border-radius: 12px !important;
+}
+
+.section-heading {
+  color: #003049;
+  font-size: 1.15rem;
+}
+
+.chronology-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.chronology-notice {
+  font-size: 0.85rem;
+}
+
+.chronology-subheading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #003049;
+  display: flex;
+  align-items: center;
+}
+
+/* 年表テーブル */
+.chronology-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+}
+
+.chronology-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.chronology-table th {
+  background: #003049;
+  color: white;
+  padding: 10px 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.chronology-table th .ep-count {
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.chronology-table th.rank-col {
+  width: 44px;
+  min-width: 44px;
+}
+
+.chronology-table td {
+  padding: 6px 4px;
+  text-align: center;
+  border-bottom: 1px solid #edf1f5;
+  border-right: 1px solid #edf1f5;
+  background: #ffffff;
+}
+
+.chronology-table tbody tr:hover td {
+  background: #f7f9fc;
+}
+
+.rank-badge {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background: #eef2f5;
+  color: #555;
+  text-align: center;
+}
+
+.rank-badge.rank-1 {
+  background: #f4c430;
+  color: #2b2000;
+}
+
+.rank-badge.rank-2 {
+  background: #b0bec5;
+  color: #263238;
+}
+
+.rank-badge.rank-3 {
+  background: #cd7f32;
+  color: white;
+}
+
+.chronology-word-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f6f8;
+  border: 1px solid #dce2e6;
+  border-radius: 14px;
+  padding: 3px 8px;
+  font-size: 0.82rem;
+  color: #003049;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  max-width: 100%;
+}
+
+.chronology-word-btn:hover {
+  background: #003049;
+  color: white;
+  border-color: #003049;
+}
+
+.chronology-word-btn .word-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 85px;
+}
+
+.chronology-word-btn .word-count {
+  font-size: 0.7rem;
+  color: #777;
+  margin-left: 3px;
+}
+
+.chronology-word-btn:hover .word-count {
+  color: #ffc300;
+}
+
+/* キーワード推移横棒グラフ */
+.trend-chart {
+  background: #f9fbfd;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.trend-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.trend-row:hover {
+  background: #eef4f8;
+}
+
+.trend-row:last-child {
+  margin-bottom: 0;
+}
+
+.trend-year {
+  width: 55px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #003049;
+}
+
+.trend-bar-track {
+  flex: 1;
+  height: 20px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 12px;
+}
+
+.trend-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #003049 0%, #1d7873 100%);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.trend-count {
+  width: 60px;
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #003049;
+}
+
+.trend-count .unit {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #666;
+  margin-left: 2px;
+}
+
