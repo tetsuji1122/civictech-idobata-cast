@@ -161,7 +161,7 @@ new Vue({
     },
     async loadWordChronology() {
       try {
-        const response = await fetch('data/word-chronology.json?v=20261122');
+        const response = await fetch('data/word-chronology.json?v=20261122c');
         if (response.ok) {
           const data = await response.json();
           this.chronology = data;
