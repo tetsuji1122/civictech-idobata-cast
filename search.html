@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta charset="utf-8">
+  <title>発話検索 - シビックテック井戸端キャスト</title>
+  <meta name="description" content="シビックテック井戸端キャストの全エピソードから、発話単位でキーワード検索ができます。">
+  <meta name="keywords" content="シビックテック,ポッドキャスト,発話検索,文字起こし">
+  <link rel="canonical" href="https://civictech-idobata-cast.github.io/search.html">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="発話検索 - シビックテック井戸端キャスト">
+  <meta property="og:description" content="シビックテック井戸端キャストの全エピソードから、発話単位でキーワード検索ができます。">
+  <meta property="og:url" content="https://civictech-idobata-cast.github.io/search.html">
+  <meta property="og:image" content="https://civictech-idobata-cast.github.io/img/keyvisual.png">
+  <meta property="article:author" content="シビックテック井戸端キャスト">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="発話検索 - シビックテック井戸端キャスト">
+  <meta name="twitter:description" content="シビックテック井戸端キャストの全エピソードから、発話単位でキーワード検索ができます。">
+  <meta name="twitter:image" content="https://civictech-idobata-cast.github.io/img/keyvisual.png">
+
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="css/style.css?v=20261122" rel="stylesheet">
+  <link href="css/search.css?v=20261122" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <v-app>
+    <!-- ヘッダー -->
+    <v-app-bar app flat class="header-toolbar">
+      <v-container class="py-0">
+        <v-row align="center" justify="space-between" class="flex-nowrap">
+          <v-col cols="auto" class="d-flex align-center py-1">
+            <v-app-bar-nav-icon 
+              @click="drawer = !drawer" 
+              class="d-md-none mr-2"
+              color="#003049"
+            ></v-app-bar-nav-icon>
+            <a href="index.html" style="display: inline-block; line-height: 0;">
+              <img class="pc d-none d-md-block" src="img/logo.png" alt="シビックテック井戸端キャスト" height="50" style="cursor: pointer;">
+              <img class="sp d-md-none" src="img/logo.png" alt="シビックテック井戸端キャスト" height="38" style="cursor: pointer;">
+            </a>
+          </v-col>
+          <v-col cols="auto" class="d-none d-md-block py-1 text-no-wrap">
+            <v-btn text class="nav-btn" href="index.html">
+              <v-icon left>mdi-home</v-icon>
+              HOME
+            </v-btn>
+            <v-btn text class="nav-btn" href="episodes.html">
+              <v-icon left>mdi-podcast</v-icon>
+              EPISODE
+            </v-btn>
+            <v-btn text class="nav-btn" href="search.html" style="color: #003049; font-weight: bold;">
+              <v-icon left>mdi-magnify</v-icon>
+              SEARCH
+            </v-btn>
+            <v-btn text class="nav-btn" href="about.html">
+              <v-icon left>mdi-information</v-icon>
+              ABOUT
+            </v-btn>
+            <v-btn text class="nav-btn" href="countdowntimer.html">
+              <v-icon left>mdi-timer</v-icon>
+              TIMER
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+
+    <!-- ハンバーガーメニュー（スマホ用） -->
+    <v-navigation-drawer v-model="drawer" temporary fixed class="d-md-none">
+      <v-list nav dense>
+        <v-list-item>
+          <v-list-item-avatar>
+            <img src="img/logo.png" alt="シビックテック井戸端キャスト">
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>メニュー</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item href="index.html">
+          <v-list-item-icon><v-icon>mdi-home</v-icon></v-list-item-icon>
+          <v-list-item-content><v-list-item-title>HOME</v-list-item-title></v-list-item-content>
+        </v-list-item>
+        <v-list-item href="episodes.html">
+          <v-list-item-icon><v-icon>mdi-podcast</v-icon></v-list-item-icon>
+          <v-list-item-content><v-list-item-title>EPISODE</v-list-item-title></v-list-item-content>
+        </v-list-item>
+        <v-list-item href="search.html">
+          <v-list-item-icon><v-icon color="#003049">mdi-magnify</v-icon></v-list-item-icon>
+          <v-list-item-content><v-list-item-title>SEARCH</v-list-item-title></v-list-item-content>
+        </v-list-item>
+        <v-list-item href="about.html">
+          <v-list-item-icon><v-icon>mdi-information</v-icon></v-list-item-icon>
+          <v-list-item-content><v-list-item-title>ABOUT</v-list-item-title></v-list-item-content>
+        </v-list-item>
+        <v-list-item href="countdowntimer.html">
+          <v-list-item-icon><v-icon>mdi-timer</v-icon></v-list-item-icon>
+          <v-list-item-content><v-list-item-title>TIMER</v-list-item-title></v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <v-container class="search-container py-8">
+        <h1 class="page-title text-center mb-1">発話検索</h1>
+        <p class="text-center grey--text text--darken-1 mb-6">SEARCH</p>
+
+        <!-- 検索フォームカード -->
+        <v-card class="search-card" elevation="2">
+          <v-text-field
+            v-model="searchQuery"
+            placeholder="キーワードを入力（スペース区切りでAND検索）"
+            outlined
+            clearable
+            prepend-inner-icon="mdi-magnify"
+            append-icon="mdi-arrow-right-circle"
+            @click:append="performSearch"
+            @keyup.enter="performSearch"
+            @click:clear="searchResults = []; hasSearched = false"
+            color="#003049"
+            hide-details
+            class="mb-3"
+          ></v-text-field>
+
+          <!-- サンプルクエリ -->
+          <div class="mb-4 d-flex align-center flex-wrap">
+            <span class="text-caption grey--text text--darken-1 mr-2">おすすめ:</span>
+            <v-chip
+              v-for="sq in sampleQueries"
+              :key="sq"
+              small
+              outlined
+              color="#003049"
+              class="sample-chip"
+              @click="setSampleQuery(sq)"
+            >
+              {{ sq }}
+            </v-chip>
+          </div>
+
+          <!-- フィルター -->
+          <v-row dense>
+            <v-col cols="12" sm="6">
+              <v-select
+                v-model="selectedSpeaker"
+                :items="speakers"
+                item-text="name"
+                item-value="id"
+                label="話者"
+                outlined
+                dense
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-account"
+                @change="performSearch"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-select
+                v-model="selectedYear"
+                :items="years"
+                :item-text="y => yearLabels[y] || y"
+                label="期間（年）"
+                outlined
+                dense
+                hide-details
+                color="#003049"
+                prepend-inner-icon="mdi-calendar"
+                @change="performSearch"
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-card>
+
+        <!-- ローディング -->
+        <div v-if="loading" class="text-center my-12">
+          <v-progress-circular indeterminate color="#003049" size="56"></v-progress-circular>
+          <p class="mt-4 grey--text text--darken-1">検索中...</p>
+        </div>
+
+        <!-- 検索件数 -->
+        <div v-else-if="hasSearched" class="search-stats d-flex justify-space-between align-center">
+          <div>
+            検索結果: <strong>{{ totalUtteranceCount.toLocaleString() }}</strong> 件
+            <span class="text-caption grey--text text--darken-1 ml-1">
+              ({{ distinctEpisodeCount }} エピソード)
+            </span>
+          </div>
+        </div>
+
+        <!-- 検索結果0件 -->
+        <v-card v-if="!loading && hasSearched && searchResults.length === 0" class="search-card text-center my-8 py-8" elevation="1">
+          <v-icon size="64" color="#003049">mdi-text-box-search-outline</v-icon>
+          <h2 class="mt-4" style="color: #003049; font-size: 1.25rem;">該当する発話が見つかりませんでした</h2>
+          <p class="grey--text mt-2">キーワードを変更するか、話者・期間の条件を広げてお試しください。</p>
+        </v-card>
+
+        <!-- 検索結果一覧 -->
+        <div v-if="!loading && displayedResults.length > 0">
+          <v-card
+            v-for="(item, idx) in displayedResults"
+            :key="idx"
+            class="result-card mb-4"
+            :class="getSpeakerClass(item.speaker)"
+            elevation="2"
+          >
+            <v-card-text>
+              <div class="d-flex flex-wrap justify-space-between align-center mb-2">
+                <a :href="item.detailUrl" class="result-title text-decoration-none">
+                  {{ item.title }}
+                </a>
+                <span class="meta-info">
+                  <v-icon x-small color="#666">mdi-calendar</v-icon> {{ item.date }}
+                </span>
+              </div>
+
+              <div class="d-flex align-center flex-wrap mt-1 mb-2">
+                <v-chip
+                  x-small
+                  label
+                  class="font-weight-bold mr-2"
+                  :class="getSpeakerChipClass(item.speaker)"
+                >
+                  {{ getSpeakerDisplayName(item.speaker) }}
+                </v-chip>
+                <v-btn
+                  x-small
+                  depressed
+                  class="result-time-btn"
+                  :href="item.detailUrl"
+                  title="該当の発話位置を開く"
+                >
+                  <v-icon x-small left>mdi-play-circle-outline</v-icon>
+                  {{ formatTime(item.start_sec) }}
+                </v-btn>
+              </div>
+
+              <div class="result-text" v-html="item.highlightedHtml"></div>
+            </v-card-text>
+          </v-card>
+
+          <!-- さらに表示ボタン -->
+          <div v-if="hasMore" class="text-center mt-6 mb-8">
+            <v-btn
+              outlined
+              large
+              color="#003049"
+              @click="loadMore"
+              class="px-8"
+            >
+              さらに表示（残り {{ (searchResults.length - displayLimit).toLocaleString() }} 件）
+            </v-btn>
+          </div>
+        </div>
+      </v-container>
+    </v-main>
+
+    <!-- フッター -->
+    <v-footer color="#003049" dark padless>
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col cols="12" class="text-center">
+            <v-btn icon :href="externalLinks.twitter" target="_blank" title="X (Twitter)">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </v-btn>
+            <v-btn icon :href="externalLinks.github" target="_blank" title="GitHub">
+              <v-icon>mdi-github</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col cols="12" class="text-center py-2">
+            &copy; {{ new Date().getFullYear() }} シビックテック井戸端キャスト
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
+  </v-app>
+</div>
+
+<!-- スクリプト -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="js/config.js?v=20261122"></script>
+<script src="js/utils.js?v=20261122"></script>
+<script src="js/search.js?v=20261122b"></script>
+</body>
+</html>

@@ -8,6 +8,11 @@
   background: rgba(255, 195, 0, 0.95) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   backdrop-filter: blur(10px);
+  z-index: 100 !important;
+}
+
+.header-toolbar .v-toolbar__content {
+  padding: 0 16px !important;
 }
 
 /* ヒーローセクション - フルスクリーン */
@@ -288,6 +293,8 @@
 .nav-btn {
   color: #003049 !important;
   font-weight: 700;
+  padding: 0 10px !important;
+  min-width: auto !important;
 }
 
 .nav-btn .v-icon {
@@ -304,7 +311,7 @@
 }
 
 /* スマートフォンで見たときは"sp"のclassがついた画像が表示される */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 959px) {
   .pc { 
     display: none !important; 
   }
@@ -312,6 +319,9 @@
   .sp { 
     display: block !important; 
   }
+}
+
+@media only screen and (max-width: 750px) {
   
   .sp-br {
     display: inline;

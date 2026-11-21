@@ -25,7 +25,7 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <link href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?v=20261122" rel="stylesheet">
   <link href="css/word-trends.css" rel="stylesheet">
 </head>
 <body>
@@ -33,9 +33,9 @@
   <v-app>
     <!-- ヘッダー -->
     <v-app-bar app flat class="header-toolbar">
-      <v-container>
-        <v-row align="center" justify="space-between">
-          <v-col cols="auto" class="d-flex align-center">
+      <v-container class="py-0">
+        <v-row align="center" justify="space-between" class="flex-nowrap">
+          <v-col cols="auto" class="d-flex align-center py-1">
             <!-- ハンバーガーメニューボタン（スマホのみ表示） -->
             <v-app-bar-nav-icon
               @click="drawer = !drawer"
@@ -43,12 +43,12 @@
               color="#003049"
             ></v-app-bar-nav-icon>
             <a href="index.html" style="display: inline-block; line-height: 0;">
-              <img class="pc" src="img/logo.png" alt="シビックテック井戸端キャスト" height="60" style="cursor: pointer;">
-              <img class="sp" src="img/logo.png" alt="シビックテック井戸端キャスト" height="40" style="cursor: pointer;">
+              <img class="pc d-none d-md-block" src="img/logo.png" alt="シビックテック井戸端キャスト" height="50" style="cursor: pointer;">
+              <img class="sp d-md-none" src="img/logo.png" alt="シビックテック井戸端キャスト" height="38" style="cursor: pointer;">
             </a>
           </v-col>
           <!-- PCメニュー（スマホでは非表示） -->
-          <v-col cols="auto" class="d-none d-md-block">
+          <v-col cols="auto" class="d-none d-md-block py-1 text-no-wrap">
             <v-btn text class="nav-btn" href="index.html">
               <v-icon left>mdi-home</v-icon>
               HOME
@@ -56,6 +56,10 @@
             <v-btn text class="nav-btn" href="episodes.html">
               <v-icon left>mdi-podcast</v-icon>
               EPISODE
+            </v-btn>
+            <v-btn text class="nav-btn" href="search.html">
+              <v-icon left>mdi-magnify</v-icon>
+              SEARCH
             </v-btn>
             <v-btn text class="nav-btn" href="about.html">
               <v-icon left>mdi-information</v-icon>
@@ -101,6 +105,14 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>EPISODE</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item href="search.html">
+          <v-list-item-icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>SEARCH</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item href="about.html">
@@ -402,8 +414,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/word-trends.js"></script>
+<script src="js/config.js?v=20261122"></script>
+<script src="js/utils.js?v=20261122"></script>
+<script src="js/word-trends.js?v=20261122"></script>
 </body>
 </html>

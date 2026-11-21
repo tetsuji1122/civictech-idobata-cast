@@ -1,4 +1,16 @@
 // episode-detail.html用のJavaScript
+const config = (typeof CONFIG !== 'undefined' ? CONFIG : (typeof window !== 'undefined' && window.CONFIG ? window.CONFIG : null)) || {
+  siteUrl: 'https://tetsuji1122.github.io/civictech-idobata-cast',
+  externalLinks: {
+    twitter: 'https://twitter.com/civictechcast',
+    github: 'https://github.com/tetsuji1122/civictech-idobata-cast'
+  },
+  paths: {
+    episodes: 'data/episodes.json',
+    transcripts: 'data/transcripts/'
+  }
+};
+
 let app = new Vue({
   el: '#app',
   vuetify: new Vuetify(),
@@ -10,11 +22,19 @@ let app = new Vue({
     nextEpisode: null,
     showScrollTop: false,
     spotifyPlayerLoading: true,
-    externalLinks: CONFIG.externalLinks,
+    externalLinks: config.externalLinks,
     showCopySuccess: false,
     drawer: false, // ハンバーガーメニューの開閉状態
+    highlightedSec: null, // アンカーでハイライトされた秒数
   },
   computed: {
+    hasSegments() {
+      return Boolean(
+        this.episode &&
+        Array.isArray(this.episode.segments) &&
+        this.episode.segments.length > 0
+      );
+    },
     formattedSubTitle() {
       if (!this.episode || !this.episode.sub_title) return '';
       return this.parseMarkdown(this.episode.sub_title);
@@ -98,7 +118,7 @@ let app = new Vue({
     },
     shareUrl() {
       if (!this.episode) return '';
-      return `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`;
+      return `${config.siteUrl}/episode-detail.html?id=${this.episode.id}`;
     },
     shareTitle() {
       if (!this.episode) return 'シビックテック井戸端キャスト';
@@ -143,24 +163,37 @@ let app = new Vue({
     },
     async loadEpisode() {
       try {
-        // URLパラメータからエピソードIDを取得
+        // URLパラメータからエピソードIDを取得（数値IDまたは話数文字列）
         const urlParams = new URLSearchParams(window.location.search);
-        const episodeId = parseInt(urlParams.get('id'));
+        const idParam = urlParams.get('id');
         
-        if (!episodeId) {
+        if (!idParam) {
           this.loading = false;
           return;
         }
         
         // エピソードデータを読み込み（キャッシュを無効化）
-        const response = await fetchWithoutCache(CONFIG.paths.episodes);
+        const response = await fetchWithoutCache(config.paths.episodes);
         const data = await response.json();
         this.allEpisodes = data.episodes;
         
-        // 該当するエピソードを探す
-        this.episode = this.allEpisodes.find(ep => ep.id === episodeId);
+        // 該当するエピソードを探す (1. 話数文字列で完全一致、2. 純粋な数字のみの場合は数値ID)
+        const trimmedId = idParam.trim();
+        const cleanId = trimmedId.replace(/^ep/i, '');
+        
+        // 1. まずエピソード番号（"0.0.1", "1.0.14" 等）で完全一致検索
+        this.episode = this.allEpisodes.find(ep => 
+          String(ep.number) === trimmedId || String(ep.number) === cleanId
+        );
+        
+        // 2. 見つからず、パラメータが純粋な数字のみ（例: id=1, id=42）の場合に限り数値IDで検索
+        if (!this.episode && /^\d+$/.test(cleanId)) {
+          const numId = parseInt(cleanId, 10);
+          this.episode = this.allEpisodes.find(ep => ep.id === numId);
+        }
         
         if (this.episode) {
+          const episodeId = this.episode.id;
           // ページタイトルとメタタグを更新
           this.updateMetaTags();
           
@@ -169,16 +202,6 @@ let app = new Vue({
           
           // Spotifyプレーヤーのローディング状態をリセット
           this.spotifyPlayerLoading = true;
-          
-          // デバッグ: エピソード情報を確認
-          console.log('[INFO] エピソード情報:', {
-            number: this.episode.number,
-            title: this.episode.title,
-            spotifyUrl: this.episode.spotifyUrl,
-            links: this.episode.links,
-            linksType: typeof this.episode.links,
-            linksLength: this.episode.links ? this.episode.links.length : 'undefined'
-          });
           
           // 前後のエピソードを取得
           this.findAdjacentEpisodes(episodeId);
@@ -189,16 +212,12 @@ let app = new Vue({
           } else {
             console.log(`[INFO] 書き起こしファイルが存在しないため、読み込みをスキップ: ep${this.episode.number}`);
           }
-          
-          // 書き起こし読み込み後のlinksを確認
-          console.log('[INFO] 書き起こし読み込み後のlinks:', {
-            links: this.episode.links,
-            linksType: typeof this.episode.links,
-            linksLength: this.episode.links ? this.episode.links.length : 'undefined'
-          });
         }
         
         this.loading = false;
+        this.$nextTick(() => {
+          this.handleHashAnchor();
+        });
       } catch (error) {
         console.error('エピソードデータの読み込みに失敗しました:', error);
         this.loading = false;
@@ -206,7 +225,7 @@ let app = new Vue({
     },
     async loadTranscript(episodeNumber) {
       try {
-        const transcriptPath = `${CONFIG.paths.transcripts}ep${episodeNumber}.json`;
+        const transcriptPath = `${config.paths.transcripts}ep${episodeNumber}.json`;
         const response = await fetch(transcriptPath);
         
         if (response.ok) {
@@ -216,6 +235,8 @@ let app = new Vue({
           this.episode.summary = transcriptData.summary || '';
           this.episode.sub_title = transcriptData.sub_title || '';
           this.episode.detailed_description = transcriptData.detailed_description || '';
+          this.episode.segments = transcriptData.segments || [];
+          this.episode.segment_count = transcriptData.segment_count || 0;
           
           console.log(`[INFO] 書き起こしを読み込みました: ep${episodeNumber}`);
         } else if (response.status === 404) {
@@ -344,8 +365,8 @@ let app = new Vue({
       
       const title = `${this.episode.title} - シビックテック井戸端キャスト`;
       const description = this.episode.sub_title || this.episode.description || 'シビックテック井戸端キャストのエピソード詳細ページ。全文書き起こしを読むことができます。';
-      const image = this.episode.thumbnail ? `${CONFIG.siteUrl}/${this.episode.thumbnail}` : `${CONFIG.siteUrl}/img/keyvisual.png`;
-      const url = `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`;
+      const image = this.episode.thumbnail ? `${config.siteUrl}/${this.episode.thumbnail}` : `${config.siteUrl}/img/keyvisual.png`;
+      const url = `${config.siteUrl}/episode-detail.html?id=${this.episode.id}`;
       
       // タイトルを更新
       document.title = title;
@@ -373,7 +394,7 @@ let app = new Vue({
     },
     updateInitialMetaTags() {
       // エピソード読み込み前の初期メタタグを更新
-      const siteUrl = CONFIG.siteUrl;
+      const siteUrl = config.siteUrl;
       setLinkTag('canonical', `${siteUrl}/episode-detail.html`);
       setMetaProperty('og:url', `${siteUrl}/episode-detail.html`);
       setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);
@@ -397,12 +418,12 @@ let app = new Vue({
         "episodeNumber": this.episode.number,
         "datePublished": this.episode.date ? `${this.episode.date}T00:00:00+09:00` : null,
         "duration": this.episode.duration || null,
-        "image": this.episode.thumbnail ? `${CONFIG.siteUrl}/${this.episode.thumbnail}` : `${CONFIG.siteUrl}/img/keyvisual.png`,
-        "url": `${CONFIG.siteUrl}/episode-detail.html?id=${this.episode.id}`,
+        "image": this.episode.thumbnail ? `${config.siteUrl}/${this.episode.thumbnail}` : `${config.siteUrl}/img/keyvisual.png`,
+        "url": `${config.siteUrl}/episode-detail.html?id=${this.episode.id}`,
         "partOfSeries": {
           "@type": "PodcastSeries",
           "name": "シビックテック井戸端キャスト",
-          "url": `${CONFIG.siteUrl}/`
+          "url": `${config.siteUrl}/`
         }
       };
       
@@ -419,6 +440,71 @@ let app = new Vue({
       script.type = 'application/ld+json';
       script.text = JSON.stringify(structuredData, null, 2);
       document.head.appendChild(script);
+    },
+    formatTime(start, startSec) {
+      if (start) return start;
+      const s = Math.max(0, parseInt(startSec) || 0);
+      const m = Math.floor(s / 60);
+      const rem = s % 60;
+      return `${m}:${rem.toString().padStart(2, '0')}`;
+    },
+    getSpeakerClass(speaker) {
+      if (speaker === '石井') return 'speaker-ishii';
+      if (speaker === '太田') return 'speaker-ota';
+      if (speaker === '小俣') return 'speaker-omata';
+      return 'speaker-guest';
+    },
+    getSpeakerChipClass(speaker) {
+      if (speaker === '石井') return 'speaker-chip-ishii';
+      if (speaker === '太田') return 'speaker-chip-ota';
+      if (speaker === '小俣') return 'speaker-chip-omata';
+      return 'speaker-chip-guest';
+    },
+    copySegmentUrl(seg) {
+      if (!this.episode) return;
+      const url = `${config.siteUrl}/episode-detail.html?id=${this.episode.number}#t=${seg.start_sec}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          this.showCopySuccess = true;
+          setTimeout(() => {
+            this.showCopySuccess = false;
+          }, 2000);
+        }).catch(() => {
+          this.fallbackCopyUrl(url);
+        });
+      } else {
+        this.fallbackCopyUrl(url);
+      }
+    },
+    handleHashAnchor() {
+      const hash = window.location.hash;
+      if (!hash || !hash.startsWith('#t=')) return;
+      const targetSec = parseInt(hash.replace('#t=', ''), 10);
+      if (isNaN(targetSec)) return;
+
+      if (this.hasSegments) {
+        let closestSeg = null;
+        for (const seg of this.episode.segments) {
+          if (seg.start_sec <= targetSec) {
+            if (!closestSeg || seg.start_sec > closestSeg.start_sec) {
+              closestSeg = seg;
+            }
+          }
+        }
+        if (!closestSeg && this.episode.segments.length > 0) {
+          closestSeg = this.episode.segments[0];
+        }
+
+        if (closestSeg) {
+          this.highlightedSec = closestSeg.start_sec;
+          this.$nextTick(() => {
+            const el = document.getElementById(`segment-${closestSeg.start_sec}`);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+        }
+      }
     }
   },
   mounted() {
@@ -426,9 +512,11 @@ let app = new Vue({
     this.updateInitialMetaTags();
     this.loadEpisode();
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('hashchange', this.handleHashAnchor);
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('hashchange', this.handleHashAnchor);
   }
 });
 

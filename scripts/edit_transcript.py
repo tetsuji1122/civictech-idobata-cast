@@ -17,6 +17,7 @@ import re
 
 # 共通ユーティリティのインポート
 from utils import natural_sort_key, create_backup, TRANSCRIPTS_DIR, PROJECT_ROOT
+from segments_util import parse_segments
 
 # バックアップディレクトリ
 BACKUP_DIR = PROJECT_ROOT / 'data' / 'transcripts_backup'
@@ -135,11 +136,96 @@ class TranscriptEditor:
         self.file_name = ttk.Entry(basic_frame, width=50)
         self.file_name.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=5)
         
+        ttk.Label(basic_frame, text="セグメント数:").grid(row=2, column=0, sticky=tk.W, pady=5)
+        self.segment_count_label = ttk.Label(basic_frame, text="0 件")
+        self.segment_count_label.grid(row=2, column=1, sticky=tk.W, pady=5)
+        
         # テキストエリアタブ
         self.sub_title = self._create_text_tab(notebook, "サブタイトル", height=5)
         self.detailed_description = self._create_text_tab(notebook, "詳細説明", height=15)
         self.summary = self._create_text_tab(notebook, "要約", height=15)
         self.transcript = self._create_text_tab(notebook, "全文書き起こし", height=25)
+        
+        # セグメント一覧タブ
+        self._create_segments_tab(notebook)
+    
+    def _create_segments_tab(self, notebook: ttk.Notebook) -> None:
+        """セグメント一覧タブを作成"""
+        frame = ttk.Frame(notebook, padding="10")
+        notebook.add(frame, text="セグメント")
+        
+        ctrl_frame = ttk.Frame(frame)
+        ctrl_frame.pack(fill=tk.X, pady=(0, 5))
+        
+        self.segments_status = ttk.Label(ctrl_frame, text="セグメント: 0 件")
+        self.segments_status.pack(side=tk.LEFT)
+        
+        ttk.Button(
+            ctrl_frame,
+            text="書き起こしから再生成",
+            command=self.regenerate_segments_from_transcript
+        ).pack(side=tk.RIGHT)
+        
+        tree_container = ttk.Frame(frame)
+        tree_container.pack(fill=tk.BOTH, expand=True)
+        
+        columns = ("start", "start_sec", "speaker", "text")
+        self.segments_tree = ttk.Treeview(
+            tree_container,
+            columns=columns,
+            show="headings",
+            selectmode="browse"
+        )
+        
+        self.segments_tree.heading("start", text="開始時刻")
+        self.segments_tree.heading("start_sec", text="開始秒")
+        self.segments_tree.heading("speaker", text="話者")
+        self.segments_tree.heading("text", text="発話本文")
+        
+        self.segments_tree.column("start", width=70, anchor=tk.CENTER)
+        self.segments_tree.column("start_sec", width=60, anchor=tk.CENTER)
+        self.segments_tree.column("speaker", width=90, anchor=tk.W)
+        self.segments_tree.column("text", width=600, anchor=tk.W)
+        
+        vsb = ttk.Scrollbar(tree_container, orient="vertical", command=self.segments_tree.yview)
+        hsb = ttk.Scrollbar(tree_container, orient="horizontal", command=self.segments_tree.xview)
+        self.segments_tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        
+        self.segments_tree.grid(row=0, column=0, sticky="nsew")
+        vsb.grid(row=0, column=1, sticky="ns")
+        hsb.grid(row=1, column=0, sticky="ew")
+        
+        tree_container.grid_rowconfigure(0, weight=1)
+        tree_container.grid_columnconfigure(0, weight=1)
+
+    def _update_segments_tree(self, segments: list) -> None:
+        """ツリービューにセグメント一覧を反映"""
+        for item in self.segments_tree.get_children():
+            self.segments_tree.delete(item)
+            
+        for seg in segments:
+            start_str = seg.get("start") or "-"
+            start_sec = str(seg.get("start_sec", 0))
+            speaker = seg.get("speaker") or "不明"
+            text = (seg.get("text") or "").replace("\n", " ")
+            self.segments_tree.insert("", tk.END, values=(start_str, start_sec, speaker, text))
+            
+        count = len(segments)
+        self.segments_status.config(text=f"セグメント: {count} 件")
+        if hasattr(self, "segment_count_label"):
+            self.segment_count_label.config(text=f"{count} 件")
+
+    def regenerate_segments_from_transcript(self) -> None:
+        """書き起こし本文からセグメントを再生成してツリーを更新"""
+        transcript_content = self.transcript.get("1.0", tk.END).rstrip("\n")
+        try:
+            segments = parse_segments(transcript_content)
+            self.data["segments"] = segments
+            self.data["segment_count"] = len(segments)
+            self._update_segments_tree(segments)
+            self.show_status(f"書き起こし本文から {len(segments)} 件のセグメントを再生成しました", "success")
+        except Exception as e:
+            self.show_status(f"エラー: セグメント生成失敗: {e}", "error")
     
     def _create_text_tab(self, notebook: ttk.Notebook, title: str, height: int) -> scrolledtext.ScrolledText:
         """テキストエリアタブを作成"""
@@ -330,6 +416,10 @@ class TranscriptEditor:
             self._update_text_widget(self.detailed_description, self.data.get('detailed_description', ''))
             self._update_text_widget(self.summary, self.data.get('summary', ''))
             self._update_text_widget(self.transcript, self.data.get('transcript', ''))
+            
+            # セグメントの表示
+            segments = self.data.get('segments', [])
+            self._update_segments_tree(segments)
             
             self.root.title(f"書き起こしJSONエディタ - {file_path.name}")
             self.show_status(f"ファイルを読み込みました: {file_path.name}", "success")
@@ -530,7 +620,17 @@ class TranscriptEditor:
             self.data['sub_title'] = self.sub_title.get('1.0', tk.END).rstrip('\n')
             self.data['detailed_description'] = self.detailed_description.get('1.0', tk.END).rstrip('\n')
             self.data['summary'] = self.summary.get('1.0', tk.END).rstrip('\n')
-            self.data['transcript'] = self.transcript.get('1.0', tk.END).rstrip('\n')
+            transcript_content = self.transcript.get('1.0', tk.END).rstrip('\n')
+            self.data['transcript'] = transcript_content
+            
+            # 書き起こしからセグメントを自動同期
+            try:
+                segments = parse_segments(transcript_content)
+                self.data['segments'] = segments
+                self.data['segment_count'] = len(segments)
+                self._update_segments_tree(segments)
+            except Exception as e:
+                print(f"[WARNING] セグメント自動更新に失敗: {e}")
             
             # バックアップを作成
             if self.current_file.exists():

@@ -407,3 +407,95 @@
   }
 }
 
+/* 発話セグメント表示スタイル */
+.segment-list {
+  margin-top: 15px;
+}
+
+.segment-item {
+  background: #fbfcfd;
+  border-left: 5px solid #6c757d;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 話者別の左ボーダー */
+.segment-item.speaker-ishii {
+  border-left-color: #003049;
+}
+.segment-item.speaker-ota {
+  border-left-color: #1d7873;
+}
+.segment-item.speaker-omata {
+  border-left-color: #d66800;
+}
+.segment-item.speaker-guest {
+  border-left-color: #6c757d;
+}
+
+/* 話者チップカラー */
+.speaker-chip-ishii {
+  background-color: #003049 !important;
+  color: white !important;
+}
+.speaker-chip-ota {
+  background-color: #1d7873 !important;
+  color: white !important;
+}
+.speaker-chip-omata {
+  background-color: #d66800 !important;
+  color: white !important;
+}
+.speaker-chip-guest {
+  background-color: #6c757d !important;
+  color: white !important;
+}
+
+.segment-header {
+  margin-bottom: 6px;
+}
+
+.segment-time-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #003049;
+  background: #f0f4f8;
+  border: 1px solid #d0dbe5;
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.segment-time-btn:hover {
+  background: #003049;
+  color: white;
+  border-color: #003049;
+}
+.segment-time-btn:hover .v-icon {
+  color: white !important;
+}
+
+.segment-text {
+  color: #333;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  word-break: break-word;
+}
+.segment-text p {
+  margin-bottom: 8px;
+}
+.segment-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* アンカーハイライト */
+.segment-item.segment-highlight {
+  background-color: #fff9db !important;
+  box-shadow: 0 0 0 3px #ffc300, 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+

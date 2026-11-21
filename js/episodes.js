@@ -1,4 +1,14 @@
 // episodes.html用のJavaScript
+const config = (typeof CONFIG !== 'undefined' ? CONFIG : (typeof window !== 'undefined' && window.CONFIG ? window.CONFIG : null)) || {
+  pagination: { itemsPerPage: 20 },
+  externalLinks: {
+    twitter: 'https://twitter.com/civictechcast',
+    github: 'https://github.com/tetsuji1122/civictech-idobata-cast'
+  },
+  paths: { episodes: 'data/episodes.json' },
+  siteUrl: 'https://tetsuji1122.github.io/civictech-idobata-cast'
+};
+
 let app = new Vue({
   el: '#app',
   vuetify: new Vuetify(),
@@ -17,7 +27,7 @@ let app = new Vue({
     allTags: [],
     showScrollTop: false,
     // 無限スクロール
-    itemsPerPage: CONFIG.pagination.itemsPerPage,
+    itemsPerPage: config.pagination.itemsPerPage,
     currentIndex: 0,
     isLoadingMore: false,
     hasMoreItems: true,
@@ -25,14 +35,14 @@ let app = new Vue({
     savedScrollPosition: 0,
     savedCurrentIndex: 0,
     // 外部リンク
-    externalLinks: CONFIG.externalLinks,
+    externalLinks: config.externalLinks,
     // ハンバーガーメニューの開閉状態
     drawer: false,
   },
   methods: {
     async loadEpisodes() {
       try {
-        const response = await fetchWithoutCache(CONFIG.paths.episodes);
+        const response = await fetchWithoutCache(config.paths.episodes);
         const data = await response.json();
         this.allEpisodes = data.episodes;
         this.filteredEpisodes = [...this.allEpisodes];
@@ -294,7 +304,7 @@ let app = new Vue({
       }
     },
     updateMetaTags() {
-      const siteUrl = CONFIG.siteUrl;
+      const siteUrl = config.siteUrl;
       setLinkTag('canonical', `${siteUrl}/episodes.html`);
       setMetaProperty('og:url', `${siteUrl}/episodes.html`);
       setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);

@@ -1,10 +1,24 @@
 // word-trends.html用のJavaScript（ダッシュボード）
+const config = (typeof CONFIG !== 'undefined' ? CONFIG : (typeof window !== 'undefined' && window.CONFIG ? window.CONFIG : null)) || {
+  siteUrl: 'https://tetsuji1122.github.io/civictech-idobata-cast',
+  externalLinks: {
+    twitter: 'https://twitter.com/civictechcast',
+    github: 'https://github.com/tetsuji1122/civictech-idobata-cast'
+  },
+  paths: {
+    wordTrends: 'data/word-trends.json',
+    episodeInsights: 'data/episode-insights.json',
+    sentimentTrends: 'data/sentiment-trends.json',
+    wordNetwork: 'data/word-network.json'
+  }
+};
+
 new Vue({
   el: '#app',
   vuetify: new Vuetify(),
   data: {
     drawer: false,
-    externalLinks: CONFIG.externalLinks,
+    externalLinks: config.externalLinks,
     selectedYears: [],
     selectedTag: null,
     searchQuery: '',
@@ -89,10 +103,10 @@ new Vue({
     async loadData() {
       try {
         const [trendRes, insightsRes, sentimentRes, networkRes] = await Promise.all([
-          fetchWithoutCache(CONFIG.paths.wordTrends || 'data/word-trends.json'),
-          fetchWithoutCache(CONFIG.paths.episodeInsights || 'data/episode-insights.json'),
-          fetchWithoutCache(CONFIG.paths.sentimentTrends || 'data/sentiment-trends.json'),
-          fetchWithoutCache(CONFIG.paths.wordNetwork || 'data/word-network.json')
+          fetchWithoutCache(config.paths.wordTrends || 'data/word-trends.json'),
+          fetchWithoutCache(config.paths.episodeInsights || 'data/episode-insights.json'),
+          fetchWithoutCache(config.paths.sentimentTrends || 'data/sentiment-trends.json'),
+          fetchWithoutCache(config.paths.wordNetwork || 'data/word-network.json')
         ]);
         const trendData = await trendRes.json();
         const insightsData = await insightsRes.json();
@@ -286,7 +300,7 @@ new Vue({
       }
     },
     updateMetaTags() {
-      const siteUrl = CONFIG.siteUrl;
+      const siteUrl = config.siteUrl;
       setLinkTag('canonical', `${siteUrl}/word-trends.html`);
       setMetaProperty('og:url', `${siteUrl}/word-trends.html`);
       setMetaProperty('og:image', `${siteUrl}/img/keyvisual.png`);

@@ -21,6 +21,7 @@ from google.genai import types
 
 # 共通ユーティリティのインポート
 from utils import extract_episode_number, PROJECT_ROOT
+from segments_util import parse_segments
 
 # 環境変数の読み込み
 load_dotenv(PROJECT_ROOT / '.env')
@@ -340,6 +341,17 @@ def process_audio_file(audio_path: Path) -> Dict[str, Any]:
             print(f"[WARNING] エピソード番号が取得できませんでした: {audio_path.name}")
             episode_number = "0.0.0"
         
+        # セグメント変換
+        try:
+            segments = parse_segments(transcript)
+            segment_count = len(segments)
+            if segment_count == 0:
+                print(f"[WARNING] セグメントが0件でした: {audio_path.name}")
+        except Exception as e:
+            print(f"[WARNING] セグメント変換に失敗しました: {e}")
+            segments = []
+            segment_count = 0
+
         # 結果を辞書にまとめる
         result = {
             "episode_number": episode_number,
@@ -347,7 +359,9 @@ def process_audio_file(audio_path: Path) -> Dict[str, Any]:
             "sub_title": sub_title,
             "detailed_description": detailed_description,
             "summary": summary,
-            "transcript": transcript
+            "transcript": transcript,
+            "segments": segments,
+            "segment_count": segment_count
         }
         
         return result
