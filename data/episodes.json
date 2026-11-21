@@ -12613,6 +12613,23 @@
       ],
       "has_transcript": true,
       "id": 682
+    },
+    {
+      "number": "1.4.10",
+      "title": "ep1.4.10 広島の岡本さん",
+      "date": "2026-11-19",
+      "duration": "13:28",
+      "description": "広島の岡本さんをゲストに迎えて、シビックテックに関わったキッカケを伺います。",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-10-e3smqg0",
+      "tags": [
+        "ゲスト",
+        "シビックテック"
+      ],
+      "transcript": "",
+      "links": [],
+      "has_transcript": true,
+      "id": 683
     }
   ]
 }
