@@ -10,7 +10,8 @@ civictech-idobata-cast/
 │   ├── transcribe_podcast.py           # 音声書き起こし
 │   ├── edit_transcript.py              # 書き起こし編集（GUI）
 │   ├── update_episodes.py              # エピソード更新
-│   └── analyze_word_trends.py          # 頻出ワード年表生成
+│   ├── convert_segments.py             # セグメント変換
+│   └── generate_search_index.py        # 検索インデックス生成
 │
 ├── docs/                       # ドキュメント
 │   ├── UPDATE_EPISODES_README.md       # 更新ツールのガイド
@@ -21,7 +22,7 @@ civictech-idobata-cast/
 │
 └── data/                       # データファイル
     ├── episodes.json                   # エピソード情報
-    ├── word-trends.json                # 頻出ワード年表データ
+    ├── search-index-*.json             # 検索用インデックス
     └── transcripts/                    # 書き起こしJSON
 ```
 
@@ -150,33 +151,29 @@ python scripts/update_episodes.py --limit 50
 
 ---
 
-### 4. `analyze_word_trends.py` - 頻出ワード年表生成
+### 4. `convert_segments.py` - セグメント変換
 
-書き起こしデータから年別の頻出ワードを抽出し、年表データを生成します。
-
-**機能:**
-- MeCabを使用した形態素解析
-- 年別の頻出ワードTop10を抽出
-- 前年比の増加ワードを計算
-- 新規登場ワードを抽出
+既存の書き起こしJSONファイルを発話単位でセグメント化し、`segments` と `segment_count` を付与します。
 
 **使い方:**
 ```bash
-# 基本的な使い方
-python scripts/analyze_word_trends.py
+# 事前確認（ドライラン）
+python scripts/convert_segments.py --dry-run
+
+# 実行
+python scripts/convert_segments.py
 ```
 
-**必要な環境:**
-- MeCab（`mecab-python3`、`unidic-lite`）
-- `scikit-learn`（類似度計算）
+---
 
-**出力:**
-- `data/word-trends.json`: 年表データ（JSON形式）
-- `data/episode-insights.json`: エピソード洞察データ
-- `data/sentiment-trends.json`: センチメント推移
-- `data/word-network.json`: 単語ネットワーク
+### 5. `generate_search_index.py` - 検索インデックス生成
 
-**詳細:** [docs/WORD_TRENDS_README.md](WORD_TRENDS_README.md)
+全書き起こしの発話セグメントとエピソード情報を結合し、年別の検索インデックス（`data/search-index-{年}.json`）を生成します。
+
+**使い方:**
+```bash
+python scripts/generate_search_index.py
+```
 
 ---
 

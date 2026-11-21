@@ -25,7 +25,6 @@ Pythonスクリプトの使用方法と設定を説明します。
 | ドキュメント | 内容 |
 |-------------|------|
 | [SCRIPTS_README.md](scripts/SCRIPTS_README.md) | 全スクリプトの一覧と基本的な使い方 |
-| [WORD_TRENDS_README.md](scripts/WORD_TRENDS_README.md) | 頻出ワード年表の生成方法 |
 | [CONFIG_README.md](scripts/CONFIG_README.md) | 共通設定（config.js）の説明 |
 
 **初心者向け読み順**: `SCRIPTS_README.md` → 各スクリプトの詳細ドキュメント

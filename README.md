@@ -19,15 +19,16 @@ civictech-idobata-cast/
 ├── index.html              # トップページ
 ├── episodes.html           # エピソード一覧
 ├── episode-detail.html     # エピソード詳細
+├── search.html             # 発話検索
 ├── about.html              # このポッドキャストについて
 ├── countdowntimer.html     # 収録用タイマー
-├── word-trends.html        # 頻出ワード年表
 │
 ├── js/                     # JavaScript
 │   ├── config.js          # 共通設定
 │   ├── index.js
 │   ├── episodes.js
 │   ├── episode-detail.js
+│   ├── search.js
 │   └── about.js
 │
 ├── css/                    # スタイルシート
@@ -36,20 +37,20 @@ civictech-idobata-cast/
 │
 ├── data/                   # データファイル
 │   ├── episodes.json           # エピソード情報
-│   ├── word-trends.json        # 頻出ワード年表データ
+│   ├── search-index-*.json     # 検索用インデックス
 │   └── transcripts/            # 書き起こしJSON
 │
 ├── scripts/                # Pythonスクリプト
 │   ├── transcribe_podcast.py       # 音声書き起こし
 │   ├── edit_transcript.py          # 書き起こし編集（GUI）
 │   ├── update_episodes.py          # エピソード更新
-│   └── analyze_word_trends.py      # 頻出ワード年表生成
+│   ├── convert_segments.py         # セグメント変換
+│   └── generate_search_index.py    # 検索インデックス生成
 │
 └── docs/                   # ドキュメント
     ├── SCRIPTS_README.md           # スクリプト一覧
     ├── UPDATE_EPISODES_README.md   # エピソード更新ガイド
     ├── TRANSCRIPT_README.md        # トランスクリプト管理
-    ├── WORD_TRENDS_README.md       # 頻出ワード年表ガイド
     ├── CONFIG_README.md            # 共通設定ガイド
     ├── SECURITY_GUIDE.md           # セキュリティガイド
     └── WORKFLOW_GUIDE.md           # ワークフローガイド
@@ -77,13 +78,13 @@ python scripts/transcribe_podcast.py
 python scripts/edit_transcript.py
 ```
 
-### 頻出ワード年表生成
+### 検索インデックス生成
 
 ```bash
-python scripts/analyze_word_trends.py
+python scripts/generate_search_index.py
 ```
 
-詳細は [docs/SCRIPTS_README.md](docs/SCRIPTS_README.md) および [docs/WORD_TRENDS_README.md](docs/WORD_TRENDS_README.md) をご覧ください。
+詳細は [docs/SCRIPTS_README.md](docs/SCRIPTS_README.md) をご覧ください。
 
 ---
 
