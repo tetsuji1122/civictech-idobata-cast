@@ -12646,6 +12646,29 @@
       "links": [],
       "has_transcript": true,
       "id": 684
+    },
+    {
+      "number": "1.4.12",
+      "title": "ep1.4.12 そろばん教室とおいしいもの",
+      "date": "2026-11-24",
+      "duration": "13:39",
+      "description": "広島の岡本さんをゲストに迎えて、子供におしえたいそろばんと広島のおいしいものを紹介します。DoboXデータチャレンジ2026",
+      "thumbnail": "img/logo.png",
+      "spotifyUrl": "https://podcasters.spotify.com/pod/show/civictechcast/episodes/ep1-4-12-e3smqtf",
+      "tags": [
+        "ゲスト",
+        "データ",
+        "ライフスタイル"
+      ],
+      "transcript": "",
+      "links": [
+        {
+          "title": "関連リンク",
+          "url": "https://dobox-data-challenge.jp/"
+        }
+      ],
+      "has_transcript": true,
+      "id": 685
     }
   ]
 }
